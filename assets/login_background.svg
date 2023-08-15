@@ -1,0 +1,14 @@
+<svg width="360" height="800" viewBox="0 0 360 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_61_2)">
+<rect width="360" height="800" fill="black"/>
+<ellipse cx="60" cy="38.5" rx="75" ry="69.5" fill="#645858"/>
+<g style="mix-blend-mode:screen">
+<ellipse cx="9.5" cy="109.5" rx="78.5" ry="71.5" fill="#3A3636"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_61_2">
+<rect width="360" height="800" fill="white"/>
+</clipPath>
+</defs>
+</svg>
