@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "628728276338",
+    "project_id": "eentrack",
+    "storage_bucket": "eentrack.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:628728276338:android:37d548768a510a5a6ca9eb",
+        "android_client_info": {
+          "package_name": "com.example.project_f"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "628728276338-7tt1ignuvim2qr5o8eh6cak091k35uc4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNUXWhHf3EqgO_ajUBEs5_dhXSW93pHo8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "628728276338-7tt1ignuvim2qr5o8eh6cak091k35uc4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
