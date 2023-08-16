@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:project_f/screen/authscreens/shared/custombuttons.dart';
 import 'package:project_f/screen/authscreens/shared/customtextbox.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({super.key});
+class RegisterView extends StatefulWidget {
+  const RegisterView({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<RegisterView> createState() => _RegisterViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _RegisterViewState extends State<RegisterView> {
   String email = '';
   String password = '';
   final _formKey = GlobalKey<FormState>();
@@ -34,14 +34,14 @@ class _LoginViewState extends State<LoginView> {
                   height: 50,
                 ),
                 const Text(
-                  "Welcome Back!",
+                  "Welcome Onboard !",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 50),
                 CustomTextBox(
                   label: "Email",
                   onChanged: (email) {
@@ -55,12 +55,20 @@ class _LoginViewState extends State<LoginView> {
                       this.password = password;
                     }),
                 const SizedBox(height: 20),
+                CustomTextBox(
+                    label: "Confirm Password",
+                    onChanged: (password) {
+                      this.password = password;
+                    }),
+                const SizedBox(
+                  height: 20,
+                ),
                 Row(
                   children: [
                     const SizedBox(width: 20),
                     Expanded(
                       child: CustomButton(
-                        buttonText: 'Login',
+                        buttonText: 'Register',
                         textcolor: Colors.black,
                         onPressed: () {},
                       ),
@@ -76,7 +84,7 @@ class _LoginViewState extends State<LoginView> {
                     ),
                     Expanded(
                         child: CustomTextButton(
-                      buttonText: 'Do not have an account? Sign Up',
+                      buttonText: 'Do not have an account? Sign In',
                       textcolor: Colors.blue,
                       onPressed: () {},
                     )),
