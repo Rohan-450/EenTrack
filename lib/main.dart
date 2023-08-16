@@ -13,16 +13,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.cyan,
+          brightness: Brightness.dark,
+        ),
         useMaterial3: true,
       ),
-      darkTheme: ThemeData.dark(
-        useMaterial3: true,
-      ).copyWith(
-          colorScheme: ColorScheme.fromSeed(
-        seedColor: Colors.cyan,
-        brightness: Brightness.dark,
-      )),
       home: const LoginScreen(),
     );
   }
