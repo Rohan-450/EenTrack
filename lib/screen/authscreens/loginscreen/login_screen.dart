@@ -7,8 +7,16 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: LoginView(),
+    return Scaffold(
+      body: Container(
+			decoration: const BoxDecoration(
+				image: DecorationImage(
+					image: AssetImage('assets/login_background.png'),
+					fit: BoxFit.cover,
+				),
+			),
+			child: const LoginView()
+			),
     );
   }
 }

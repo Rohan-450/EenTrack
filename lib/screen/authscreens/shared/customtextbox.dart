@@ -25,7 +25,11 @@ class CustomTextBox extends StatelessWidget {
       validator: validator,
       decoration: InputDecoration(
         labelText: label,
-        border: const OutlineInputBorder(),
+        border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(15.0),
+          ),
+        ),
       ),
       onTapOutside: (_) {
         FocusScope.of(context).unfocus();
