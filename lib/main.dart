@@ -1,11 +1,17 @@
 // ignore_for_file: unused_import
 
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:project_f/screen/authscreens/loginscreen/login_screen.dart';
 import 'package:project_f/screen/authscreens/registerscreen/register_screen.dart';
 import 'package:project_f/screen/authscreens/registerscreen/register_view.dart';
 
-void main() {
+void main() async {
+	WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -30,7 +36,7 @@ class MyApp extends StatelessWidget {
         seedColor: Colors.cyan,
         brightness: Brightness.dark,
       )),
-      home: const LoginScreen(),
+      home: const RegisterScreen(),
     );
   }
 }
