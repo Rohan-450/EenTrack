@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-class CustomButton extends StatelessWidget {
+class CustomElevatedButton extends StatelessWidget {
   final String buttonText;
   final VoidCallback onPressed;
   final Color textcolor;
   final Color backgroundColor;
 
-  const CustomButton({
+  const CustomElevatedButton({
     super.key,
     required this.buttonText,
     required this.onPressed,
-    this.textcolor = Colors.blue,
+    this.textcolor = Colors.black,
     this.backgroundColor = Colors.blue,
   });
 

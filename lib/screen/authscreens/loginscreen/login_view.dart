@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_f/colors/get_hexcolor.dart';
 import 'package:project_f/screen/authscreens/shared/custombuttons.dart';
 import 'package:project_f/screen/authscreens/shared/customtextbox.dart';
 
@@ -46,7 +47,7 @@ class _LoginViewState extends State<LoginView> {
                     this.email = email;
                   },
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
                 CustomTextBox(
                     label: "Password",
                     onChanged: (password) {
@@ -57,9 +58,10 @@ class _LoginViewState extends State<LoginView> {
                   children: [
                     const SizedBox(width: 20),
                     Expanded(
-                      child: CustomButton(
+                      child: CustomElevatedButton(
                         buttonText: 'Login',
                         textcolor: Colors.black,
+                        backgroundColor: HexColor.getColorFromHex('#0EF1D6'),
                         onPressed: () {},
                       ),
                     ),
