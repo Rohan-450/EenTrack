@@ -5,6 +5,11 @@ import 'package:project_f/services/authservices/authuser.dart';
 class FirebaseAuthService implements AuthModel {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+	// Makes it singletion DONT TOUCH IT
+  static FirebaseAuthService get instance => _instance;
+  FirebaseAuthService._();
+  static final _instance = FirebaseAuthService._();
+
   @override
   Future<AuthUser?> loginWithEmail(String email, String password) async {
     final res = await _auth.signInWithEmailAndPassword(
