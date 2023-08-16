@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:project_f/colors/get_hexcolor.dart';
 import 'package:project_f/screen/authscreens/shared/custombuttons.dart';
 import 'package:project_f/screen/authscreens/shared/customtextbox.dart';
 
@@ -57,6 +58,7 @@ class _RegisterViewState extends State<RegisterView> {
                 const SizedBox(height: 20),
                 CustomTextBox(
                     label: "Confirm Password",
+                    labelColor: HexColor.getColorFromHex('#312D2D'),
                     onChanged: (password) {
                       this.password = password;
                     }),

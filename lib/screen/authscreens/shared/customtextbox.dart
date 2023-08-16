@@ -6,6 +6,7 @@ class CustomTextBox extends StatelessWidget {
   final String? initialValue;
   final bool obscureText;
   final String? Function(String?)? validator;
+  final Color? labelColor;
 
   const CustomTextBox({
     super.key,
@@ -14,6 +15,7 @@ class CustomTextBox extends StatelessWidget {
     this.initialValue = '',
     this.obscureText = false,
     this.validator,
+    this.labelColor,
   });
 
   @override
@@ -25,11 +27,13 @@ class CustomTextBox extends StatelessWidget {
       validator: validator,
       decoration: InputDecoration(
         labelText: label,
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(15.0),
-          ),
-        ),
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(15.0),
+            ),
+            borderSide: BorderSide(
+              color: labelColor ?? Theme.of(context).primaryColor,
+            )),
       ),
       onTapOutside: (_) {
         FocusScope.of(context).unfocus();
