@@ -38,7 +38,7 @@ class _LoginViewState extends State<LoginView> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-								const SizedBox(height: 20),
+								const SizedBox(height: 30),
                 CustomTextBox(
                   label: "Email",
                   onChanged: (email) {
