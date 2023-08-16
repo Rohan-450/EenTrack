@@ -27,13 +27,11 @@ class CustomTextBox extends StatelessWidget {
       validator: validator,
       decoration: InputDecoration(
         labelText: label,
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(15.0),
-            ),
-            borderSide: BorderSide(
-              color: labelColor ?? Theme.of(context).primaryColor,
-            )),
+        border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(15.0),
+          ),
+        ),
       ),
       onTapOutside: (_) {
         FocusScope.of(context).unfocus();

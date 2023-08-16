@@ -8,13 +8,14 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/login_background.png'),
-              fit: BoxFit.cover,
-            ),
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/login_background.png'),
+            fit: BoxFit.cover,
           ),
-          child: const RegisterView()),
+        ),
+        child: const RegisterView(),
+      ),
     );
   }
 }

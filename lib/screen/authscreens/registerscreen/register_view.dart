@@ -49,7 +49,7 @@ class _RegisterViewState extends State<RegisterView> {
                     this.email = email;
                   },
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
                 CustomTextBox(
                     label: "Password",
                     onChanged: (password) {
@@ -58,7 +58,6 @@ class _RegisterViewState extends State<RegisterView> {
                 const SizedBox(height: 20),
                 CustomTextBox(
                     label: "Confirm Password",
-                    labelColor: HexColor.getColorFromHex('#312D2D'),
                     onChanged: (password) {
                       this.password = password;
                     }),
@@ -69,9 +68,9 @@ class _RegisterViewState extends State<RegisterView> {
                   children: [
                     const SizedBox(width: 20),
                     Expanded(
-                      child: CustomButton(
+                      child: CustomElevatedButton(
                         buttonText: 'Register',
-                        textcolor: Colors.black,
+                        backgroundColor: HexColor.getColorFromHex('#0EF1D6'),
                         onPressed: () {},
                       ),
                     ),
