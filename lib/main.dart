@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:project_f/screen/authscreens/loginscreen/login_screen.dart';
 import 'package:project_f/screen/authscreens/registerscreen/register_screen.dart';
 import 'package:project_f/screen/authscreens/registerscreen/register_view.dart';
-import 'package:project_f/screen/authscreens/verificationscreen/verification_view.dart';
+import 'package:project_f/screen/authscreens/verificationscreen/verification_screen.dart';
 
 void main() async {
 	WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         seedColor: Colors.cyan,
         brightness: Brightness.dark,
       )),
-      home: const RegisterScreen(),
+			home: const VerificationScreen(),
     );
   }
 }
