@@ -1,5 +1,9 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'package:project_f/screen/authscreens/loginscreen/login_screen.dart';
+import 'package:project_f/screen/authscreens/registerscreen/register_screen.dart';
+import 'package:project_f/screen/authscreens/registerscreen/register_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,6 +23,13 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
+      darkTheme: ThemeData.dark(
+        useMaterial3: true,
+      ).copyWith(
+          colorScheme: ColorScheme.fromSeed(
+        seedColor: Colors.cyan,
+        brightness: Brightness.dark,
+      )),
       home: const LoginScreen(),
     );
   }
