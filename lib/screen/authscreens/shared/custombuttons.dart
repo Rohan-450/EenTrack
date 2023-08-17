@@ -60,3 +60,33 @@ class CustomTextButton extends StatelessWidget {
     );
   }
 }
+
+class CustomIconButton extends StatelessWidget {
+  final VoidCallback onPressed;
+  final Color backgroundColor;
+  final Color iconColor;
+  final double iconSize;
+  final IconData icon;
+
+  const CustomIconButton({
+    super.key,
+    required this.onPressed,
+    this.backgroundColor = Colors.blue,
+    required this.icon,
+    this.iconColor = Colors.black,
+    this.iconSize = 24.0,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: onPressed,
+      icon: Icon(
+        icon,
+        color: iconColor,
+        size: iconSize,
+      ),
+      highlightColor: backgroundColor,
+    );
+  }
+}

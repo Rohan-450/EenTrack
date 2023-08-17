@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:project_f/screen/userCredentialscreen/usercredential_screen.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:project_f/screen/authscreens/loginscreen/login_screen.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
         seedColor: Colors.cyan,
         brightness: Brightness.dark,
       )),
-      home: const VerificationScreen(),
+      home: const UserCredentialScreen(),
     );
   }
 }

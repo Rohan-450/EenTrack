@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project_f/colors/get_hexcolor.dart';
 import 'package:project_f/screen/authscreens/shared/custombuttons.dart';
 import 'package:project_f/screen/authscreens/shared/customtextbox.dart';
 
@@ -61,7 +60,6 @@ class _LoginViewState extends State<LoginView> {
                       child: CustomElevatedButton(
                         buttonText: 'Login',
                         textcolor: Colors.black,
-                        backgroundColor: HexColor.getColorFromHex('#0EF1D6'),
                         onPressed: () {},
                       ),
                     ),
