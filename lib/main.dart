@@ -9,7 +9,7 @@ import 'package:project_f/screen/authscreens/registerscreen/register_view.dart';
 import 'package:project_f/screen/authscreens/verificationscreen/verification_screen.dart';
 
 void main() async {
-	WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         seedColor: Colors.cyan,
         brightness: Brightness.dark,
       )),
-			home: const VerificationScreen(),
+      home: const VerificationScreen(),
     );
   }
 }

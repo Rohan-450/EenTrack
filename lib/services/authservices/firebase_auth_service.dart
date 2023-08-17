@@ -5,7 +5,7 @@ import 'package:project_f/services/authservices/authuser.dart';
 class FirebaseAuthService implements AuthModel {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-	// Makes it singletion DONT TOUCH IT
+  // Makes it singletion DONT TOUCH IT
   static FirebaseAuthService get instance => _instance;
   FirebaseAuthService._();
   static final _instance = FirebaseAuthService._();
@@ -14,6 +14,12 @@ class FirebaseAuthService implements AuthModel {
   Future<AuthUser?> loginWithEmail(String email, String password) async {
     final res = await _auth.signInWithEmailAndPassword(
         email: email, password: password);
+    return _userFromFirebaseUser(res.user);
+  }
+
+  @override
+  Future<AuthUser?> loginAnnonymously() async {
+    final res = await _auth.signInAnonymously();
     return _userFromFirebaseUser(res.user);
   }
 
@@ -31,11 +37,14 @@ class FirebaseAuthService implements AuthModel {
 
   @override
   AuthUser? get user => _userFromFirebaseUser(_auth.currentUser);
-}
 
-AuthUser? _userFromFirebaseUser(User? user) {
-  return user != null
-      ? AuthUser(
-          uid: user.uid, email: user.email, isVerified: user.emailVerified)
-      : null;
+  AuthUser? _userFromFirebaseUser(User? user) {
+    return user != null
+        ? AuthUser(
+            uid: user.uid,
+            email: user.email,
+            isVerified: user.emailVerified,
+          )
+        : null;
+  }
 }
