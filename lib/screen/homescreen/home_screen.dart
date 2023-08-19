@@ -36,13 +36,10 @@ class _HomeScreenState extends State<HomeScreen> {
           style: const TextStyle(),
         ),
         centerTitle: true, // No need of center widget
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.asset(
-            'assets/logo_rounded.png',
-            width: 40,
-            height: 40,
-          ),
+        leading: Image.asset(
+          'assets/logo_rounded.png',
+          width: 40,
+          height: 40,
         ),
         actions: [
           CustomIconButton(
