@@ -31,14 +31,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text(
-            _appBarTitles[_currentIndex],
-            style: const TextStyle(
-              color: Colors.cyan,
-            ),
-          ),
+        title: Text(
+          _appBarTitles[_currentIndex],
+          style: const TextStyle(),
         ),
+        centerTitle: true, // No need of center widget
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Image.asset(
@@ -48,13 +45,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: CustomIconButton(
-              onPressed: () {},
-              icon: Icons.logout,
-              iconColor: Colors.white,
-            ),
+          CustomIconButton(
+            onPressed: () {},
+            icon: Icons.logout,
+            iconColor: Colors.white,
           )
         ],
       ),

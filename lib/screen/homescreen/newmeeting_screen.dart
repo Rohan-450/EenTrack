@@ -8,27 +8,22 @@ class NewMeetingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: Align(
-              alignment: Alignment.topRight,
-              child: CustomIconButton(
-                onPressed: () {},
-                icon: Icons.history,
-                iconColor: Colors.white,
-                iconSize: 40,
-              ),
+          Center(
+            child: CustomElevatedButton(
+              buttonText: 'New Meeting',
+              onPressed: () {},
             ),
           ),
-          Expanded(
-            child: Center(
-              child: CustomElevatedButton(
-                buttonText: 'New Meeting',
-                onPressed: () {},
-              ),
+					const SizedBox(height: 20),
+          Center(
+            child: CustomTextButton(
+              buttonText: 'Show previous meetings...',
+              onPressed: () {},
             ),
-          )
+          ),
         ],
       ),
     );
