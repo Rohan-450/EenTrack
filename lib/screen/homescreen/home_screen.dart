@@ -14,12 +14,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _currentIndex = 0;
-  String _appBarTitle = 'Home';
+  int _currentIndex = 1;
+  final List<String> _appBarTitles = [
+    'Scanner',
+    'Profile',
+    'New Meeting',
+  ];
 
   final List<Widget> _screens = [
-    const ProfileScreen(),
     const ScannerScreen(),
+    const ProfileScreen(),
     const NewMeetingScreen(),
   ];
 
@@ -29,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Center(
           child: Text(
-            _appBarTitle,
+            _appBarTitles[_currentIndex],
             style: const TextStyle(
               color: Colors.cyan,
             ),
@@ -50,64 +54,47 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {},
               icon: Icons.logout,
               iconColor: Colors.white,
-              iconSize: 40,
             ),
           )
         ],
       ),
-      body: Navigator(
-        initialRoute: '/',
-        onGenerateRoute: (RouteSettings settings) {
-          return MaterialPageRoute(
-            builder: (BuildContext context) {
-              return _screens[_currentIndex];
-            },
-          );
-        },
+      // body: Navigator(
+      //   initialRoute: '/',
+      //   onGenerateRoute: (RouteSettings settings) {
+      //     return MaterialPageRoute(
+      //       builder: (BuildContext context) {
+      //         return _screens[_currentIndex];
+      //       },
+      //     );
+      //   },
+      // ),
+      body: Center(
+        child: _screens[_currentIndex],
       ),
-      bottomNavigationBar: Container(
-        decoration: const BoxDecoration(
-            border: Border(
-          top: BorderSide(
-            color: Colors.grey,
-            width: 1,
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        useLegacyColorScheme: false,
+        type: BottomNavigationBarType.shifting,
+        iconSize: 30,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.qr_code_scanner_rounded),
+            label: 'Join Meeting',
           ),
-        )),
-        child: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          selectedItemColor: Colors.blue,
-          iconSize: 50,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle_rounded),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.qr_code_scanner_rounded),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.add_box_rounded),
-              label: '',
-            )
-          ],
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-              switch (_currentIndex) {
-                case 0:
-                  _appBarTitle = 'Profile';
-                  break;
-                case 1:
-                  _appBarTitle = 'Scanner';
-                  break;
-                case 2:
-                  _appBarTitle = 'New Meeting';
-                  break;
-              }
-            });
-          },
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle_rounded),
+            label: 'Profile',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_box_rounded),
+            label: 'Create Meeting',
+          )
+        ],
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
       ),
     );
   }
