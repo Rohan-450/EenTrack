@@ -18,36 +18,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.cyan,
-          brightness: Brightness.dark,
-        ),
-        useMaterial3: true,
-      ),
-      darkTheme: ThemeData.dark(
+      theme: ThemeData.dark(
         useMaterial3: true,
       ).copyWith(
           colorScheme: ColorScheme.fromSeed(
         seedColor: Colors.cyan,
         brightness: Brightness.dark,
       )),
-      home: const HomeScreen(),
-    );
-  }
-}
-
-class Home extends StatelessWidget {
-  const Home({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text(
-          'Hello World',
-        ),
-      ),
     );
   }
 }

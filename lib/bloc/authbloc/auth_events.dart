@@ -5,6 +5,8 @@ abstract class AuthEvent {
   const AuthEvent();
 }
 
+class AuthEventInit extends AuthEvent {}
+
 class AuthEventLogin extends AuthEvent {
   final String email;
   final String password;
@@ -20,6 +22,8 @@ class AuthEventRegister extends AuthEvent {
 class AuthEventLogout extends AuthEvent {}
 
 class AuthEventLoginAnonymously extends AuthEvent {}
+
+class AuthEventSendEmailVerification extends AuthEvent {}
 
 class AuthEventVerifyEmail extends AuthEvent {}
 
