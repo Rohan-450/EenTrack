@@ -42,12 +42,17 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class AuthBlocHandle extends StatelessWidget {
+class AuthBlocHandle extends StatefulWidget {
   const AuthBlocHandle({super.key});
 
   @override
+  State<AuthBlocHandle> createState() => _AuthBlocHandleState();
+}
+
+class _AuthBlocHandleState extends State<AuthBlocHandle> {
+  @override
   Widget build(BuildContext context) {
-    return BlocConsumer(
+    return BlocConsumer<AuthBloc, AuthState>(
         builder: (context, state) {
           if (state is AuthStateUninitialized) {
             BlocProvider.of<AuthBloc>(context).add(AuthEventInit());

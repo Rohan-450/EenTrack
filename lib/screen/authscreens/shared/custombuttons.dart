@@ -51,7 +51,7 @@ class CustomTextButton extends StatelessWidget {
       children: [
         SizedBox(width: padding),
         Expanded(
-          child: ElevatedButton(
+          child: TextButton(
             onPressed: enabled ? onPressed : null,
             child: Text(text),
           ),
