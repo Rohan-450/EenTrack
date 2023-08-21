@@ -31,14 +31,14 @@ class VerificationView extends StatelessWidget {
             height: 30,
           ),
           CustomElevatedButton(
-            buttonText: 'Verify',
+            text: 'Verify',
             onPressed: () {},
           ),
           SizedBox(
             height: 10,
           ),
           CustomTextButton(
-              buttonText: 'Did not got a email? click here to resend...',
+              text: 'Did not got a email? click here to resend...',
               onPressed: () {})
         ],
       ),

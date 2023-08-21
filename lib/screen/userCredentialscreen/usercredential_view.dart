@@ -113,7 +113,7 @@ class _UserCredentialViewState extends State<UserCredentialView> {
                 height: 60,
               ),
               CustomElevatedButton(
-                buttonText: "Submit",
+                text: "Submit",
                 onPressed: () {},
               ),
             ])),

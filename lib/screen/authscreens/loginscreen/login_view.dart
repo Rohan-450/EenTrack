@@ -3,16 +3,52 @@ import 'package:project_f/screen/authscreens/shared/custombuttons.dart';
 import 'package:project_f/screen/authscreens/shared/customtextbox.dart';
 
 class LoginView extends StatefulWidget {
-  const LoginView({super.key});
+  final String email;
+  final String password;
+  final bool isLoading;
+  const LoginView({
+    super.key,
+    this.email = '',
+    this.password = '',
+    this.isLoading = false,
+  });
 
   @override
   State<LoginView> createState() => _LoginViewState();
 }
 
 class _LoginViewState extends State<LoginView> {
-  String email = '';
-  String password = '';
+  late String email;
+  late String password;
   final _formKey = GlobalKey<FormState>();
+
+  String? validateEmail(email) {
+    if (email?.isEmpty == true) {
+      return "Email is required";
+    }
+    if (email != null && !email.contains("@")) {
+      return "Email is invalid";
+    }
+    return null;
+  }
+
+  String? validatePassword(password) {
+    if (password?.isEmpty == true) {
+      return "Password is required";
+    }
+    if (password != null && password.length < 6) {
+      return "Password must be at least 6 characters";
+    }
+    return null;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    email = widget.email;
+    password = widget.password;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +78,10 @@ class _LoginViewState extends State<LoginView> {
                 const SizedBox(height: 20),
                 CustomTextBox(
                   label: "Email",
+                  enabled: !widget.isLoading,
+                  validator: validateEmail,
+                  keyboardType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.next,
                   onChanged: (email) {
                     this.email = email;
                   },
@@ -49,37 +89,23 @@ class _LoginViewState extends State<LoginView> {
                 const SizedBox(height: 20),
                 CustomTextBox(
                     label: "Password",
+                    enabled: !widget.isLoading,
+                    validator: validatePassword,
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.done,
+                    obscureText: true,
                     onChanged: (password) {
                       this.password = password;
                     }),
                 const SizedBox(height: 20),
-                Row(
-                  children: [
-                    const SizedBox(width: 20),
-                    Expanded(
-                      child: CustomElevatedButton(
-                        buttonText: 'Login',
-                        textcolor: Colors.black,
-                        onPressed: () {},
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                  ],
+                CustomElevatedButton(
+                  text: 'Login',
+                  onPressed: () {},
                 ),
                 const SizedBox(width: 10),
-                Row(
-                  children: [
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Expanded(
-                        child: CustomTextButton(
-                      buttonText: 'Do not have an account? Sign Up',
-                      textcolor: Colors.blue,
-                      onPressed: () {},
-                    )),
-                    const SizedBox(width: 20),
-                  ],
+                CustomTextButton(
+                  text: "Don't have an account? register here...",
+                  onPressed: () {},
                 )
               ],
             ),

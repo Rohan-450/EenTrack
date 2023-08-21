@@ -30,16 +30,16 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
+        backgroundColor: Colors.black,
         title: Text(
           _appBarTitles[_currentIndex],
           style: const TextStyle(),
         ),
         centerTitle: true, // No need of center widget
         leading: Image.asset(
-          'assets/logo_rounded.png',
-          width: 40,
-          height: 40,
+          'assets/logo.png',
         ),
         actions: [
           CustomIconButton(
@@ -49,16 +49,6 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
-      // body: Navigator(
-      //   initialRoute: '/',
-      //   onGenerateRoute: (RouteSettings settings) {
-      //     return MaterialPageRoute(
-      //       builder: (BuildContext context) {
-      //         return _screens[_currentIndex];
-      //       },
-      //     );
-      //   },
-      // ),
       body: Center(
         child: _screens[_currentIndex],
       ),

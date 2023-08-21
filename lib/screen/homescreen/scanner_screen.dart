@@ -19,7 +19,7 @@ class ScannerScreen extends StatelessWidget {
           height: 20,
         ),
         CustomElevatedButton(
-          buttonText: 'Scan QR',
+          text: 'Scan QR',
           onPressed: () {},
         ),
       ],

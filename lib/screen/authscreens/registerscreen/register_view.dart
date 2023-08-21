@@ -1,21 +1,73 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
-import 'package:project_f/colors/get_hexcolor.dart';
 import 'package:project_f/screen/authscreens/shared/custombuttons.dart';
 import 'package:project_f/screen/authscreens/shared/customtextbox.dart';
 
 class RegisterView extends StatefulWidget {
-  const RegisterView({super.key});
+  final String email;
+  final String password;
+  final bool isLoading;
+
+  const RegisterView({
+    super.key,
+    this.email = '',
+    this.password = '',
+    this.isLoading = false,
+  });
 
   @override
   State<RegisterView> createState() => _RegisterViewState();
 }
 
 class _RegisterViewState extends State<RegisterView> {
-  String email = '';
-  String password = '';
-  final _formKey = GlobalKey<FormState>();
+  late String email;
+  late String password;
+  String confirmPassword = '';
+
+  late final GlobalKey _formKey;
+
+  String? validateEmail(email) {
+    if (email?.isEmpty == true) {
+      return "Email is required";
+    }
+    if (email != null && !email.contains("@")) {
+      return "Email is invalid";
+    }
+    return null;
+  }
+
+  String? validatePassword(password) {
+    if (password?.isEmpty == true) {
+      return "Password is required";
+    }
+    if (password != null && password.length < 6) {
+      return "Password must be at least 6 characters";
+    }
+    return null;
+  }
+
+  String? validateConfirmPassword(confirmPassword) {
+    if (confirmPassword?.isEmpty == true) {
+      return "Confirm Password is required";
+    }
+    if (confirmPassword != null && confirmPassword != password) {
+      return "Confirm Password must match password";
+    }
+    return null;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    email = widget.email;
+    password = widget.password;
+    _formKey = GlobalKey<FormState>();
+  }
+
+  @override
+  void dispose() {
+    _formKey.currentState?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +97,10 @@ class _RegisterViewState extends State<RegisterView> {
                 const SizedBox(height: 50),
                 CustomTextBox(
                   label: "Email",
+                  enabled: !widget.isLoading,
+                  keyboardType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.next,
+                  validator: validateEmail,
                   onChanged: (email) {
                     this.email = email;
                   },
@@ -52,46 +108,35 @@ class _RegisterViewState extends State<RegisterView> {
                 const SizedBox(height: 20),
                 CustomTextBox(
                     label: "Password",
+                    enabled: !widget.isLoading,
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.next,
+                    validator: validatePassword,
                     onChanged: (password) {
                       this.password = password;
                     }),
                 const SizedBox(height: 20),
                 CustomTextBox(
                     label: "Confirm Password",
+                    enabled: !widget.isLoading,
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.done,
+                    validator: validateConfirmPassword,
                     onChanged: (password) {
-                      this.password = password;
+                      this.password = confirmPassword;
                     }),
                 const SizedBox(
                   height: 20,
                 ),
-                Row(
-                  children: [
-                    const SizedBox(width: 20),
-                    Expanded(
-                      child: CustomElevatedButton(
-                        buttonText: 'Register',
-                        backgroundColor: HexColor.getColorFromHex('#0EF1D6'),
-                        onPressed: () {},
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                  ],
+                CustomElevatedButton(
+                  text: 'Register',
+                  onPressed: () {},
                 ),
                 const SizedBox(width: 10),
-                Row(
-                  children: [
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Expanded(
-                        child: CustomTextButton(
-                      buttonText: 'Do not have an account? Sign In',
-                      textcolor: Colors.blue,
-                      onPressed: () {},
-                    )),
-                    const SizedBox(width: 20),
-                  ],
-                )
+                CustomElevatedButton(
+                  text: 'Already have an account? Log In...',
+                  onPressed: () {},
+                ),
               ],
             ),
           ),

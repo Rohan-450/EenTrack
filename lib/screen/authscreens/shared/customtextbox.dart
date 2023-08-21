@@ -5,8 +5,11 @@ class CustomTextBox extends StatelessWidget {
   final Function(String) onChanged;
   final String? initialValue;
   final bool obscureText;
+  final bool enabled;
   final String? Function(String?)? validator;
   final Color? labelColor;
+  final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
 
   const CustomTextBox({
     super.key,
@@ -14,6 +17,9 @@ class CustomTextBox extends StatelessWidget {
     required this.onChanged,
     this.initialValue = '',
     this.obscureText = false,
+    this.enabled = true,
+    this.textInputAction,
+    this.keyboardType,
     this.validator,
     this.labelColor,
   });
@@ -25,6 +31,9 @@ class CustomTextBox extends StatelessWidget {
       obscureText: obscureText,
       onChanged: onChanged,
       validator: validator,
+      keyboardType: keyboardType,
+      textInputAction: textInputAction,
+      enabled: enabled,
       decoration: InputDecoration(
         labelText: label,
         border: const OutlineInputBorder(

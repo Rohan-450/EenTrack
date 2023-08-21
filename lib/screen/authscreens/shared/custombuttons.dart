@@ -1,57 +1,59 @@
 import 'package:flutter/material.dart';
 
 class CustomElevatedButton extends StatelessWidget {
-  final String buttonText;
+  final String text;
   final VoidCallback onPressed;
-  final Color textcolor;
-  final Color backgroundColor;
+  final double padding;
 
   const CustomElevatedButton({
     super.key,
-    required this.buttonText,
+    required this.text,
     required this.onPressed,
-    this.textcolor = Colors.black,
-    this.backgroundColor = Colors.blue,
+    this.padding = 20,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ButtonStyle(
-        foregroundColor: MaterialStateProperty.all(textcolor),
-        backgroundColor: MaterialStateProperty.all(backgroundColor),
-        fixedSize: MaterialStateProperty.all(const Size(200, 50)),
-      ),
-      child: Text(
-        buttonText,
-      ),
+    return Row(
+      children: [
+        SizedBox(width: padding),
+        Expanded(
+          child: ElevatedButton(
+            onPressed: onPressed,
+            child: Text(text),
+          ),
+        ),
+        SizedBox(width: padding),
+      ],
     );
   }
 }
 
 class CustomTextButton extends StatelessWidget {
-  final String buttonText;
+  final String text;
   final VoidCallback onPressed;
-  final Color textcolor;
-  final Color backgroundColor;
+  final double padding;
 
   const CustomTextButton({
     super.key,
-    required this.buttonText,
+    required this.text,
     required this.onPressed,
-    this.textcolor = Colors.blue,
-    this.backgroundColor = Colors.blue,
+    this.padding = 20,
   });
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: onPressed,
-      style: ButtonStyle(
-        foregroundColor: MaterialStateProperty.all(textcolor),
-      ),
-      child: Text(buttonText),
+    return Row(
+      children: [
+        SizedBox(width: padding),
+        Expanded(
+          child: ElevatedButton(
+            onPressed: onPressed,
+            child: Text(text),
+          ),
+        ),
+        SizedBox(width: padding),
+      ],
     );
   }
 }

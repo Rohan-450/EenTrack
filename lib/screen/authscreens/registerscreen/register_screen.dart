@@ -2,10 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:project_f/screen/authscreens/registerscreen/register_view.dart';
 
 class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({super.key});
+  final String email;
+  final String password;
+  final bool isLoading;
+  final String? error;
+  const RegisterScreen({
+    super.key,
+    this.email = '',
+    this.password = '',
+    this.isLoading = false,
+    this.error,
+  });
 
   @override
   Widget build(BuildContext context) {
+    if (error != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(error!),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -14,7 +32,11 @@ class RegisterScreen extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: const RegisterView(),
+        child: RegisterView(
+          email: email,
+          password: password,
+          isLoading: isLoading,
+        ),
       ),
     );
   }
