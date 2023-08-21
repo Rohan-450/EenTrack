@@ -85,7 +85,7 @@ class _RegisterViewState extends State<RegisterView> {
                     ),
                     Expanded(
                         child: CustomTextButton(
-                      buttonText: 'Do not have an account? Sign In',
+                      buttonText: 'Already have an account? Sign In',
                       textcolor: Colors.blue,
                       onPressed: () {},
                     )),
