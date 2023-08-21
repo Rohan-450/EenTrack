@@ -1,5 +1,4 @@
 import 'package:firebase_core/firebase_core.dart';
-<<<<<<< HEAD
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_f/bloc/authbloc/auth_events.dart';
 import 'package:project_f/bloc/authbloc/auth_state.dart';
@@ -7,10 +6,6 @@ import 'package:project_f/bloc/authbloc/authbloc.dart';
 import 'package:project_f/screen/authscreens/loginscreen/login_screen.dart';
 import 'package:project_f/screen/authscreens/registerscreen/register_screen.dart';
 import 'package:project_f/screen/authscreens/verificationscreen/verification_screen.dart';
-=======
-import 'package:project_f/screen/authscreens/loginscreen/login_screen.dart';
-import 'package:project_f/screen/authscreens/registerscreen/register_screen.dart';
->>>>>>> eb653a428405bd54adc19118cf6da4342b8525d2
 import 'package:project_f/screen/homescreen/home_screen.dart';
 import 'package:project_f/screen/shared/loading_screen.dart';
 import 'package:project_f/services/authservices/firebase_auth_service.dart';
