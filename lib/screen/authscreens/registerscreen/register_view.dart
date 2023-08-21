@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project_f/bloc/authbloc/auth_events.dart';
+import 'package:project_f/bloc/authbloc/authbloc.dart';
 import 'package:project_f/screen/authscreens/shared/custombuttons.dart';
 import 'package:project_f/screen/authscreens/shared/customtextbox.dart';
 
@@ -97,6 +100,7 @@ class _RegisterViewState extends State<RegisterView> {
                 const SizedBox(height: 50),
                 CustomTextBox(
                   label: "Email",
+                  initialValue: email,
                   enabled: !widget.isLoading,
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
@@ -108,10 +112,12 @@ class _RegisterViewState extends State<RegisterView> {
                 const SizedBox(height: 20),
                 CustomTextBox(
                     label: "Password",
+                    initialValue: password,
                     enabled: !widget.isLoading,
                     keyboardType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.next,
                     validator: validatePassword,
+                    obscureText: true,
                     onChanged: (password) {
                       this.password = password;
                     }),
@@ -122,6 +128,7 @@ class _RegisterViewState extends State<RegisterView> {
                     keyboardType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.done,
                     validator: validateConfirmPassword,
+                    obscureText: true,
                     onChanged: (password) {
                       this.password = confirmPassword;
                     }),
@@ -134,10 +141,15 @@ class _RegisterViewState extends State<RegisterView> {
                   onPressed: () {},
                 ),
                 const SizedBox(width: 10),
-                CustomElevatedButton(
+                CustomTextButton(
                   text: 'Already have an account? Log In...',
                   enabled: !widget.isLoading,
-                  onPressed: () {},
+                  onPressed: () {
+                    BlocProvider.of<AuthBloc>(context).add(AuthEventShowLogin(
+                      email: email,
+                      password: password,
+                    ));
+                  },
                 ),
               ],
             ),

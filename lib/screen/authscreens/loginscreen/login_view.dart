@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project_f/bloc/authbloc/auth_events.dart';
+import 'package:project_f/bloc/authbloc/authbloc.dart';
 import 'package:project_f/screen/authscreens/shared/custombuttons.dart';
 import 'package:project_f/screen/authscreens/shared/customtextbox.dart';
 
@@ -78,6 +81,7 @@ class _LoginViewState extends State<LoginView> {
                 const SizedBox(height: 20),
                 CustomTextBox(
                   label: "Email",
+                  initialValue: email,
                   enabled: !widget.isLoading,
                   validator: validateEmail,
                   keyboardType: TextInputType.emailAddress,
@@ -89,6 +93,7 @@ class _LoginViewState extends State<LoginView> {
                 const SizedBox(height: 20),
                 CustomTextBox(
                     label: "Password",
+                    initialValue: password,
                     enabled: !widget.isLoading,
                     validator: validatePassword,
                     keyboardType: TextInputType.visiblePassword,
@@ -107,7 +112,11 @@ class _LoginViewState extends State<LoginView> {
                 CustomTextButton(
                   text: "Don't have an account? register here...",
                   enabled: !widget.isLoading,
-                  onPressed: () {},
+                  onPressed: () {
+                    BlocProvider.of<AuthBloc>(context).add(
+                      AuthEventShowRegister(email: email, password: password),
+                    );
+                  },
                 )
               ],
             ),
