@@ -3,10 +3,24 @@ import 'package:flutter/material.dart';
 import 'verification_view.dart';
 
 class VerificationScreen extends StatelessWidget {
-  const VerificationScreen({super.key});
+  final bool isLoading;
+  final String? error;
+  const VerificationScreen({
+    super.key,
+    this.isLoading = false,
+    this.error,
+  });
 
   @override
   Widget build(BuildContext context) {
+    if (error != null) {
+      return Scaffold(
+        body: Center(
+          child: Text(error!),
+        ),
+      );
+    }
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -15,7 +29,7 @@ class VerificationScreen extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: const VerificationView(),
+        child: VerificationView(isLoading: isLoading),
       ),
     );
   }

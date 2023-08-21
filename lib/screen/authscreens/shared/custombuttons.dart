@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 class CustomElevatedButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
+  final bool enabled;
   final double padding;
 
   const CustomElevatedButton({
     super.key,
     required this.text,
     required this.onPressed,
+    this.enabled = true,
     this.padding = 20,
   });
 
@@ -19,7 +21,7 @@ class CustomElevatedButton extends StatelessWidget {
         SizedBox(width: padding),
         Expanded(
           child: ElevatedButton(
-            onPressed: onPressed,
+            onPressed: enabled ? onPressed : null,
             child: Text(text),
           ),
         ),
@@ -32,12 +34,14 @@ class CustomElevatedButton extends StatelessWidget {
 class CustomTextButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
+  final bool enabled;
   final double padding;
 
   const CustomTextButton({
     super.key,
     required this.text,
     required this.onPressed,
+    this.enabled = true,
     this.padding = 20,
   });
 
@@ -48,7 +52,7 @@ class CustomTextButton extends StatelessWidget {
         SizedBox(width: padding),
         Expanded(
           child: ElevatedButton(
-            onPressed: onPressed,
+            onPressed: enabled ? onPressed : null,
             child: Text(text),
           ),
         ),

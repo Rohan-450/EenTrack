@@ -100,11 +100,13 @@ class _LoginViewState extends State<LoginView> {
                 const SizedBox(height: 20),
                 CustomElevatedButton(
                   text: 'Login',
+                  enabled: !widget.isLoading,
                   onPressed: () {},
                 ),
                 const SizedBox(width: 10),
                 CustomTextButton(
                   text: "Don't have an account? register here...",
+                  enabled: !widget.isLoading,
                   onPressed: () {},
                 )
               ],

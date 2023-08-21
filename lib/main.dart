@@ -1,7 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project_f/bloc/authbloc/auth_events.dart';
+import 'package:project_f/bloc/authbloc/auth_state.dart';
 import 'package:project_f/bloc/authbloc/authbloc.dart';
+import 'package:project_f/screen/authscreens/loginscreen/login_screen.dart';
+import 'package:project_f/screen/authscreens/registerscreen/register_screen.dart';
+import 'package:project_f/screen/authscreens/verificationscreen/verification_screen.dart';
 import 'package:project_f/screen/homescreen/home_screen.dart';
+import 'package:project_f/screen/shared/loading_screen.dart';
 import 'package:project_f/services/authservices/firebase_auth_service.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +49,45 @@ class AuthBlocHandle extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer(
         builder: (context, state) {
-          return const Placeholder();
+          if (state is AuthStateUninitialized) {
+            BlocProvider.of<AuthBloc>(context).add(AuthEventInit());
+            return const LoadingScreen();
+          }
+          if (state is AuthStateLoading) {
+            return const LoadingScreen();
+          }
+          if (state is AuthStateLoggedIn) {
+            return const HomeScreen();
+          }
+          if (state is AuthStateNeedLogin) {
+            return LoginScreen(
+              email: state.email,
+              password: state.password,
+              isLoading: state.loading != null,
+              error: state.error,
+            );
+          }
+          if (state is AuthStateNeedRegister) {
+            return RegisterScreen(
+              email: state.email,
+              password: state.password,
+              isLoading: state.loading != null,
+              error: state.error,
+            );
+          }
+
+          if (state is AuthStateNeedVerify) {
+            return VerificationScreen(
+              isLoading: state.loading != null,
+              error: state.error,
+            );
+          }
+
+          return Scaffold(
+            body: Center(
+              child: Text('Unknown state: $state'),
+            ),
+          );
         },
         listener: (context, state) {});
   }

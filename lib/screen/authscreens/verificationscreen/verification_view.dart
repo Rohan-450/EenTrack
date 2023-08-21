@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:project_f/screen/authscreens/shared/custombuttons.dart';
 
 class VerificationView extends StatelessWidget {
+  final bool isLoading;
   const VerificationView({
     super.key,
+    this.isLoading = false,
   });
 
   @override
@@ -32,6 +34,7 @@ class VerificationView extends StatelessWidget {
           ),
           CustomElevatedButton(
             text: 'Verify',
+            enabled: !isLoading,
             onPressed: () {},
           ),
           SizedBox(
@@ -39,6 +42,7 @@ class VerificationView extends StatelessWidget {
           ),
           CustomTextButton(
               text: 'Did not got a email? click here to resend...',
+              enabled: !isLoading,
               onPressed: () {})
         ],
       ),

@@ -14,7 +14,7 @@ class AuthState {
 
 class AuthStateUninitialized extends AuthState {}
 
-class AuthStateLoaing extends AuthState {}
+class AuthStateLoading extends AuthState {}
 
 class AuthStateLoggedIn extends AuthState with EquatableMixin {
   final AuthUser user;

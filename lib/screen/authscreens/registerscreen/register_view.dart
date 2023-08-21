@@ -130,11 +130,13 @@ class _RegisterViewState extends State<RegisterView> {
                 ),
                 CustomElevatedButton(
                   text: 'Register',
+                  enabled: !widget.isLoading,
                   onPressed: () {},
                 ),
                 const SizedBox(width: 10),
                 CustomElevatedButton(
                   text: 'Already have an account? Log In...',
+                  enabled: !widget.isLoading,
                   onPressed: () {},
                 ),
               ],
