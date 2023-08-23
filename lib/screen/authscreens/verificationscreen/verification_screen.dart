@@ -4,9 +4,11 @@ import 'verification_view.dart';
 
 class VerificationScreen extends StatelessWidget {
   final bool isLoading;
+  final String email;
   final String? error;
   const VerificationScreen({
     super.key,
+    required this.email,
     this.isLoading = false,
     this.error,
   });
@@ -14,11 +16,14 @@ class VerificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (error != null) {
-      return Scaffold(
-        body: Center(
-          child: Text(error!),
-        ),
-      );
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(error!),
+            backgroundColor: Colors.red,
+          ),
+        );
+      });
     }
 
     return Scaffold(
@@ -29,7 +34,7 @@ class VerificationScreen extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: VerificationView(isLoading: isLoading),
+        child: VerificationView(email: email, isLoading: isLoading),
       ),
     );
   }

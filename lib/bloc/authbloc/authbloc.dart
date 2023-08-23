@@ -148,11 +148,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     // Event Logout
     on<AuthEventLogout>((event, emit) async {
       emit(AuthStateNeedLogin(loading: 'Logging out...'));
-      await authProvider.logout();
+      try {
+        await authProvider.logout();
+      } on AuthException catch (e) {
+        emit(AuthStateNeedLogin(error: e.toString()));
+      } catch (e) {
+        emit(AuthStateNeedLogin(error: 'Something went wrong...'));
+      }
       emit(AuthStateNeedLogin());
     });
 
-		// Send email verification
+    // Send email verification
     on<AuthEventSendEmailVerification>((event, emit) async {
       emit(AuthStateNeedVerify(loading: 'Sending verification email...'));
       await authProvider.sendEmailVerification();

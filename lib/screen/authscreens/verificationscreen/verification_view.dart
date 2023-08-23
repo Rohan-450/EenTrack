@@ -1,12 +1,17 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project_f/bloc/authbloc/auth_events.dart';
+import 'package:project_f/bloc/authbloc/authbloc.dart';
 import 'package:project_f/screen/authscreens/shared/custombuttons.dart';
 
 class VerificationView extends StatelessWidget {
   final bool isLoading;
+  final String email;
   const VerificationView({
     super.key,
+    required this.email,
     this.isLoading = false,
   });
 
@@ -25,7 +30,7 @@ class VerificationView extends StatelessWidget {
             height: 40,
           ),
           Text(
-            "A verification mail has been sent \n to the registered email\nPlease verify to continue !",
+            "A verification mail has been sent  to $email \n  Please verify to continue !",
             textAlign: TextAlign.center,
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
           ),
@@ -35,7 +40,9 @@ class VerificationView extends StatelessWidget {
           CustomElevatedButton(
             text: 'Verify',
             enabled: !isLoading,
-            onPressed: () {},
+            onPressed: () {
+              BlocProvider.of<AuthBloc>(context).add(AuthEventVerifyEmail());
+            },
           ),
           SizedBox(
             height: 10,
@@ -43,7 +50,10 @@ class VerificationView extends StatelessWidget {
           CustomTextButton(
               text: 'Did not got a email? click here to resend...',
               enabled: !isLoading,
-              onPressed: () {})
+              onPressed: () {
+                BlocProvider.of<AuthBloc>(context)
+                    .add(AuthEventSendEmailVerification());
+              })
         ],
       ),
     );

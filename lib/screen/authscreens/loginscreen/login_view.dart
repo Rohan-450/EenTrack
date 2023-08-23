@@ -106,7 +106,13 @@ class _LoginViewState extends State<LoginView> {
                 CustomElevatedButton(
                   text: 'Login',
                   enabled: !widget.isLoading,
-                  onPressed: () {},
+                  onPressed: () {
+                    if (!_formKey.currentState!.validate()) return;
+                    BlocProvider.of<AuthBloc>(context).add(AuthEventLogin(
+                      email: email,
+                      password: password,
+                    ));
+                  },
                 ),
                 const SizedBox(width: 10),
                 CustomTextButton(

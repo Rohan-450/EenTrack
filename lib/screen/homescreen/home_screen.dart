@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project_f/bloc/authbloc/auth_events.dart';
+import 'package:project_f/bloc/authbloc/authbloc.dart';
 import 'package:project_f/screen/homescreen/newmeeting_screen.dart';
 import 'package:project_f/screen/homescreen/profile_screen.dart';
 import 'package:project_f/screen/homescreen/scanner_screen.dart';
@@ -6,7 +9,13 @@ import 'package:project_f/screen/homescreen/scanner_screen.dart';
 import '../authscreens/shared/custombuttons.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  final String? error;
+  final bool isLoading;
+  const HomeScreen({
+    Key? key,
+    this.isLoading = false,
+    this.error,
+  }) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -27,6 +36,24 @@ class _HomeScreenState extends State<HomeScreen> {
     const NewMeetingScreen(),
   ];
 
+  void _onLogout(BuildContext context) {
+    BlocProvider.of<AuthBloc>(context).add(AuthEventLogout());
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.error != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(widget.error!),
+          ),
+        );
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,10 +69,9 @@ class _HomeScreenState extends State<HomeScreen> {
           'assets/logo.png',
         ),
         actions: [
-          CustomIconButton(
-            onPressed: () {},
-            icon: Icons.logout,
-            iconColor: Colors.white,
+          IconButton(
+            onPressed: () => _onLogout(context),
+            icon: const Icon(Icons.logout),
           )
         ],
       ),

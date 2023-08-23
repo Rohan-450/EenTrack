@@ -62,7 +62,10 @@ class _AuthBlocHandleState extends State<AuthBlocHandle> {
             return const LoadingScreen();
           }
           if (state is AuthStateLoggedIn) {
-            return const HomeScreen();
+            return HomeScreen(
+              isLoading: state.loading != null,
+              error: state.error,
+            );
           }
           if (state is AuthStateNeedLogin) {
             return LoginScreen(

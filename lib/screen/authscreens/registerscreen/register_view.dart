@@ -26,7 +26,7 @@ class _RegisterViewState extends State<RegisterView> {
   late String password;
   String confirmPassword = '';
 
-  late final GlobalKey _formKey;
+  late final GlobalKey<FormState> _formKey;
 
   String? validateEmail(email) {
     if (email?.isEmpty == true) {
@@ -38,21 +38,21 @@ class _RegisterViewState extends State<RegisterView> {
     return null;
   }
 
-  String? validatePassword(password) {
-    if (password?.isEmpty == true) {
+  String? validatePassword(pass) {
+    if (pass?.isEmpty == true) {
       return "Password is required";
     }
-    if (password != null && password.length < 6) {
+    if (pass != null && pass.length < 6) {
       return "Password must be at least 6 characters";
     }
     return null;
   }
 
-  String? validateConfirmPassword(confirmPassword) {
-    if (confirmPassword?.isEmpty == true) {
+  String? validateConfirmPassword(cpass) {
+    if (cpass?.isEmpty == true) {
       return "Confirm Password is required";
     }
-    if (confirmPassword != null && confirmPassword != password) {
+    if (cpass != null && cpass != password) {
       return "Confirm Password must match password";
     }
     return null;
@@ -105,8 +105,8 @@ class _RegisterViewState extends State<RegisterView> {
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
                   validator: validateEmail,
-                  onChanged: (email) {
-                    this.email = email;
+                  onChanged: (e) {
+                    email = e;
                   },
                 ),
                 const SizedBox(height: 20),
@@ -118,8 +118,8 @@ class _RegisterViewState extends State<RegisterView> {
                     textInputAction: TextInputAction.next,
                     validator: validatePassword,
                     obscureText: true,
-                    onChanged: (password) {
-                      this.password = password;
+                    onChanged: (pass) {
+                      password = pass;
                     }),
                 const SizedBox(height: 20),
                 CustomTextBox(
@@ -129,8 +129,8 @@ class _RegisterViewState extends State<RegisterView> {
                     textInputAction: TextInputAction.done,
                     validator: validateConfirmPassword,
                     obscureText: true,
-                    onChanged: (password) {
-                      this.password = confirmPassword;
+                    onChanged: (pass) {
+                      confirmPassword = pass;
                     }),
                 const SizedBox(
                   height: 20,
@@ -138,7 +138,13 @@ class _RegisterViewState extends State<RegisterView> {
                 CustomElevatedButton(
                   text: 'Register',
                   enabled: !widget.isLoading,
-                  onPressed: () {},
+                  onPressed: () {
+                    if (!_formKey.currentState!.validate()) return;
+                    BlocProvider.of<AuthBloc>(context).add(AuthEventRegister(
+                      email: email,
+                      password: password,
+                    ));
+                  },
                 ),
                 const SizedBox(width: 10),
                 CustomTextButton(

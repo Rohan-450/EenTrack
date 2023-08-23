@@ -15,19 +15,12 @@ class FirebaseAuthService implements AuthModel {
   @override
   Future<AuthUser?> loginWithEmail(String email, String password) async {
     try {
-      final res = await _auth.signInAnonymously();
+      final res = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+
       return _userFromFirebaseUser(res.user);
     } on FirebaseAuthException catch (e) {
-      switch (e.code) {
-        case 'invalid-email':
-          throw AuthException('Invalid email address');
-        case 'wrong-password':
-          throw AuthException('Wrong password');
-        case 'user-not-found':
-          throw AuthException('User not found');
-        default:
-          throw AuthException('Unknown error');
-      }
+      throw _getAuthException(e);
     } catch (e) {
       throw AuthException('Unknown error');
     }
@@ -39,16 +32,7 @@ class FirebaseAuthService implements AuthModel {
       final res = await _auth.signInAnonymously();
       return _userFromFirebaseUser(res.user);
     } on FirebaseAuthException catch (e) {
-      switch (e.code) {
-        case 'invalid-email':
-          throw AuthException('Invalid email address');
-        case 'wrong-password':
-          throw AuthException('Wrong password');
-        case 'user-not-found':
-          throw AuthException('User not found');
-        default:
-          throw AuthException('Unknown error');
-      }
+      throw _getAuthException(e);
     } catch (e) {
       throw AuthException('Unknown error');
     }
@@ -61,16 +45,7 @@ class FirebaseAuthService implements AuthModel {
           email: email, password: password);
       return _userFromFirebaseUser(res.user);
     } on FirebaseAuthException catch (e) {
-      switch (e.code) {
-        case 'invalid-email':
-          throw AuthException('Invalid email address');
-        case 'email-already-in-use':
-          throw AuthException('Email already in use');
-        case 'weak-password':
-          throw AuthException('Password too weak');
-        default:
-          throw AuthException('Unknown error');
-      }
+      throw _getAuthException(e);
     } catch (e) {
       throw AuthException('Unknown error');
     }
@@ -116,5 +91,24 @@ class FirebaseAuthService implements AuthModel {
             isVerified: user.emailVerified,
           )
         : null;
+  }
+
+  AuthException _getAuthException(FirebaseAuthException e) {
+    // ignore: avoid_print
+    print(e.code);
+    switch (e.code) {
+      case 'invalid-email':
+        return AuthException('Invalid email address');
+      case 'wrong-password':
+        return AuthException('Wrong password');
+      case 'user-not-found':
+        return AuthException('User not found');
+      case 'email-already-in-use':
+        return AuthException('Email already in use');
+      case 'weak-password':
+        return AuthException('Password too weak');
+      default:
+        return AuthException('Unknown firebase auth error');
+    }
   }
 }
