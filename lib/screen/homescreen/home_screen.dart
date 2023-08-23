@@ -6,8 +6,6 @@ import 'package:project_f/screen/homescreen/newmeeting_screen.dart';
 import 'package:project_f/screen/homescreen/profile_screen.dart';
 import 'package:project_f/screen/homescreen/scanner_screen.dart';
 
-import '../authscreens/shared/custombuttons.dart';
-
 class HomeScreen extends StatefulWidget {
   final String? error;
   final bool isLoading;
@@ -18,8 +16,7 @@ class HomeScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
-  _HomeScreenState createState() => _HomeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {

@@ -17,12 +17,14 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (error != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(error!),
-          backgroundColor: Colors.red,
-        ),
-      );
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(error!),
+            backgroundColor: Colors.red,
+          ),
+        );
+      });
     }
     return Scaffold(
       body: Container(
