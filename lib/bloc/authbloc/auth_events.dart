@@ -46,4 +46,9 @@ class AuthEventShowLogin extends AuthEvent {
   });
 }
 
-class AuthEventShowVerifyEmail extends AuthEvent {}
+class AuthEventShowVerifyEmail extends AuthEvent {
+  final String email;
+  const AuthEventShowVerifyEmail({
+    this.email = '',
+  });
+}

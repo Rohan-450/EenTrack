@@ -86,6 +86,7 @@ class _AuthBlocHandleState extends State<AuthBlocHandle> {
 
           if (state is AuthStateNeedVerify) {
             return VerificationScreen(
+              email: state.email,
               isLoading: state.loading != null,
               error: state.error,
             );

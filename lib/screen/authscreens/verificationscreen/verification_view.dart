@@ -53,7 +53,14 @@ class VerificationView extends StatelessWidget {
               onPressed: () {
                 BlocProvider.of<AuthBloc>(context)
                     .add(AuthEventSendEmailVerification());
-              })
+              }),
+          SizedBox(height: 10),
+          CustomTextButton(
+            text: 'Wrong email? log out here...',
+            onPressed: () {
+              BlocProvider.of<AuthBloc>(context).add(AuthEventLogout());
+            },
+          ),
         ],
       ),
     );

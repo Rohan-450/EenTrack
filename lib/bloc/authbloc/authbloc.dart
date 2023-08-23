@@ -19,13 +19,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         final user = authProvider.user;
         if (user == null) {
           emit(AuthStateNeedLogin());
-        } else {
-          if (user.isVerified ?? false) {
-            emit(AuthStateLoggedIn(user: user));
-          } else {
-            emit(AuthStateNeedVerify());
-          }
+          return;
         }
+        if (user.isVerified ?? false) {
+          emit(AuthStateLoggedIn(user: user));
+          return;
+        }
+        emit(AuthStateNeedVerify(
+          email: user.email!,
+        ));
       },
     );
 
@@ -56,7 +58,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     // Show verify event
     on<AuthEventShowVerifyEmail>((event, emit) {
-      emit(AuthStateNeedVerify());
+      emit(AuthStateNeedVerify(
+        email: event.email,
+      ));
     });
 
     // Login Event
@@ -80,7 +84,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           return;
         }
         if (!(user.isVerified ?? false)) {
-          emit(AuthStateNeedVerify());
+          emit(AuthStateNeedVerify(
+            email: user.email!,
+          ));
           return;
         }
         emit(AuthStateLoggedIn(user: user));
@@ -112,7 +118,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           ));
           return;
         }
-        emit(AuthStateNeedVerify());
+        emit(AuthStateNeedVerify(
+          email: user.email!,
+        ));
       } on AuthException catch (e) {
         emit(AuthStateNeedRegister(
           email: email,
@@ -160,16 +168,30 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     // Send email verification
     on<AuthEventSendEmailVerification>((event, emit) async {
-      emit(AuthStateNeedVerify(loading: 'Sending verification email...'));
+      var user = authProvider.user;
+      if (user == null) {
+        return emit(AuthStateNeedLogin(error: 'User not found'));
+      }
+      emit(AuthStateNeedVerify(
+          email: user.email!, loading: 'Sending verification email...'));
       await authProvider.sendEmailVerification();
-      emit(AuthStateNeedVerify());
+      emit(AuthStateNeedVerify(
+        email: user.email!,
+      ));
     });
 
     // Verify email
     on<AuthEventVerifyEmail>((event, emit) async {
-      emit(AuthStateNeedVerify(loading: 'Verifying email...'));
+      var user = authProvider.user;
+
+      if (user == null) {
+        return emit(AuthStateNeedLogin(error: 'User not found'));
+      }
+
+      emit(AuthStateNeedVerify(
+          email: user.email!, loading: 'Verifying email...'));
       try {
-        var user = await authProvider.currentUser;
+        user = await authProvider.currentUser;
         if (user == null) {
           emit(AuthStateNeedLogin(error: 'User not found'));
           return;
@@ -178,9 +200,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(AuthStateLoggedIn(user: user));
           return;
         }
-        emit(AuthStateNeedVerify(error: 'Email not verified'));
+        emit(AuthStateNeedVerify(
+            email: user.email!, error: 'Email not verified'));
       } on AuthException catch (e) {
-        emit(AuthStateNeedVerify(error: e.message));
+        emit(AuthStateNeedVerify(email: 'Unknown Email', error: e.message));
       }
     });
   }

@@ -57,7 +57,9 @@ class AuthStateNeedRegister extends AuthState with EquatableMixin {
 }
 
 class AuthStateNeedVerify extends AuthState with EquatableMixin {
+  final String email;
   AuthStateNeedVerify({
+    required this.email,
     String? loading,
     String? error,
   }) : super(
