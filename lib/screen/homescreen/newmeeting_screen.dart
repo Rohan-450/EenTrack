@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_f/screen/authscreens/shared/custombuttons.dart';
+import 'package:project_f/services/qrServices/qr_serivces.dart';
 
 class NewMeetingScreen extends StatelessWidget {
   const NewMeetingScreen({super.key});
@@ -13,7 +14,14 @@ class NewMeetingScreen extends StatelessWidget {
         Center(
           child: CustomElevatedButton(
             text: 'New Meeting',
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const QrCodeGenerator(),
+                ),
+              );
+            },
           ),
         ),
         const SizedBox(height: 20),

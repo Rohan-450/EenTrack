@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   final List<Widget> _screens = [
-    const ScannerScreen(),
+    ScannerScreen(),
     const ProfileScreen(),
     const NewMeetingScreen(),
   ];

@@ -1,26 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:project_f/screen/authscreens/shared/custombuttons.dart';
+import 'package:project_f/services/qrServices/camera_services.dart';
 
 class ScannerScreen extends StatelessWidget {
   const ScannerScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CustomIconButton(
-          onPressed: () {},
-          iconColor: Colors.white,
-          icon: Icons.qr_code_scanner_outlined,
-          iconSize: 200,
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        CustomElevatedButton(
-          text: 'Scan QR',
-          onPressed: () {},
+        SizedBox(
+          height: 300,
+          width: 300,
+          child: Expanded(child: CameraSrevices()),
         ),
       ],
     );
