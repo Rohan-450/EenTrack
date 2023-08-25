@@ -71,7 +71,7 @@ class _AuthBlocHandleState extends State<AuthBlocHandle> {
             return LoginScreen(
               email: state.email,
               password: state.password,
-              isLoading: state.loading != null,
+              isLoading: state.loading,
               error: state.error,
             );
           }
@@ -79,7 +79,7 @@ class _AuthBlocHandleState extends State<AuthBlocHandle> {
             return RegisterScreen(
               email: state.email,
               password: state.password,
-              isLoading: state.loading != null,
+              loading: state.loading,
               error: state.error,
             );
           }

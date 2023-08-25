@@ -8,13 +8,13 @@ import 'package:project_f/screen/authscreens/shared/customtextbox.dart';
 class RegisterView extends StatefulWidget {
   final String email;
   final String password;
-  final bool isLoading;
+  final String? loading;
 
   const RegisterView({
     super.key,
     this.email = '',
     this.password = '',
-    this.isLoading = false,
+    this.loading,
   });
 
   @override
@@ -58,6 +58,8 @@ class _RegisterViewState extends State<RegisterView> {
     return null;
   }
 
+
+
   @override
   void initState() {
     super.initState();
@@ -89,10 +91,10 @@ class _RegisterViewState extends State<RegisterView> {
                 const SizedBox(
                   height: 50,
                 ),
-                const Text(
-                  "Welcome Onboard !",
+                Text(
+                  widget.loading == null ? "Welcome Onboard !" : widget.loading!,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
@@ -101,7 +103,7 @@ class _RegisterViewState extends State<RegisterView> {
                 CustomTextBox(
                   label: "Email",
                   initialValue: email,
-                  enabled: !widget.isLoading,
+                  enabled: widget.loading == null,
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
                   validator: validateEmail,
@@ -113,7 +115,7 @@ class _RegisterViewState extends State<RegisterView> {
                 CustomTextBox(
                     label: "Password",
                     initialValue: password,
-                    enabled: !widget.isLoading,
+                    enabled: widget.loading == null,
                     keyboardType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.next,
                     validator: validatePassword,
@@ -124,7 +126,7 @@ class _RegisterViewState extends State<RegisterView> {
                 const SizedBox(height: 20),
                 CustomTextBox(
                     label: "Confirm Password",
-                    enabled: !widget.isLoading,
+                    enabled: widget.loading == null,
                     keyboardType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.done,
                     validator: validateConfirmPassword,
@@ -137,7 +139,7 @@ class _RegisterViewState extends State<RegisterView> {
                 ),
                 CustomElevatedButton(
                   text: 'Register',
-                  enabled: !widget.isLoading,
+                  enabled: widget.loading == null,
                   onPressed: () {
                     if (!_formKey.currentState!.validate()) return;
                     BlocProvider.of<AuthBloc>(context).add(AuthEventRegister(
@@ -149,7 +151,7 @@ class _RegisterViewState extends State<RegisterView> {
                 const SizedBox(width: 10),
                 CustomTextButton(
                   text: 'Already have an account? Log In...',
-                  enabled: !widget.isLoading,
+                  enabled: widget.loading == null,
                   onPressed: () {
                     BlocProvider.of<AuthBloc>(context).add(AuthEventShowLogin(
                       email: email,

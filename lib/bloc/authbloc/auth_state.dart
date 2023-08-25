@@ -7,8 +7,8 @@ class AuthState {
   final String? loading;
   final String? error;
   const AuthState({
-    this.loading = 'Please wait...',
-    this.error = 'Something went wrong!',
+    this.loading,
+    this.error,
   });
 }
 

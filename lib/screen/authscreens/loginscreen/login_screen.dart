@@ -5,14 +5,14 @@ import 'login_view.dart';
 class LoginScreen extends StatelessWidget {
   final String email;
   final String password;
-  final bool isLoading;
+  final String? isLoading;
   final String? error;
 
   const LoginScreen({
     super.key,
     this.email = '',
     this.password = '',
-    this.isLoading = false,
+    this.isLoading,
     this.error,
   });
 
