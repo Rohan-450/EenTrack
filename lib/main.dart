@@ -34,10 +34,11 @@ class MyApp extends StatelessWidget {
         seedColor: Colors.cyan,
         brightness: Brightness.dark,
       )),
-      home: BlocProvider(
-        create: (context) => AuthBloc(FirebaseAuthService.instance),
-        child: const AuthBlocHandle(),
-      ), // No homescreen were there
+      home: HomeScreen(),
+      // home: BlocProvider(
+      //   create: (context) => AuthBloc(FirebaseAuthService.instance),
+      //   child: const AuthBlocHandle(),
+      // ), // No homescreen were there
     );
   }
 }

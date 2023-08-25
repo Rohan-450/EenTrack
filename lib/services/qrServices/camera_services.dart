@@ -5,13 +5,13 @@ class CameraSrevices extends StatefulWidget {
   const CameraSrevices({Key? key}) : super(key: key);
 
   @override
-  _CameraSrevicesState createState() => _CameraSrevicesState();
+  State<CameraSrevices> createState() => _CameraSrevicesState();
 }
 
 class _CameraSrevicesState extends State<CameraSrevices> {
   final _qrBarCodeScannerDialogPlugin = QrBarCodeScannerDialog();
   String? code;
-  bool _isScanning = false; // Track if scanning process has started
+  bool _isScanning = false;
 
   @override
   void initState() {
@@ -40,10 +40,11 @@ class _CameraSrevicesState extends State<CameraSrevices> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: Text(code ?? 'Scanning...'),
-      ),
-    );
+        appBar: AppBar(),
+        body: IconButton(
+            onPressed: () {
+              _openCameraAndScan();
+            },
+            icon: Icon(Icons.qr_code_scanner_rounded)));
   }
 }
