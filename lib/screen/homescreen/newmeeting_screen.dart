@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_f/screen/authscreens/shared/custombuttons.dart';
+
+import '../authscreens/shared/custombuttons.dart';
 
 class NewMeetingScreen extends StatelessWidget {
   const NewMeetingScreen({super.key});

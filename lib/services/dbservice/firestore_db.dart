@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:project_f/models/meeting_model.dart';
-import 'package:project_f/models/user_model.dart';
-import 'package:project_f/services/dbservice/db_model.dart';
 
+import '../../models/meeting_model.dart';
+import '../../models/user_model.dart';
 import 'db_exception.dart';
+import 'db_model.dart';
 
 class FirestoreDB implements DBModel {
   final String uid;

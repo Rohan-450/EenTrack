@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:project_f/services/authservices/auth_model.dart';
-import 'package:project_f/services/authservices/authuser.dart';
 
 import 'auth_exception.dart';
+import 'auth_model.dart';
+import 'authuser.dart';
 
 class FirebaseAuthService implements AuthModel {
   final FirebaseAuth _auth = FirebaseAuth.instance;

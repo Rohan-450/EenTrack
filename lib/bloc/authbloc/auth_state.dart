@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart' show immutable;
 import 'package:equatable/equatable.dart';
-import 'package:project_f/services/authservices/authuser.dart';
+
+import '../../services/authservices/authuser.dart';
 
 @immutable
 class AuthState {

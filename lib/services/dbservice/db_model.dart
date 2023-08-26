@@ -1,5 +1,5 @@
-import 'package:project_f/models/meeting_model.dart';
-import 'package:project_f/models/user_model.dart';
+import '../../models/meeting_model.dart';
+import '../../models/user_model.dart';
 
 abstract class DBModel {
   // User

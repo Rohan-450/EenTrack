@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:project_f/bloc/authbloc/auth_events.dart';
-import 'package:project_f/bloc/authbloc/authbloc.dart';
-import 'package:project_f/screen/homescreen/newmeeting_screen.dart';
-import 'package:project_f/screen/homescreen/profile_screen.dart';
-import 'package:project_f/screen/homescreen/scanner_screen.dart';
+
+import '../../bloc/authbloc/auth_events.dart';
+import '../../bloc/authbloc/authbloc.dart';
+import 'newmeeting_screen.dart';
+import 'profile_screen.dart';
+import 'scanner_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final String? error;

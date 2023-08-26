@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_f/screen/authscreens/shared/customcontainer.dart';
+
+import '../authscreens/shared/customcontainer.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

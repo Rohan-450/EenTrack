@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_f/screen/userCredentialscreen/usercredential_view.dart';
+
+import 'usercredential_view.dart';
 
 class UserCredForm extends StatelessWidget {
   final String email;

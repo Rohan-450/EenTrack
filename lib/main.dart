@@ -1,17 +1,18 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:project_f/bloc/authbloc/auth_events.dart';
-import 'package:project_f/bloc/authbloc/auth_state.dart';
-import 'package:project_f/bloc/authbloc/authbloc.dart';
-import 'package:project_f/screen/authscreens/loginscreen/login_screen.dart';
-import 'package:project_f/screen/authscreens/registerscreen/register_screen.dart';
-import 'package:project_f/screen/authscreens/verificationscreen/verification_screen.dart';
-import 'package:project_f/screen/homescreen/home_screen.dart';
-import 'package:project_f/screen/shared/loading_screen.dart';
-import 'package:project_f/screen/userCredentialscreen/usercredential_screen.dart';
-import 'package:project_f/services/authservices/firebase_auth_service.dart';
+import 'bloc/authbloc/auth_events.dart';
+import 'bloc/authbloc/auth_state.dart';
+import 'bloc/authbloc/authbloc.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
+
+import 'screen/authscreens/loginscreen/login_screen.dart';
+import 'screen/authscreens/registerscreen/register_screen.dart';
+import 'screen/authscreens/verificationscreen/verification_screen.dart';
+import 'screen/homescreen/home_screen.dart';
+import 'screen/shared/loading_screen.dart';
+import 'screen/userCredentialscreen/usercredential_screen.dart';
+import 'services/authservices/firebase_auth_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

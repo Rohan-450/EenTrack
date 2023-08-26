@@ -1,8 +1,9 @@
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:project_f/services/storageservice/storage_exception.dart';
-import 'package:project_f/services/storageservice/storage_model.dart';
+
+import 'storage_exception.dart';
+import 'storage_model.dart';
 
 class FirebaseStorageService implements StorageModel {
   final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:project_f/screen/authscreens/shared/custombuttons.dart';
-import 'package:project_f/screen/authscreens/shared/customtextbox.dart';
+
+import '../authscreens/shared/custombuttons.dart';
+import '../authscreens/shared/customtextbox.dart';
 
 class UserCredFormView extends StatefulWidget {
   final String email;

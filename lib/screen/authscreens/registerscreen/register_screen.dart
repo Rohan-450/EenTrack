@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_f/screen/authscreens/registerscreen/register_view.dart';
+
+import 'register_view.dart';
 
 class RegisterScreen extends StatelessWidget {
   final String email;

@@ -2,9 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:project_f/bloc/authbloc/auth_events.dart';
-import 'package:project_f/bloc/authbloc/authbloc.dart';
-import 'package:project_f/screen/authscreens/shared/custombuttons.dart';
+
+import '../../../bloc/authbloc/auth_events.dart';
+import '../../../bloc/authbloc/authbloc.dart';
+import '../shared/custombuttons.dart';
 
 class VerificationView extends StatelessWidget {
   final bool isLoading;
