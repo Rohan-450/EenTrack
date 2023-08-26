@@ -1,6 +1,6 @@
 {
-    "name": "project_f",
-    "short_name": "project_f",
+    "name": "eentrack",
+    "short_name": "eentrack",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
