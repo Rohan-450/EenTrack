@@ -25,10 +25,6 @@ class _QrCodeGeneratorState extends State<QrCodeGenerator> {
     size = widget.size;
   }
 
-  void _exportData() {
-    print('Exporting data...');
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +33,7 @@ class _QrCodeGeneratorState extends State<QrCodeGenerator> {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.download),
+            icon: const Icon(Icons.file_upload_outlined),
           )
         ],
       ),

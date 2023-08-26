@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_f/bloc/authbloc/auth_events.dart';
 import 'package:project_f/bloc/authbloc/authbloc.dart';
+import 'package:project_f/screen/dialog/alart_dialog.dart';
 import 'package:project_f/screen/homescreen/newmeeting_screen.dart';
 import 'package:project_f/screen/homescreen/profile_screen.dart';
 import 'package:project_f/screen/homescreen/scanner_screen.dart';
@@ -46,39 +47,6 @@ class _HomeScreenState extends State<HomeScreen> {
     NewMeetingScreen()
   ];
 
-  Future<void> showAllertDialogBox(BuildContext context) async {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text(
-              'Are you sure to log out',
-              style: TextStyle(
-                fontSize: 20,
-              ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Cancel'),
-              ),
-              TextButton(
-                onPressed: () {
-                  _onLogout(context);
-                },
-                child: const Text('Logout'),
-              ),
-            ],
-          );
-        });
-  }
-
-  void _onLogout(BuildContext context) {
-    BlocProvider.of<AuthBloc>(context).add(AuthEventLogout());
-  }
-
   @override
   void initState() {
     super.initState();
@@ -109,7 +77,14 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () => showAllertDialogBox(context), //_onLogout(context),
+            onPressed: () {
+              showAlartDialog('Logout', 'You sure want to logout?', context)
+                  .then((value) {
+                if (value == Option.ok) {
+                  BlocProvider.of<AuthBloc>(context).add(AuthEventLogout());
+                }
+              });
+            }, //_onLogout(context),
             icon: const Icon(Icons.logout),
           )
         ],
