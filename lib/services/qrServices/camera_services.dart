@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:qr_bar_code_scanner_dialog/qr_bar_code_scanner_dialog.dart';
 
-class ScannerScreen extends StatefulWidget {
-  const ScannerScreen({super.key});
+class CameraSrevices extends StatefulWidget {
+  const CameraSrevices({Key? key}) : super(key: key);
 
   @override
-  State<ScannerScreen> createState() => _ScannerScreenState();
+  State<CameraSrevices> createState() => _CameraSrevicesState();
 }
 
-class _ScannerScreenState extends State<ScannerScreen> {
+class _CameraSrevicesState extends State<CameraSrevices> {
   final _qrBarCodeScannerDialogPlugin = QrBarCodeScannerDialog();
   String? code;
   bool _isScanning = false;
@@ -30,8 +30,9 @@ class _ScannerScreenState extends State<ScannerScreen> {
     _qrBarCodeScannerDialogPlugin.getScannedQrBarCode(
       context: context,
       onCode: (code) {
-        this.code = code;
-        Navigator.of(context).pop();
+        setState(() {
+          this.code = code;
+        });
       },
     );
   }
@@ -40,16 +41,10 @@ class _ScannerScreenState extends State<ScannerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(),
-        body: Center(
-          child: IconButton(
+        body: IconButton(
             onPressed: () {
               _openCameraAndScan();
             },
-            icon: const Icon(
-              Icons.qr_code_scanner_rounded,
-              size: 250,
-            ),
-          ),
-        ));
+            icon: Icon(Icons.qr_code_scanner_rounded)));
   }
 }

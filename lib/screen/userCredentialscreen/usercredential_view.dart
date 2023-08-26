@@ -93,6 +93,7 @@ class _UserCredFormViewState extends State<UserCredFormView> {
                     const SizedBox(
                       width: 10,
                     ),
+
                     Expanded(
                       child: CustomTextBox(
                         label: "Semester",

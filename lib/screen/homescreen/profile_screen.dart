@@ -2,73 +2,89 @@ import 'package:flutter/material.dart';
 
 import '../authscreens/shared/customcontainer.dart';
 
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+class ProfileScreen extends StatelessWidget {
+  final String name;
+  final String department;
+  final String rollNo;
+  final String semester;
+  final String github;
+  final String linkedin;
+  const ProfileScreen({
+    super.key,
+    required this.name,
+    required this.department,
+    required this.rollNo,
+    required this.semester,
+    required this.github,
+    required this.linkedin,
+  });
 
-  @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(8.0),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircleAvatar(
+            const CircleAvatar(
               backgroundImage: AssetImage('assets/profile_dummy.jpg'),
               radius: 60,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Text('Hello Robert!'),
-            SizedBox(
+            Text(
+              'Hello $name',
+              style: const TextStyle(
+                  color: Colors.blue,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w700,
+                  decoration: TextDecoration.none),
+            ),
+            const SizedBox(
               height: 20,
             ),
             CustomContainer(
-              text: 'J Robert Openheimer',
+              text: name,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             CustomContainer(
-              text: 'Atomic Science Department',
+              text: department,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Row(
               children: [
                 Expanded(
                   child: CustomContainer(
-                    text: 'Roll No 69',
+                    text: rollNo,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Expanded(
                   child: CustomContainer(
-                    text: 'Sem 4',
+                    text: semester,
                   ),
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             CustomContainer(
-              text: 'FuckYouFuckoff@github.com',
+              text: github,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             CustomContainer(
-              text: 'FuckYouFuckoff@linkedin.com',
+              text: linkedin,
             ),
           ],
         ),
