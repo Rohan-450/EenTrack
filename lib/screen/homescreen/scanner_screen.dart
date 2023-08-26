@@ -45,7 +45,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
             onPressed: () {
               _openCameraAndScan();
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.qr_code_scanner_rounded,
               size: 250,
             ),

@@ -35,19 +35,9 @@ class _QrCodeGeneratorState extends State<QrCodeGenerator> {
       appBar: AppBar(
         title: const Text('Scanner Screen'),
         actions: [
-          PopupMenuButton(
-            itemBuilder: (BuildContext context) {
-              return [
-                const PopupMenuItem(
-                  child: Text('Export'),
-                ),
-              ];
-            },
-            onSelected: (value) {
-              if (value == 'Export') {
-                _exportData;
-              }
-            },
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.download),
           )
         ],
       ),
