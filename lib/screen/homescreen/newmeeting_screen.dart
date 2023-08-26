@@ -18,30 +18,23 @@ class NewMeetingScreen extends StatelessWidget {
             title: const Text(
               'Enter Meeting Details',
             ),
-            content: SizedBox(
-              height: MediaQuery.of(context).size.height * .4,
-              child: Column(
-                children: [
-                  TextField(
-                    controller: nameController,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          color: Colors.grey,
-                          width: 1,
-                        )),
-                    child: TextField(
-                      controller: descriptionController,
-                      maxLines: 5,
-                    ),
-                  )
-                ],
-              ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: nameController,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextField(
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)))),
+                  controller: descriptionController,
+                  maxLines: null,
+                )
+              ],
             ),
           );
         });

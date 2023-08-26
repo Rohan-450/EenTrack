@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
         seedColor: Colors.cyan,
         brightness: Brightness.dark,
       )),
+      // home: UserCredentialScreen(),
       home: BlocProvider(
         create: (context) => AuthBloc(FirebaseAuthService.instance),
         child: const AuthBlocHandle(),

@@ -46,6 +46,35 @@ class _HomeScreenState extends State<HomeScreen> {
     NewMeetingScreen()
   ];
 
+  Future<void> showAllertDialogBox(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text(
+              'Are you sure to log out',
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
+                  _onLogout(context);
+                },
+                child: const Text('Logout'),
+              ),
+            ],
+          );
+        });
+  }
+
   void _onLogout(BuildContext context) {
     BlocProvider.of<AuthBloc>(context).add(AuthEventLogout());
   }
@@ -80,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () => _onLogout(context),
+            onPressed: () => showAllertDialogBox(context), //_onLogout(context),
             icon: const Icon(Icons.logout),
           )
         ],
