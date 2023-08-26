@@ -1,5 +1,5 @@
 <div align="center">
- <kbd><img src="https://github.com/statuscode-418/EenTrack/assets/124903208/5e584551-4c30-43e5-b28c-335b3e078211" width="200" height="200"/></kbd>
+ <kbd><img src="https://github.com/statuscode-418/EenTrack/assets/124903208/5e584551-4c30-43e5-b28c-335b3e078211" width="100" height="100"/></kbd>
 </div>
 <h1 align="center"> EenTrack </h1>
 <br>
