@@ -8,6 +8,7 @@ import 'package:project_f/screen/authscreens/registerscreen/register_screen.dart
 import 'package:project_f/screen/authscreens/verificationscreen/verification_screen.dart';
 import 'package:project_f/screen/homescreen/home_screen.dart';
 import 'package:project_f/screen/shared/loading_screen.dart';
+import 'package:project_f/screen/userCredentialscreen/usercredential_screen.dart';
 import 'package:project_f/services/authservices/firebase_auth_service.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'EenTrack',
       theme: ThemeData.dark(
         useMaterial3: true,
       ).copyWith(
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         seedColor: Colors.cyan,
         brightness: Brightness.dark,
       )),
+
       home: BlocProvider(
         create: (context) => AuthBloc(FirebaseAuthService.instance),
         child: const AuthBlocHandle(),
@@ -89,6 +91,11 @@ class _AuthBlocHandleState extends State<AuthBlocHandle> {
               email: state.email,
               isLoading: state.loading != null,
               error: state.error,
+            );
+          }
+          if (state is AuthStateNeedDetails) {
+            return UserCredForm(
+              email: state.email,
             );
           }
 

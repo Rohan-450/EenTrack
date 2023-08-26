@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:project_f/screen/userCredentialscreen/usercredential_view.dart';
 
-class UserCredentialScreen extends StatelessWidget {
-  const UserCredentialScreen({super.key});
+class UserCredForm extends StatelessWidget {
+  final String email;
+  const UserCredForm({
+    super.key,
+    required this.email,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +18,7 @@ class UserCredentialScreen extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: const UserCredentialView(),
+        child: UserCredFormView(email: email),
       ),
     );
   }

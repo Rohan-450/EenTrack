@@ -69,3 +69,15 @@ class AuthStateNeedVerify extends AuthState with EquatableMixin {
   @override
   List<Object?> get props => [error, loading];
 }
+
+class AuthStateNeedDetails extends AuthState {
+  final String email;
+  const AuthStateNeedDetails({
+    required this.email,
+    String? loading,
+    String? error,
+  }) : super(
+          loading: loading,
+          error: error,
+        );
+}
