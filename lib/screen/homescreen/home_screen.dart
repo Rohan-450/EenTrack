@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc/authbloc/auth_events.dart';
 import '../../bloc/authbloc/authbloc.dart';
+import '../dialog/alart_dialog.dart';
 import 'newmeeting_screen.dart';
 import 'profile_screen.dart';
 import 'scanner_screen.dart';
