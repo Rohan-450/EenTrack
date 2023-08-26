@@ -4,13 +4,13 @@ import 'package:project_f/screen/authscreens/registerscreen/register_view.dart';
 class RegisterScreen extends StatelessWidget {
   final String email;
   final String password;
-  final bool isLoading;
+  final String? loading;
   final String? error;
   const RegisterScreen({
     super.key,
     this.email = '',
     this.password = '',
-    this.isLoading = false,
+    this.loading,
     this.error,
   });
 
@@ -37,7 +37,7 @@ class RegisterScreen extends StatelessWidget {
         child: RegisterView(
           email: email,
           password: password,
-          isLoading: isLoading,
+          loading: loading,
         ),
       ),
     );

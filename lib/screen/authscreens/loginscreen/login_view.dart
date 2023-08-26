@@ -8,12 +8,12 @@ import 'package:project_f/screen/authscreens/shared/customtextbox.dart';
 class LoginView extends StatefulWidget {
   final String email;
   final String password;
-  final bool isLoading;
+  final String? isLoading;
   const LoginView({
     super.key,
     this.email = '',
     this.password = '',
-    this.isLoading = false,
+    this.isLoading,
   });
 
   @override
@@ -70,10 +70,12 @@ class _LoginViewState extends State<LoginView> {
                 const SizedBox(
                   height: 50,
                 ),
-                const Text(
-                  "Welcome Back!",
+                Text(
+                  widget.isLoading == null
+                      ? 'Welcome back...'
+                      : widget.isLoading!,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
@@ -82,7 +84,7 @@ class _LoginViewState extends State<LoginView> {
                 CustomTextBox(
                   label: "Email",
                   initialValue: email,
-                  enabled: !widget.isLoading,
+                  enabled: widget.isLoading == null,
                   validator: validateEmail,
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
@@ -94,7 +96,7 @@ class _LoginViewState extends State<LoginView> {
                 CustomTextBox(
                     label: "Password",
                     initialValue: password,
-                    enabled: !widget.isLoading,
+                    enabled: widget.isLoading == null,
                     validator: validatePassword,
                     keyboardType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.done,
@@ -105,7 +107,7 @@ class _LoginViewState extends State<LoginView> {
                 const SizedBox(height: 20),
                 CustomElevatedButton(
                   text: 'Login',
-                  enabled: !widget.isLoading,
+                  enabled: widget.isLoading == null,
                   onPressed: () {
                     if (!_formKey.currentState!.validate()) return;
                     BlocProvider.of<AuthBloc>(context).add(AuthEventLogin(
@@ -117,7 +119,7 @@ class _LoginViewState extends State<LoginView> {
                 const SizedBox(width: 10),
                 CustomTextButton(
                   text: "Don't have an account? register here...",
-                  enabled: !widget.isLoading,
+                  enabled: widget.isLoading == null,
                   onPressed: () {
                     BlocProvider.of<AuthBloc>(context).add(
                       AuthEventShowRegister(email: email, password: password),

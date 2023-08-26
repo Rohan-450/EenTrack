@@ -7,8 +7,8 @@ class AuthState {
   final String? loading;
   final String? error;
   const AuthState({
-    this.loading = 'Please wait...',
-    this.error = 'Something went wrong!',
+    this.loading,
+    this.error,
   });
 }
 
@@ -68,4 +68,16 @@ class AuthStateNeedVerify extends AuthState with EquatableMixin {
         );
   @override
   List<Object?> get props => [error, loading];
+}
+
+class AuthStateNeedDetails extends AuthState {
+  final String email;
+  const AuthStateNeedDetails({
+    required this.email,
+    String? loading,
+    String? error,
+  }) : super(
+          loading: loading,
+          error: error,
+        );
 }

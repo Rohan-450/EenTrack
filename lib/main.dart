@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'EenTrack',
       theme: ThemeData.dark(
         useMaterial3: true,
       ).copyWith(
@@ -35,7 +35,6 @@ class MyApp extends StatelessWidget {
         seedColor: Colors.cyan,
         brightness: Brightness.dark,
       )),
-      // home: UserCredentialScreen(),
       home: BlocProvider(
         create: (context) => AuthBloc(FirebaseAuthService.instance),
         child: const AuthBlocHandle(),
@@ -79,7 +78,7 @@ class _AuthBlocHandleState extends State<AuthBlocHandle> {
             return LoginScreen(
               email: state.email,
               password: state.password,
-              isLoading: state.loading != null,
+              isLoading: state.loading,
               error: state.error,
             );
           }
@@ -87,7 +86,7 @@ class _AuthBlocHandleState extends State<AuthBlocHandle> {
             return RegisterScreen(
               email: state.email,
               password: state.password,
-              isLoading: state.loading != null,
+              loading: state.loading,
               error: state.error,
             );
           }
@@ -97,6 +96,11 @@ class _AuthBlocHandleState extends State<AuthBlocHandle> {
               email: state.email,
               isLoading: state.loading != null,
               error: state.error,
+            );
+          }
+          if (state is AuthStateNeedDetails) {
+            return UserCredForm(
+              email: state.email,
             );
           }
 

@@ -2,7 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_f/firebase_options.dart';
 import 'package:project_f/services/authservices/auth_exception.dart';
-import 'package:project_f/services/authservices/authmodel.dart';
+import 'package:project_f/services/authservices/auth_model.dart';
+import 'package:project_f/services/dbservice/db_model.dart';
 
 import 'auth_events.dart';
 import 'auth_state.dart';
