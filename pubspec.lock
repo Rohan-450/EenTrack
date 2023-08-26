@@ -296,6 +296,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.5"
+  qr_bar_code:
+    dependency: "direct main"
+    description:
+      name: qr_bar_code
+      sha256: f74a31d5d3bbd67c64d7045eead421c88bca9d27e668331fa6c3877bd4ccf6e4
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
+  qr_bar_code_scanner_dialog:
+    dependency: "direct main"
+    description:
+      name: qr_bar_code_scanner_dialog
+      sha256: dcb937816d4e562141530265bd1ca39fe00f57000fd79e26c163c957d443e9e4
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.5"
+  qr_code_scanner:
+    dependency: transitive
+    description:
+      name: qr_code_scanner
+      sha256: f23b68d893505a424f0bd2e324ebea71ed88465d572d26bb8d2e78a4749591fd
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   sky_engine:
     dependency: transitive
     description: flutter

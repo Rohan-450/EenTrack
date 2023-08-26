@@ -35,7 +35,6 @@ class MyApp extends StatelessWidget {
         seedColor: Colors.cyan,
         brightness: Brightness.dark,
       )),
-
       home: BlocProvider(
         create: (context) => AuthBloc(FirebaseAuthService.instance),
         child: const AuthBlocHandle(),
@@ -67,6 +66,12 @@ class _AuthBlocHandleState extends State<AuthBlocHandle> {
             return HomeScreen(
               isLoading: state.loading != null,
               error: state.error,
+              department: '',
+              github: '',
+              linkedin: '',
+              name: '',
+              rollNo: '',
+              semester: '',
             );
           }
           if (state is AuthStateNeedLogin) {
