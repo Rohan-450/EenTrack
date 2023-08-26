@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_f/screen/authscreens/shared/custombuttons.dart';
 import 'package:project_f/screen/authscreens/shared/customtextbox.dart';
+import 'package:project_f/screen/homescreen/home_screen.dart';
+import 'package:project_f/screen/homescreen/profile_screen.dart';
 
 class UserCredentialView extends StatefulWidget {
   const UserCredentialView({super.key});
@@ -114,7 +116,22 @@ class _UserCredentialViewState extends State<UserCredentialView> {
               ),
               CustomElevatedButton(
                 text: "Submit",
-                onPressed: () {},
+                onPressed: () {
+//to be implemented using block
+
+                  if (_formKey.currentState!.validate()) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => HomeScreen(
+                                name: name,
+                                department: department,
+                                rollNo: rollNo,
+                                semester: semester,
+                                github: github,
+                                linkedin: linkedin)));
+                  }
+                },
               ),
             ])),
           )),

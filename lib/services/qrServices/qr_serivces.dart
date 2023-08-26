@@ -25,11 +25,31 @@ class _QrCodeGeneratorState extends State<QrCodeGenerator> {
     size = widget.size;
   }
 
+  void _exportData() {
+    print('Exporting data...');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Scanner Screen'),
+        actions: [
+          PopupMenuButton(
+            itemBuilder: (BuildContext context) {
+              return [
+                const PopupMenuItem(
+                  child: Text('Export'),
+                ),
+              ];
+            },
+            onSelected: (value) {
+              if (value == 'Export') {
+                _exportData;
+              }
+            },
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -57,6 +77,10 @@ class _QrCodeGeneratorState extends State<QrCodeGenerator> {
               ),
             ),
             const SizedBox(
+              height: 10,
+            ),
+            const Text('Current Participants'),
+            const SizedBox(
               height: 20,
             ),
             Container(
@@ -74,7 +98,10 @@ class _QrCodeGeneratorState extends State<QrCodeGenerator> {
                             itemlist[index],
                           )),
                       subtitle: const Text('2nd Year'),
-                      trailing: const Text('16900122180'),
+                      trailing: const Text(
+                        '16900122180',
+                        style: TextStyle(fontSize: 15),
+                      ),
                     ),
                   );
                 }),

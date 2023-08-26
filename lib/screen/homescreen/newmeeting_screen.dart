@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:project_f/screen/authscreens/shared/custombuttons.dart';
-import 'package:project_f/screen/homescreen/meeting_details_screen.dart';
 
 import '../../services/qrServices/qr_serivces.dart';
 
@@ -8,6 +7,45 @@ class NewMeetingScreen extends StatelessWidget {
   NewMeetingScreen({Key? key}) : super(key: key);
 
   final List<String> eventList = ['Event 1', 'Event 2', 'Event 3'];
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+
+  Future<void> showAllertDialogBox(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text(
+              'Enter Meeting Details',
+            ),
+            content: SizedBox(
+              height: MediaQuery.of(context).size.height * .4,
+              child: Column(
+                children: [
+                  TextField(
+                    controller: nameController,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: Colors.grey,
+                          width: 1,
+                        )),
+                    child: TextField(
+                      controller: descriptionController,
+                      maxLines: 5,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +71,7 @@ class NewMeetingScreen extends StatelessWidget {
                   itemBuilder: (BuildContext context, index) {
                     return GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const MeetingDetailsScreen()));
+                        showAllertDialogBox(context);
                       },
                       child: Card(
                         child: ListTile(

@@ -8,6 +8,7 @@ import 'package:project_f/screen/authscreens/registerscreen/register_screen.dart
 import 'package:project_f/screen/authscreens/verificationscreen/verification_screen.dart';
 import 'package:project_f/screen/homescreen/home_screen.dart';
 import 'package:project_f/screen/shared/loading_screen.dart';
+import 'package:project_f/screen/userCredentialscreen/usercredential_screen.dart';
 import 'package:project_f/services/authservices/firebase_auth_service.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -34,11 +35,10 @@ class MyApp extends StatelessWidget {
         seedColor: Colors.cyan,
         brightness: Brightness.dark,
       )),
-      home: HomeScreen(),
-      // home: BlocProvider(
-      //   create: (context) => AuthBloc(FirebaseAuthService.instance),
-      //   child: const AuthBlocHandle(),
-      // ), // No homescreen were there
+      home: BlocProvider(
+        create: (context) => AuthBloc(FirebaseAuthService.instance),
+        child: const AuthBlocHandle(),
+      ), // No homescreen were there
     );
   }
 }
@@ -66,6 +66,12 @@ class _AuthBlocHandleState extends State<AuthBlocHandle> {
             return HomeScreen(
               isLoading: state.loading != null,
               error: state.error,
+              department: '',
+              github: '',
+              linkedin: '',
+              name: '',
+              rollNo: '',
+              semester: '',
             );
           }
           if (state is AuthStateNeedLogin) {

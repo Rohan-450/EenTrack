@@ -13,6 +13,12 @@ class HomeScreen extends StatefulWidget {
     Key? key,
     this.isLoading = false,
     this.error,
+    required String name,
+    required String department,
+    required String rollNo,
+    required String semester,
+    required String github,
+    required String linkedin,
   }) : super(key: key);
 
   @override
@@ -29,7 +35,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<Widget> _screens = [
     const ScannerScreen(),
-    const ProfileScreen(),
+    const ProfileScreen(
+      department: '',
+      github: '',
+      linkedin: '',
+      rollNo: '',
+      name: '',
+      semester: '',
+    ),
     NewMeetingScreen()
   ];
 
