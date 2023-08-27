@@ -18,7 +18,7 @@ class CustomContainer extends StatelessWidget {
       height: 50,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(7),
-        color: containerColor ?? Colors.grey,
+        color: containerColor ?? Colors.grey[900],
       ),
       child: Center(
         child: Text(

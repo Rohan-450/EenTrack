@@ -1,3 +1,4 @@
+import 'package:eentrack/services/dbservice/firestore_db.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc/authbloc/auth_events.dart';
@@ -37,7 +38,8 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
       )),
       home: BlocProvider(
-        create: (context) => AuthBloc(FirebaseAuthService.instance),
+        create: (context) =>
+            AuthBloc(FirebaseAuthService.instance, FirestoreDB()),
         child: const AuthBlocHandle(),
       ), // No homescreen were there
     );
@@ -67,12 +69,7 @@ class _AuthBlocHandleState extends State<AuthBlocHandle> {
             return HomeScreen(
               isLoading: state.loading != null,
               error: state.error,
-              department: '',
-              github: '',
-              linkedin: '',
-              name: '',
-              rollNo: '',
-              semester: '',
+              user: state.user,
             );
           }
           if (state is AuthStateNeedLogin) {

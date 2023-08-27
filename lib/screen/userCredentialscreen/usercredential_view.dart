@@ -1,4 +1,7 @@
+import 'package:eentrack/bloc/authbloc/auth_events.dart';
+import 'package:eentrack/bloc/authbloc/authbloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../authscreens/shared/custombuttons.dart';
 import '../authscreens/shared/customtextbox.dart';
@@ -42,7 +45,7 @@ class _UserCredFormViewState extends State<UserCredFormView> {
               child: SingleChildScrollView(
                   child: Column(children: [
                 RawMaterialButton(
-                fillColor: Colors.grey,
+                  fillColor: Colors.grey,
                   onPressed: () {},
                   elevation: 2.0,
                   shape: const CircleBorder(),
@@ -64,6 +67,12 @@ class _UserCredFormViewState extends State<UserCredFormView> {
                 ),
                 CustomTextBox(
                   label: "Enter your full name",
+                  validator: (p0) {
+                    if (p0 == null || p0.isEmpty) {
+                      return 'Please enter your name';
+                    }
+                    return null;
+                  },
                   onChanged: (name) {
                     this.name = name;
                   },
@@ -73,6 +82,15 @@ class _UserCredFormViewState extends State<UserCredFormView> {
                 ),
                 CustomTextBox(
                   label: "Enter your department",
+                  validator: (p0) {
+                    if (p0 == null || p0.isEmpty) {
+                      return 'Please enter your department';
+                    }
+                    if (p0.length > 3 || p0.length < 3) {
+                      return 'Please enter a valid department';
+                    }
+                    return null;
+                  },
                   onChanged: (department) {
                     this.department = department;
                   },
@@ -85,6 +103,12 @@ class _UserCredFormViewState extends State<UserCredFormView> {
                     Expanded(
                       child: CustomTextBox(
                         label: "Roll number",
+                        validator: (p0) {
+                          if (p0 == null || p0.isEmpty) {
+                            return 'Please enter your roll number';
+                          }
+                          return null;
+                        },
                         onChanged: (rollNo) {
                           this.rollNo = rollNo;
                         },
@@ -93,10 +117,18 @@ class _UserCredFormViewState extends State<UserCredFormView> {
                     const SizedBox(
                       width: 10,
                     ),
-
                     Expanded(
                       child: CustomTextBox(
                         label: "Semester",
+                        validator: (p0) {
+                          if (p0 == null || p0.isEmpty) {
+                            return 'Please enter your semester';
+                          }
+                          if (p0.length != 3) {
+                            return 'Please enter a valid semester';
+                          }
+                          return null;
+                        },
                         onChanged: (semester) {
                           this.semester = semester;
                         },
@@ -106,11 +138,11 @@ class _UserCredFormViewState extends State<UserCredFormView> {
                 ),
                 const SizedBox(height: 20),
                 CustomTextBox(
-                    label: 'Email',
-                    onChanged: (_){},
-                    initialValue: widget.email,
-                    enabled: false,
-                    ),
+                  label: 'Email',
+                  onChanged: (_) {},
+                  initialValue: widget.email,
+                  enabled: false,
+                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -134,7 +166,22 @@ class _UserCredFormViewState extends State<UserCredFormView> {
                 ),
                 CustomElevatedButton(
                   text: "Submit",
-                  onPressed: () {},
+                  onPressed: () {
+                    if (!_formKey.currentState!.validate()) {
+                      return;
+                    }
+                    BlocProvider.of<AuthBloc>(context).add(
+                      AuthEventAddUserDetails(
+                        name: name,
+                        department: department,
+                        email: email,
+                        rollNo: rollNo,
+                        semester: semester,
+                        github: github,
+                        linkedin: linkedin,
+                      ),
+                    );
+                  },
                 ),
               ])),
             )),

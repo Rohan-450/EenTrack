@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart' show immutable;
 import 'package:equatable/equatable.dart';
 
+import '../../models/user_model.dart';
 import '../../services/authservices/authuser.dart';
 
 @immutable
@@ -18,11 +19,12 @@ class AuthStateUninitialized extends AuthState {}
 class AuthStateLoading extends AuthState {}
 
 class AuthStateLoggedIn extends AuthState with EquatableMixin {
-  final AuthUser user;
-  const AuthStateLoggedIn({required this.user});
+  final AuthUser authuser;
+  final User user;
+  const AuthStateLoggedIn({required this.authuser, required this.user});
 
   @override
-  List<Object?> get props => [user];
+  List<Object?> get props => [authuser];
 }
 
 class AuthStateNeedLogin extends AuthState with EquatableMixin {

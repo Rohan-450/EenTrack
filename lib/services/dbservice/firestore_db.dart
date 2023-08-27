@@ -6,14 +6,12 @@ import 'db_exception.dart';
 import 'db_model.dart';
 
 class FirestoreDB implements DBModel {
-  final String uid;
-  FirestoreDB(this.uid);
   final _db = FirebaseFirestore.instance;
 
   @override
   Future<User> createUser(User user) async {
     try {
-      await _db.collection('users').doc(uid).set(user.toMap());
+      await _db.collection('users').doc(user.uid).set(user.toMap());
     } on FirebaseException catch (e) {
       throw DBException(e.message ?? 'Unknown error');
     } on Exception catch (e) {
@@ -53,7 +51,7 @@ class FirestoreDB implements DBModel {
   @override
   Future<User> updateUser(User user) async {
     try {
-      await _db.collection('users').doc(uid).update(user.toMap());
+      await _db.collection('users').doc(user.uid).update(user.toMap());
     } on FirebaseException catch (e) {
       throw DBException(e.message ?? 'Unknown error');
     } on Exception catch (e) {
@@ -64,9 +62,13 @@ class FirestoreDB implements DBModel {
 
   // Meetings
   @override
-  Future<Meeting> createMeeting(Meeting meeting) async {
+  Future<Meeting> createMeeting(String uid, Meeting meeting) async {
     try {
-      await _db.collection('meetings').doc(meeting.id).set(meeting.toMap());
+      await _db
+          .collection('users')
+          .doc(uid)
+          .collection('meetings')
+          .add(meeting.toMap());
     } on FirebaseException catch (e) {
       throw DBException(e.message ?? 'Unknown error');
     } on Exception catch (e) {
@@ -76,9 +78,14 @@ class FirestoreDB implements DBModel {
   }
 
   @override
-  Future<Meeting> updateMeeting(Meeting meeting) async {
+  Future<Meeting> updateMeeting(String uid, Meeting meeting) async {
     try {
-      await _db.collection('meetings').doc(meeting.id).update(meeting.toMap());
+      await _db
+          .collection('users')
+          .doc(uid)
+          .collection('meetings')
+          .doc(meeting.id)
+          .update(meeting.toMap());
     } on FirebaseException catch (e) {
       throw DBException(e.message ?? 'Unknown error');
     } on Exception catch (e) {
@@ -88,9 +95,14 @@ class FirestoreDB implements DBModel {
   }
 
   @override
-  Future<Meeting?> getMeeting(String id) async {
+  Future<Meeting?> getMeeting(String uid, String mid) async {
     try {
-      var snapshot = await _db.collection('meetings').doc(id).get();
+      var snapshot = await _db
+          .collection('users')
+          .doc(uid)
+          .collection('meetings')
+          .doc(mid)
+          .get();
       if (snapshot.exists) {
         return Meeting.fromMap(snapshot.data()!);
       } else {
@@ -107,11 +119,13 @@ class FirestoreDB implements DBModel {
   Stream<List<Meeting>> getMeetings(String uid) {
     try {
       return _db
+          .collection('users')
+          .doc(uid)
           .collection('meetings')
-          .where('host', isEqualTo: uid)
           .snapshots()
-          .map((snapshot) =>
-              snapshot.docs.map((doc) => Meeting.fromMap(doc.data())).toList());
+          .map((snapshot) {
+        return snapshot.docs.map((doc) => Meeting.fromMap(doc.data())).toList();
+      });
     } on FirebaseException catch (e) {
       throw DBException(e.message ?? 'Unknown error');
     } on Exception catch (e) {
@@ -120,9 +134,14 @@ class FirestoreDB implements DBModel {
   }
 
   @override
-  Future<void> deleteMeeting(String id) {
+  Future<void> deleteMeeting(String uid, String mid) async{
     try {
-      return _db.collection('meetings').doc(id).delete();
+      await _db
+          .collection('users')
+          .doc(uid)
+          .collection('meetings')
+          .doc(mid)
+          .delete();
     } on FirebaseException catch (e) {
       throw DBException(e.message ?? 'Unknown error');
     } on Exception catch (e) {

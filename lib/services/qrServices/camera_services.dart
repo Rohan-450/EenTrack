@@ -45,6 +45,6 @@ class _CameraSrevicesState extends State<CameraSrevices> {
             onPressed: () {
               _openCameraAndScan();
             },
-            icon: Icon(Icons.qr_code_scanner_rounded)));
+            icon: const Icon(Icons.qr_code_scanner_rounded)));
   }
 }

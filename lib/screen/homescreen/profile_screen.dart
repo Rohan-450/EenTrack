@@ -1,22 +1,13 @@
 import 'package:flutter/material.dart';
 
+import '../../models/user_model.dart';
 import '../authscreens/shared/customcontainer.dart';
 
 class ProfileScreen extends StatelessWidget {
-  final String name;
-  final String department;
-  final String rollNo;
-  final String semester;
-  final String github;
-  final String linkedin;
+  final User user;
   const ProfileScreen({
     super.key,
-    required this.name,
-    required this.department,
-    required this.rollNo,
-    required this.semester,
-    required this.github,
-    required this.linkedin,
+    required this.user,
   });
 
   @override
@@ -35,7 +26,7 @@ class ProfileScreen extends StatelessWidget {
               height: 20,
             ),
             Text(
-              'Hello $name',
+              'Hello ${user.name}!!',
               style: const TextStyle(
                   color: Colors.blue,
                   fontSize: 24,
@@ -46,13 +37,13 @@ class ProfileScreen extends StatelessWidget {
               height: 20,
             ),
             CustomContainer(
-              text: name,
+              text: user.name,
             ),
             const SizedBox(
               height: 20,
             ),
             CustomContainer(
-              text: department,
+              text: user.department,
             ),
             const SizedBox(
               height: 20,
@@ -61,7 +52,7 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: CustomContainer(
-                    text: rollNo,
+                    text: user.rollNo,
                   ),
                 ),
                 const SizedBox(
@@ -69,7 +60,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 Expanded(
                   child: CustomContainer(
-                    text: semester,
+                    text: user.semester,
                   ),
                 )
               ],
@@ -78,13 +69,13 @@ class ProfileScreen extends StatelessWidget {
               height: 20,
             ),
             CustomContainer(
-              text: github,
+              text: user.github ?? 'Not found',
             ),
             const SizedBox(
               height: 20,
             ),
             CustomContainer(
-              text: linkedin,
+              text: user.linkedin ?? 'Not found',
             ),
           ],
         ),

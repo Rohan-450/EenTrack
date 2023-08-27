@@ -1,3 +1,4 @@
+import 'package:eentrack/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,18 +10,14 @@ import 'profile_screen.dart';
 import 'scanner_screen.dart';
 
 class HomeScreen extends StatefulWidget {
+  final User user;
   final String? error;
   final bool isLoading;
   const HomeScreen({
     Key? key,
     this.isLoading = false,
     this.error,
-    required String name,
-    required String department,
-    required String rollNo,
-    required String semester,
-    required String github,
-    required String linkedin,
+    required this.user,
   }) : super(key: key);
 
   @override
@@ -29,24 +26,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 1;
-  final List<String> _appBarTitles = [
-    'Scanner',
-    'Profile',
-    'New Meeting',
-  ];
 
-  final List<Widget> _screens = [
-    const ScannerScreen(),
-    const ProfileScreen(
-      department: '',
-      github: '',
-      linkedin: '',
-      rollNo: '',
-      name: '',
-      semester: '',
-    ),
-    NewMeetingScreen()
-  ];
+  late final List<String> _appBarTitles;
+  late final List<Widget> _screens;
 
   @override
   void initState() {
@@ -60,6 +42,19 @@ class _HomeScreenState extends State<HomeScreen> {
         );
       });
     }
+
+    _screens = [
+      const ScannerScreen(),
+      ProfileScreen(
+        user: widget.user,
+      ),
+      NewMeetingScreen(),
+    ];
+    _appBarTitles = [
+      'Scanner',
+      'Profile',
+      'New Meeting',
+    ];
   }
 
   @override

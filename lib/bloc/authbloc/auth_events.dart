@@ -52,3 +52,22 @@ class AuthEventShowVerifyEmail extends AuthEvent {
     this.email = '',
   });
 }
+
+class AuthEventAddUserDetails extends AuthEvent {
+  final String name;
+  final String email;
+  final String rollNo;
+  final String department;
+  final String semester;
+  final String github;
+  final String linkedin;
+  const AuthEventAddUserDetails({
+    required this.name,
+    required this.email,
+    required this.rollNo,
+    required this.department,
+    required this.semester,
+    required this.github,
+    required this.linkedin,
+  });
+}

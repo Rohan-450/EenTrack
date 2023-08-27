@@ -1,3 +1,6 @@
+import 'package:eentrack/models/user_model.dart';
+import 'package:eentrack/services/dbservice/db_exception.dart';
+import 'package:eentrack/services/dbservice/db_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,7 +11,8 @@ import 'auth_events.dart';
 import 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc(AuthModel authProvider) : super(AuthStateUninitialized()) {
+  AuthBloc(AuthModel authProvider, DBModel dbprovider)
+      : super(AuthStateUninitialized()) {
     // Initialize the app
     on<AuthEventInit>(
       (event, emit) async {
@@ -16,18 +20,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           options: DefaultFirebaseOptions.currentPlatform,
         );
 
-        final user = authProvider.user;
-        if (user == null) {
+        final authuser = authProvider.user;
+        if (authuser == null) {
           emit(AuthStateNeedLogin());
           return;
         }
-        if (user.isVerified ?? false) {
-          emit(AuthStateLoggedIn(user: user));
+        if ((authuser.isVerified ?? false) == false) {
+          emit(AuthStateNeedVerify(
+            email: authuser.email!,
+          ));
+        }
+        var user = await dbprovider.getUser(authuser.uid);
+        if (user == null) {
+          emit(AuthStateNeedDetails(
+            email: authuser.email!,
+          ));
           return;
         }
-        emit(AuthStateNeedVerify(
-          email: user.email!,
-        ));
+        emit(AuthStateLoggedIn(authuser: authuser, user: user));
       },
     );
 
@@ -74,8 +84,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       ));
 
       try {
-        var user = await authProvider.loginWithEmail(email, password);
-        if (user == null) {
+        var authuser = await authProvider.loginWithEmail(email, password);
+        if (authuser == null) {
           emit(AuthStateNeedLogin(
             email: email,
             password: password,
@@ -83,13 +93,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           ));
           return;
         }
-        if (!(user.isVerified ?? false)) {
+        if (!(authuser.isVerified ?? false)) {
           emit(AuthStateNeedVerify(
-            email: user.email!,
+            email: authuser.email!,
           ));
           return;
         }
-        emit(AuthStateLoggedIn(user: user));
+        var user = await dbprovider.getUser(authuser.uid);
+        if (user == null) {
+          emit(AuthStateNeedDetails(
+            email: authuser.email!,
+          ));
+          return;
+        }
+        emit(AuthStateLoggedIn(authuser: authuser, user: user));
       } on AuthException catch (e) {
         emit(AuthStateNeedLogin(
           email: email,
@@ -131,27 +148,27 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     // Login Anonymously
-    on<AuthEventLoginAnonymously>((event, emit) async {
-      emit(AuthStateNeedLogin(loading: 'Logging in...'));
-      try {
-        var user = await authProvider.loginAnnonymously();
-        if (user == null) {
-          emit(AuthStateNeedLogin(
-            error: 'Error logging in anonymously',
-          ));
-          return;
-        }
-        emit(AuthStateLoggedIn(user: user));
-      } on AuthException catch (e) {
-        return emit(AuthStateNeedLogin(
-          error: e.message,
-        ));
-      } catch (e) {
-        return emit(AuthStateNeedLogin(
-          error: e.toString(),
-        ));
-      }
-    });
+    // on<AuthEventLoginAnonymously>((event, emit) async {
+    //   emit(AuthStateNeedLogin(loading: 'Logging in...'));
+    //   try {
+    //     var user = await authProvider.loginAnnonymously();
+    //     if (user == null) {
+    //       emit(AuthStateNeedLogin(
+    //         error: 'Error logging in anonymously',
+    //       ));
+    //       return;
+    //     }
+    //     emit(AuthStateLoggedIn(authuser: user));
+    //   } on AuthException catch (e) {
+    //     return emit(AuthStateNeedLogin(
+    //       error: e.message,
+    //     ));
+    //   } catch (e) {
+    //     return emit(AuthStateNeedLogin(
+    //       error: e.toString(),
+    //     ));
+    //   }
+    // });
 
     // Event Logout
     on<AuthEventLogout>((event, emit) async {
@@ -182,29 +199,68 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     // Verify email
     on<AuthEventVerifyEmail>((event, emit) async {
-      var user = authProvider.user;
+      var authuser = authProvider.user;
 
-      if (user == null) {
+      if (authuser == null) {
         return emit(AuthStateNeedLogin(error: 'User not found'));
       }
 
       emit(AuthStateNeedVerify(
-          email: user.email!, loading: 'Verifying email...'));
+          email: authuser.email!, loading: 'Verifying email...'));
       try {
-        user = await authProvider.currentUser;
-        if (user == null) {
+        authuser = await authProvider.currentUser;
+        if (authuser == null) {
           emit(AuthStateNeedLogin(error: 'User not found'));
           return;
         }
-        if (user.isVerified ?? false) {
-          emit(AuthStateLoggedIn(user: user));
+        if (!(authuser.isVerified ?? false)) {
+          emit(AuthStateNeedVerify(
+              email: authuser.email!, error: 'Email not verified'));
+        }
+        var user = await dbprovider.getUser(authuser.uid);
+        if (user == null) {
+          emit(AuthStateNeedDetails(
+            email: authuser.email!,
+          ));
           return;
         }
-        emit(AuthStateNeedVerify(
-            email: user.email!, error: 'Email not verified'));
+        emit(AuthStateLoggedIn(authuser: authuser, user: user));
       } on AuthException catch (e) {
         emit(AuthStateNeedVerify(email: 'Unknown Email', error: e.message));
       }
     });
+
+    on<AuthEventAddUserDetails>(
+      (event, emit) {
+        emit(AuthStateNeedDetails(
+            email: event.email, loading: 'Adding user...'));
+        try {
+          var authuser = authProvider.user!;
+          var user = User(
+            uid: authProvider.user!.uid,
+            name: event.name,
+            email: authuser.email!,
+            rollNo: event.rollNo,
+            department: event.department,
+            semester: event.semester,
+            github: event.github,
+            linkedin: event.linkedin,
+          );
+
+          dbprovider.createUser(user);
+          emit(AuthStateLoggedIn(authuser: authuser, user: user));
+        } on DBException catch (e) {
+          emit(AuthStateNeedDetails(
+            email: event.email,
+            error: e.message,
+          ));
+        } catch (e) {
+          emit(AuthStateNeedDetails(
+            email: event.email,
+            error: 'Something went wrong...',
+          ));
+        }
+      },
+    );
   }
 }

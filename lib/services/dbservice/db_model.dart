@@ -9,9 +9,9 @@ abstract class DBModel {
   Future<void> deleteUser(String uid);
 
   // Meetings
-  Future<Meeting> createMeeting(Meeting meeting);
-  Future<Meeting?> getMeeting(String id);
+  Future<Meeting> createMeeting(String uid, Meeting meeting);
+  Future<Meeting?> getMeeting(String uid, String mid);
   Stream<List<Meeting>> getMeetings(String uid);
-  Future<Meeting> updateMeeting(Meeting meeting);
-  Future<void> deleteMeeting(String id);
+  Future<Meeting> updateMeeting(String uid, Meeting meeting);
+  Future<void> deleteMeeting(String uid, String mid);
 }

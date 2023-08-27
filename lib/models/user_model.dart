@@ -1,7 +1,7 @@
 class User {
   final String uid;
   String name;
-  String photoUrl;
+  String? photoUrl;
   String department;
   String rollNo;
   String semester;
@@ -12,7 +12,7 @@ class User {
   User({
     required this.uid,
     required this.name,
-    required this.photoUrl,
+    this.photoUrl,
     required this.department,
     required this.rollNo,
     required this.semester,
