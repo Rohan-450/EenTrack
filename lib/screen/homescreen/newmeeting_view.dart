@@ -1,11 +1,21 @@
+import 'package:eentrack/models/meeting_model.dart';
+import 'package:eentrack/models/user_model.dart';
+import 'package:eentrack/screen/dialog/meetingdetails_dialog.dart';
+import 'package:eentrack/services/dbservice/db_model.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../authscreens/shared/custombuttons.dart';
+import '../meetingdetailsscreen/meeting_details_screen.dart';
 
 class NewMeetingView extends StatelessWidget {
-  NewMeetingView({Key? key}) : super(key: key);
-
-  final List<String> eventList = ['Event 1', 'Event 2', 'Event 3'];
+  final User user;
+  final DBModel dbprovider;
+  const NewMeetingView({
+    Key? key,
+    required this.user,
+    required this.dbprovider,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,25 +36,37 @@ class NewMeetingView extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: ListView.builder(
-                  itemCount: eventList.length,
-                  itemBuilder: (BuildContext context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        // TODO: Show meeting details
-                      },
-                      child: Card(
-                        child: ListTile(
-                          textColor: Colors.cyan,
-                          leading: const Icon(Icons.person),
-                          title: Text(eventList[index]),
-                          subtitle: const Text('Meeting Date'),
-                          trailing: const Icon(Icons.arrow_forward),
-                        ),
-                      ),
-                    );
-                  },
-                ),
+                child: StreamBuilder<List<Meeting>>(
+                    stream: dbprovider.getMeetings(user.uid),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return const Center(
+                          child: Text('Something went wrong'),
+                        );
+                      }
+                      if (!snapshot.hasData) {
+                        return const SizedBox();
+                      }
+                      var meetings = snapshot.data!;
+                      return ListView.builder(
+                        itemCount: meetings.length,
+                        itemBuilder: (BuildContext context, index) {
+                          return MeetingTile(
+                            meeting: meetings[index],
+                            onTap: (meeting) {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => MeetingDetailsScreen(
+                                    meeting: meeting,
+                                    dbprovider: dbprovider,
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      );
+                    }),
               ),
             ],
           ),
@@ -57,12 +79,40 @@ class NewMeetingView extends StatelessWidget {
             child: CustomElevatedButton(
               text: 'New Meeting',
               onPressed: () {
-                // TODO: Add new meeting
+                showMeetingFormDialog(context, user.uid).then((value) {
+                  if (value != null) {
+                    dbprovider
+                        .createMeeting(user.uid, value)
+                        .then((value) => {});
+                  }
+                });
               },
             ),
           ),
         ),
       ],
+    );
+  }
+}
+
+class MeetingTile extends StatelessWidget {
+  final Meeting meeting;
+  final Function(Meeting) onTap;
+  const MeetingTile({super.key, required this.meeting, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    final DateFormat formatter = DateFormat('dd-MM-yyyy hh:mm a');
+    return GestureDetector(
+      onTap: () => onTap(meeting),
+      child: Card(
+        child: ListTile(
+          leading: const Icon(Icons.person),
+          title: Text(meeting.title),
+          subtitle: Text(formatter.format(meeting.date)),
+          trailing: const Icon(Icons.arrow_forward),
+        ),
+      ),
     );
   }
 }

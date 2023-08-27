@@ -19,10 +19,11 @@ Future<Meeting?> showMeetingFormDialog(BuildContext context, String uid) async {
                 onChanged: (nm) {
                   title = nm;
                 },
+                textInputAction: TextInputAction.next,
                 autofocus: true,
               ),
               const SizedBox(
-                height: 10,
+                height: 20,
               ),
               TextField(
                 decoration: const InputDecoration(
@@ -52,6 +53,7 @@ Future<Meeting?> showMeetingFormDialog(BuildContext context, String uid) async {
                 String mid = DateTime.now().millisecondsSinceEpoch.toString();
                 var meeting = Meeting(
                     id: mid,
+                    hostid: uid,
                     title: title,
                     description: description,
                     date: DateTime.now());

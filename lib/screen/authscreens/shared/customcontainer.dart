@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
-class CustomContainer extends StatelessWidget {
+class CustomTextWidget extends StatelessWidget {
   final String text;
   final Color? labelColor;
   final Color? containerColor;
+  final Widget? trailing;
 
-  const CustomContainer({
+  const CustomTextWidget({
     Key? key,
     required this.text,
     this.labelColor,
     this.containerColor,
+    this.trailing,
   }) : super(key: key);
 
   @override
@@ -20,13 +22,19 @@ class CustomContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(7),
         color: containerColor ?? Colors.grey[900],
       ),
-      child: Center(
-        child: Text(
-          text,
-          style: const TextStyle(
-            fontSize: 18,
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(
+                fontSize: 18,
+              ),
+              textAlign: TextAlign.center,
+            ),
           ),
-        ),
+          trailing ?? const SizedBox.shrink(),
+        ],
       ),
     );
   }

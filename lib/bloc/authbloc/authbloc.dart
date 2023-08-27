@@ -29,6 +29,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(AuthStateNeedVerify(
             email: authuser.email!,
           ));
+          return;
         }
         var user = await dbprovider.getUser(authuser.uid);
         if (user == null) {
@@ -221,9 +222,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(AuthStateNeedLogin(error: 'User not found'));
           return;
         }
-        if (!(authuser.isVerified ?? false)) {
+        if ((authuser.isVerified ?? false) == false) {
           emit(AuthStateNeedVerify(
               email: authuser.email!, error: 'Email not verified'));
+          return;
         }
         var user = await dbprovider.getUser(authuser.uid);
         if (user == null) {

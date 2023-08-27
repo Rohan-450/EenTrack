@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../models/user_model.dart';
 import '../authscreens/shared/customcontainer.dart';
@@ -9,6 +10,10 @@ class ProfileView extends StatelessWidget {
     super.key,
     required this.user,
   });
+
+  void copyToClipboard(String text) {
+    Clipboard.setData(ClipboardData(text: text));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +41,13 @@ class ProfileView extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            CustomContainer(
+            CustomTextWidget(
               text: user.name,
             ),
             const SizedBox(
               height: 20,
             ),
-            CustomContainer(
+            CustomTextWidget(
               text: user.department,
             ),
             const SizedBox(
@@ -51,7 +56,7 @@ class ProfileView extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: CustomContainer(
+                  child: CustomTextWidget(
                     text: user.rollNo,
                   ),
                 ),
@@ -59,7 +64,7 @@ class ProfileView extends StatelessWidget {
                   width: 10,
                 ),
                 Expanded(
-                  child: CustomContainer(
+                  child: CustomTextWidget(
                     text: user.semester,
                   ),
                 )
@@ -68,16 +73,28 @@ class ProfileView extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            CustomContainer(
+            CustomTextWidget(
               text: user.github.isEmpty ? 'Github Not Available' : user.github,
+              trailing: IconButton(
+                onPressed: () {
+                  copyToClipboard(user.github);
+                },
+                icon: const Icon(Icons.copy),
+              ),
             ),
             const SizedBox(
               height: 20,
             ),
-            CustomContainer(
+            CustomTextWidget(
               text: user.linkedin.isEmpty
                   ? 'LinkedIn Not Available'
                   : user.linkedin,
+              trailing: IconButton(
+                onPressed: () {
+                  copyToClipboard(user.linkedin);
+                },
+                icon: const Icon(Icons.copy),
+              ),
             ),
           ],
         ),

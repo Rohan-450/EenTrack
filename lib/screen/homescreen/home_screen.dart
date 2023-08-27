@@ -51,7 +51,10 @@ class _HomeScreenState extends State<HomeScreen> {
       ProfileView(
         user: widget.user,
       ),
-      NewMeetingView(),
+      NewMeetingView(
+        user: widget.user,
+        dbprovider: widget.dbprovider,
+      ),
     ];
     _appBarTitles = [
       'Scanner',
