@@ -28,17 +28,16 @@ class _QrCodeGeneratorState extends State<QrCodeGenerator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Scanner Screen'),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.file_upload_outlined),
-          )
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
+        appBar: AppBar(
+          title: const Text('Scanner Screen'),
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.file_upload_outlined),
+            )
+          ],
+        ),
+        body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(
@@ -94,8 +93,6 @@ class _QrCodeGeneratorState extends State<QrCodeGenerator> {
               ),
             )
           ],
-        ),
-      ),
-    );
+        ));
   }
 }

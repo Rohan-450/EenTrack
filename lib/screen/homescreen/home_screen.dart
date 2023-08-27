@@ -1,16 +1,18 @@
 import 'package:eentrack/models/user_model.dart';
+import 'package:eentrack/services/dbservice/db_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc/authbloc/auth_events.dart';
 import '../../bloc/authbloc/authbloc.dart';
 import '../dialog/alart_dialog.dart';
-import 'newmeeting_screen.dart';
-import 'profile_screen.dart';
-import 'scanner_screen.dart';
+import 'newmeeting_view.dart';
+import 'profile_view.dart';
+import 'scanner_view.dart';
 
 class HomeScreen extends StatefulWidget {
   final User user;
+  final DBModel dbprovider;
   final String? error;
   final bool isLoading;
   const HomeScreen({
@@ -18,6 +20,7 @@ class HomeScreen extends StatefulWidget {
     this.isLoading = false,
     this.error,
     required this.user,
+    required this.dbprovider,
   }) : super(key: key);
 
   @override
@@ -44,11 +47,11 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     _screens = [
-      const ScannerScreen(),
-      ProfileScreen(
+      const ScannerView(),
+      ProfileView(
         user: widget.user,
       ),
-      NewMeetingScreen(),
+      NewMeetingView(),
     ];
     _appBarTitles = [
       'Scanner',

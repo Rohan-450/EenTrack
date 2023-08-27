@@ -70,6 +70,7 @@ class _AuthBlocHandleState extends State<AuthBlocHandle> {
               isLoading: state.loading != null,
               error: state.error,
               user: state.user,
+              dbprovider: state.dbprovider,
             );
           }
           if (state is AuthStateNeedLogin) {
