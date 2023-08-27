@@ -4,6 +4,7 @@
 </div>
 <h1 align="center"> EenTrack </h1>
 <h1 align="center"> A hassle free Event Entry Tracker </h1>
+<h3 align="center"> <a align="center" href="##">Watch Demo Video</a> </h3>
 <br>
 
 <!-- TABLE OF CONTENTS -->
@@ -19,24 +20,49 @@
   </ol>
 </details>
 
-# 🤩About The Project :
+# 🤩 About The Project :
 
 
 
-# 💭Inspiration :
-- Being a college student we are enrolled in a lot of communities. We do a lot of community meetings as well. One problem that comes up again and again is regarding attendance. We need to take the attendance of attendees to give it to college, to compensate for their college attendance, and it also helps to keep track of activeness of the members. But attendance is not taken.
+# 💭 Inspiration :
+- Being a college student we are enrolled in a lot of communities. We do a lot of community meetings as well. One problem that comes up again and again is regarding attendance. We need to take the attendance of attendees to give it to college, to compensate for their college attendance, and it also helps to keep track of activeness of the members.
+  
+Some existing solutions are:
+
+-  <H3>Physical Ledger</H3> 
+&nbsp;&nbsp; The physical ledger book is simple, you just take a ledger book and makes the attendee fill in their details one by one.
+
+Pros:
+1. Easy to set up initially
+2. No previous knowledge of attendees needed.
+
+Cons: 
+1. Takes too much time to resister each attendee one by one.
+2. Much more hasel to entry that data in Excel sheet.
+ 
+
+
+-  <H3>Custom attendace systems for large meetings</H3>
+&nbsp;&nbsp; Some large event uses QR attendance system to keep track of attendance.
+
+Pros:
+1. Fast attendance
+2. Digital data so easy to manipulate
+
+Cons:
+1. You must have a attendee list beforehand, mostly taken through Google forms
+2. A big hasel for small community meetings
+
 - To solve this problem , we came up with a solution using **Cross Platform Framework Flutter**. 
--  <H4>Usecase : Physical Ledger</H4> 
-&nbsp;&nbsp;  Point 1
+Getting inspiration from this two systems, and analysing it's pros and cons, we made our app EenTrack.
 
 
--  <H4>Another Usecase : Custom attendace systems for large meetings</H4>
-&nbsp;&nbsp; Point 2
 
-
-# 💡What problem does the project solve?
+# 💡 What problem does the project solve?
 - The project aims to solve the problem of **Attendance Tracking** in small and medium community meetings.
-- 
+- Creating a meeting is as easy as pressing a button and doesnot need an attendee list beforehand.
+- By scanning the generated QR registration of candidates becomes easy and less time consuming.
+- The export feature uploads all details in Excel sheet thus saving us from the manual labour of data entry.
 
 
 # 📌 Usage :
@@ -73,14 +99,15 @@
 - Large Screen Optimization and minor bug fixes
   
 
-# 📌 Tech Stacks used :
-- Flutter 
-- Firebase Auth
-- Cloud Firestore
-- Firebase Storage
+# 👨‍💻 Tech Stacks used :
+- <img src = "https://www.vectorlogo.zone/logos/dartlang/dartlang-icon.svg" style="margin-top: 40px" height=30px width=30px > **Dart** : For writing the codebase of the app.
+- <img src = "https://www.vectorlogo.zone/logos/flutterio/flutterio-icon.svg" style="margin-top: 40px" height=30px width=30px >**Flutter** :  It gave us a beautiful default setup, and the flexibility to customise as per our need. It also enabled us to ship our app in Android, iOS, and potentially on web from a single codebase.
+- <img src = "https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" style="margin-top: 40px" height=30px width=30px >**Firebase Auth** : To make the backend, we used One of the Google cloud services product, Firebase. It enabled us to easily and securely handle user authentication using firebase auth.
+- <img src = "https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" style="margin-top: 40px" height=30px width=30px >**Cloud Firestore** : Managing user data using firestore.
+- <img src = "https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" style="margin-top: 40px" height=30px width=30px >**Firebase Storage** : For storing profile pics using storage also due to is awesome support for flutter enabled us to easily use it in our project.
 
 
-# 📌 Installation :
+# 💻 Installation :
 
 To use this app:
 - Download the apk file from <a href="#">here</a>
