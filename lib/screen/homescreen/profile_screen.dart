@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../models/user_model.dart';
 import '../authscreens/shared/customcontainer.dart';
@@ -9,6 +10,10 @@ class ProfileScreen extends StatelessWidget {
     super.key,
     required this.user,
   });
+
+  void copyToClipboard(String text) {
+    Clipboard.setData(ClipboardData(text: text));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +41,13 @@ class ProfileScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            CustomContainer(
+            CustomTextWidget(
               text: user.name,
             ),
             const SizedBox(
               height: 20,
             ),
-            CustomContainer(
+            CustomTextWidget(
               text: user.department,
             ),
             const SizedBox(
@@ -51,7 +56,7 @@ class ProfileScreen extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: CustomContainer(
+                  child: CustomTextWidget(
                     text: user.rollNo,
                   ),
                 ),
@@ -59,7 +64,7 @@ class ProfileScreen extends StatelessWidget {
                   width: 10,
                 ),
                 Expanded(
-                  child: CustomContainer(
+                  child: CustomTextWidget(
                     text: user.semester,
                   ),
                 )
@@ -68,14 +73,22 @@ class ProfileScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            CustomContainer(
+            CustomTextWidget(
               text: user.github ?? 'Not found',
+              trailing: IconButton(
+                onPressed: () => copyToClipboard(user.github ?? 'Not found'),
+                icon: const Icon(Icons.link),
+              ),
             ),
             const SizedBox(
               height: 20,
             ),
-            CustomContainer(
+            CustomTextWidget(
               text: user.linkedin ?? 'Not found',
+              trailing: IconButton(
+                onPressed: () => copyToClipboard(user.linkedin ?? 'Not found'),
+                icon: const Icon(Icons.link),
+              ),
             ),
           ],
         ),
