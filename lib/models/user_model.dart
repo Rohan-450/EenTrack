@@ -6,8 +6,8 @@ class User {
   String rollNo;
   String semester;
   String email;
-  String? linkedin;
-  String? github;
+  String linkedin;
+  String github;
 
   User({
     required this.uid,
@@ -17,8 +17,8 @@ class User {
     required this.rollNo,
     required this.semester,
     required this.email,
-    this.linkedin,
-    this.github,
+    required this.linkedin,
+    required this.github,
   });
 
   User copyWith({

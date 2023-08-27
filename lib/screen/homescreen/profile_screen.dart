@@ -69,13 +69,15 @@ class ProfileScreen extends StatelessWidget {
               height: 20,
             ),
             CustomContainer(
-              text: user.github ?? 'Not found',
+              text: user.github.isEmpty ? 'Github Not Available' : user.github,
             ),
             const SizedBox(
               height: 20,
             ),
             CustomContainer(
-              text: user.linkedin ?? 'Not found',
+              text: user.linkedin.isEmpty
+                  ? 'LinkedIn Not Available'
+                  : user.linkedin,
             ),
           ],
         ),
