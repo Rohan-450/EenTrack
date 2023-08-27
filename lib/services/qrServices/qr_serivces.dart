@@ -4,7 +4,7 @@ import 'package:qr_bar_code/qr/src/qr_version.dart';
 
 class QrCodeGenerator extends StatefulWidget {
   final double size;
-  const QrCodeGenerator({super.key, this.size = 280});
+  const QrCodeGenerator({Key? key, this.size = 280}) : super(key: key);
 
   @override
   State<QrCodeGenerator> createState() => _QrCodeGeneratorState();
@@ -15,10 +15,19 @@ class _QrCodeGeneratorState extends State<QrCodeGenerator> {
     'Nabajit',
     'Jhutiwala Gandu',
     'Rohan Gay',
-    'Anjishnu',
-    'Meeting ',
+    'Rohan Gay',
+    'Rohan Gay',
+    'Rohan Gay',
+    'Rohan Gay',
+    'Rohan Gay',
+    'Rohan Gay',
+    'Rohan Gay',
+    'Rohan Gay',
+    'Rohan Gay',
+    'Rohan Gay',
   ];
   late double size;
+
   @override
   void initState() {
     super.initState();
@@ -29,22 +38,21 @@ class _QrCodeGeneratorState extends State<QrCodeGenerator> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text('Scanner Screen'),
         actions: [
           IconButton(
             onPressed: () {},
             icon: const Icon(Icons.file_upload_outlined),
-          )
+          ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox(
-              height: 30,
-            ),
-            Center(
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            floating: true,
+            expandedHeight: size,
+            flexibleSpace: Center(
               child: QRCode(
                 data: '',
                 version: QRVersion.auto,
@@ -52,50 +60,51 @@ class _QrCodeGeneratorState extends State<QrCodeGenerator> {
                 backgroundColor: Colors.cyan,
               ),
             ),
-            const SizedBox(
-              height: 20,
+          ),
+          const SliverToBoxAdapter(
+            child: Column(
+              children: [
+                SizedBox(height: 20),
+                Text(
+                  'Scan this QR to get registered in the meeting',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 15,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text('Current Participants'),
+              ],
             ),
-            const Text(
-              'Scan this QR to get registered in the meeting',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 15,
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const Text('Current Participants'),
-            const SizedBox(
-              height: 20,
-            ),
-            Container(
-              constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(context).size.height,
-              ),
-              child: ListView.builder(
-                itemCount: itemlist.length,
-                itemBuilder: ((context, index) {
-                  return Card(
-                    child: ListTile(
-                      title: Title(
-                          color: Colors.blue,
-                          child: Text(
-                            itemlist[index],
-                          )),
-                      subtitle: const Text('2nd Year'),
-                      trailing: const Text(
-                        '16900122180',
-                        style: TextStyle(fontSize: 15),
-                      ),
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return Card(
+                  child: ListTile(
+                    title: Title(
+                      color: Colors.blue,
+                      child: Text(itemlist[index]),
                     ),
-                  );
-                }),
-              ),
-            )
-          ],
-        ),
+                    subtitle: const Text('2nd Year'),
+                    trailing: const Text(
+                      '16900122180',
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                );
+              },
+              childCount: itemlist.length,
+            ),
+          ),
+        ],
       ),
     );
   }
+}
+
+void main() {
+  runApp(const MaterialApp(
+    home: QrCodeGenerator(),
+  ));
 }
