@@ -1,5 +1,6 @@
 import 'package:eentrack/models/attendee_model.dart';
 import 'package:eentrack/models/meeting_model.dart';
+import 'package:eentrack/screen/attendeescreen/attendeedetails_screen.dart';
 import 'package:eentrack/services/dbservice/db_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -77,10 +78,18 @@ class MeetingDetailsView extends StatelessWidget {
                   delegate: SliverChildBuilderDelegate(
                     childCount: attendees.length,
                     (context, index) {
-                      return AttendeeCard(attendee: attendees[index])
-                          .animate()
-                          .slideX()
-                          .fadeIn();
+                      return AttendeeCard(
+                        attendee: attendees[index],
+                        onTap: (attendee) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => AttendeeDetailsScreen(
+                                attendee: attendee,
+                              ),
+                            ),
+                          );
+                        },
+                      ).animate().slideX().fadeIn();
                     },
                   ),
                 );
@@ -93,21 +102,29 @@ class MeetingDetailsView extends StatelessWidget {
 
 class AttendeeCard extends StatelessWidget {
   final Attendee attendee;
-  const AttendeeCard({super.key, required this.attendee});
+  final Function(Attendee) onTap;
+  const AttendeeCard({
+    super.key,
+    required this.attendee,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        title: Title(
-            color: Colors.blue,
-            child: Text(
-              attendee.name,
-            )),
-        subtitle: Text(attendee.semester),
-        trailing: Text(
-          attendee.roll,
-          style: const TextStyle(fontSize: 15),
+    return GestureDetector(
+      onTap: () => onTap(attendee),
+      child: Card(
+        child: ListTile(
+          title: Title(
+              color: Colors.blue,
+              child: Text(
+                attendee.name,
+              )),
+          subtitle: Text(attendee.semester),
+          trailing: Text(
+            attendee.roll,
+            style: const TextStyle(fontSize: 15),
+          ),
         ),
       ),
     );
