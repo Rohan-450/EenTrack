@@ -98,6 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: _screens[_currentIndex],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Theme.of(context).colorScheme.primary,
         currentIndex: _currentIndex,
         useLegacyColorScheme: false,
         type: BottomNavigationBarType.shifting,

@@ -39,7 +39,7 @@ class User implements DataModel {
       name: name ?? this.name,
       photoUrl: photoUrl ?? this.photoUrl,
       department: department ?? this.department,
-      roll: rollNo ?? this.roll,
+      roll: rollNo ?? roll,
       semester: semester ?? this.semester,
       email: email ?? this.email,
       linkedin: linkedin ?? this.linkedin,

@@ -33,8 +33,8 @@ class ProfileView extends StatelessWidget {
               ),
               Text(
                 'Hello ${user.name}!!',
-                style: const TextStyle(
-                    color: Colors.blue,
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
                     fontSize: 24,
                     fontWeight: FontWeight.w700,
                     decoration: TextDecoration.none),

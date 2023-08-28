@@ -15,7 +15,6 @@ class ScannerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String? code;
     final qrBarCodeScannerDialogPlugin = QrBarCodeScannerDialog();
 
     bool isCodeValid(String code) {
@@ -39,7 +38,6 @@ class ScannerView extends StatelessWidget {
       qrBarCodeScannerDialogPlugin.getScannedQrBarCode(
         context: context,
         onCode: (code) {
-          // TODO: Add a validation for the code
           code = code ?? '';
           if (!isCodeValid(code)) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -73,18 +71,31 @@ class ScannerView extends StatelessWidget {
       );
     }
 
-    return Scaffold(
-        appBar: AppBar(),
-        body: Center(
-          child: IconButton(
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          IconButton(
             onPressed: () {
               openCameraAndScan();
             },
-            icon: const Icon(
+            icon: Icon(
               Icons.qr_code_scanner_rounded,
-              size: 250,
+              size: MediaQuery.of(context).size.width * 0.5,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
-        ));
+          const SizedBox(
+            height: 20,
+          ),
+          const Text(
+            'Click the QR to Scan Code',
+            style: TextStyle(
+              fontSize: 20,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

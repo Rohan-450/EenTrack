@@ -1,4 +1,3 @@
-import 'package:eentrack/models/attendee_model.dart';
 import 'package:eentrack/models/meeting_model.dart';
 import 'package:eentrack/screen/dialog/alart_dialog.dart';
 import 'package:eentrack/screen/meetingdetailsscreen/meeting_details_view.dart';
