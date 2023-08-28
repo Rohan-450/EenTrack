@@ -122,7 +122,7 @@ Getting inspiration from this two systems, and analysing it's pros and cons, we 
 <h1 id="installation">Installation :</h1>
 
 To use this app:
-- Download the apk file from <a href="#">here</a>
+- Download the apk file from <a href="https://github.com/statuscode-418/EenTrack/releases">here</a>
 - Install the apk
 - open the app and Enjoy 😉!!
 
