@@ -1,9 +1,12 @@
-class Attendee {
+import 'package:eentrack/models/model.dart';
+
+class Attendee implements DataModel{
   String uid;
   String name;
   String department;
   String roll;
   String semester;
+  String email;
   String? github;
   String? linkedin;
 
@@ -13,6 +16,7 @@ class Attendee {
     required this.department,
     required this.roll,
     required this.semester,
+    required this.email,
     this.github,
     this.linkedin,
   });
@@ -24,17 +28,20 @@ class Attendee {
       department: json['department'],
       roll: json['rollNo'],
       semester: json['semester'],
+      email: json['email'],
       github: json['github'],
       linkedin: json['linkedin'],
     );
   }
 
+  @override
   Map<String, dynamic> toMap() => {
         'uid': uid,
         'name': name,
         'department': department,
         'rollNo': roll,
         'semester': semester,
+        'email': email,
         'github': github,
         'linkedin': linkedin,
       };

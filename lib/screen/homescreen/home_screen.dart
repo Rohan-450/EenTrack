@@ -47,7 +47,10 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     _screens = [
-      const ScannerView(),
+      ScannerView(
+        user: widget.user,
+        dbprovider: widget.dbprovider,
+      ),
       ProfileView(
         user: widget.user,
       ),
@@ -59,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _appBarTitles = [
       'Scanner',
       'Profile',
-      'New Meeting',
+      'Meetings',
     ];
   }
 
@@ -110,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.add_box_rounded),
-            label: 'Create Meeting',
+            label: 'Meetings',
           )
         ],
         onTap: (index) {

@@ -1,4 +1,6 @@
-class Meeting {
+import 'model.dart';
+
+class Meeting implements DataModel{
   final String id;
   final String hostid;
   final String title;
@@ -29,6 +31,7 @@ class Meeting {
     );
   }
 
+  @override
   Map<String, dynamic> toMap() {
     return {
       'id': id,

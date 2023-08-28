@@ -254,7 +254,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             uid: authProvider.user!.uid,
             name: event.name,
             email: authuser.email!,
-            rollNo: event.rollNo,
+            roll: event.rollNo,
             department: event.department,
             semester: event.semester,
             github: event.github,

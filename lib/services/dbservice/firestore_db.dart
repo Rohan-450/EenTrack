@@ -206,4 +206,28 @@ class FirestoreDB implements DBModel {
       throw DBException(e.toString());
     }
   }
+
+  @override
+  Future<List<Attendee>> getAttendeesList(String uid, String mid) async {
+    try {
+      var snapshot = await _db
+          .collection('users')
+          .doc(uid)
+          .collection('meetings')
+          .doc(mid)
+          .collection('attendees')
+          .get();
+      if (snapshot.docs.isNotEmpty) {
+        return snapshot.docs
+            .map((doc) => Attendee.fromMap(doc.data()))
+            .toList();
+      } else {
+        return [];
+      }
+    } on FirebaseException catch (e) {
+      throw DBException(e.message ?? 'Unknown error');
+    } on Exception catch (e) {
+      throw DBException(e.toString());
+    }
+  }
 }

@@ -23,7 +23,7 @@ class MeetingDetailsView extends StatelessWidget {
             child: Column(
               children: [
                 QRCode(
-                  data: meeting.id,
+                  data: '${meeting.hostid}@${meeting.id}',
                   backgroundColor: Theme.of(context).colorScheme.primary,
                 ),
                 const SizedBox(height: 20),

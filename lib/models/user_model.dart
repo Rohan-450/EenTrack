@@ -1,9 +1,11 @@
-class User {
+import 'model.dart';
+
+class User implements DataModel {
   final String uid;
   String name;
   String? photoUrl;
   String department;
-  String rollNo;
+  String roll;
   String semester;
   String email;
   String linkedin;
@@ -14,7 +16,7 @@ class User {
     required this.name,
     this.photoUrl,
     required this.department,
-    required this.rollNo,
+    required this.roll,
     required this.semester,
     required this.email,
     required this.linkedin,
@@ -37,7 +39,7 @@ class User {
       name: name ?? this.name,
       photoUrl: photoUrl ?? this.photoUrl,
       department: department ?? this.department,
-      rollNo: rollNo ?? this.rollNo,
+      roll: rollNo ?? this.roll,
       semester: semester ?? this.semester,
       email: email ?? this.email,
       linkedin: linkedin ?? this.linkedin,
@@ -45,13 +47,14 @@ class User {
     );
   }
 
+  @override
   Map<String, dynamic> toMap() {
     return {
       'uid': uid,
       'name': name,
       'photoUrl': photoUrl,
       'department': department,
-      'rollNo': rollNo,
+      'rollNo': roll,
       'semester': semester,
       'email': email,
       'linkedin': linkedin,
@@ -65,7 +68,7 @@ class User {
       name: map['name'],
       photoUrl: map['photoUrl'],
       department: map['department'],
-      rollNo: map['rollNo'],
+      roll: map['rollNo'],
       semester: map['semester'],
       email: map['email'],
       linkedin: map['linkedin'],

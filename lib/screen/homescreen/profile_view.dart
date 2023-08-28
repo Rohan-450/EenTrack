@@ -20,83 +20,86 @@ class ProfileView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const CircleAvatar(
-              backgroundImage: AssetImage('assets/profile_dummy.jpg'),
-              radius: 60,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text(
-              'Hello ${user.name}!!',
-              style: const TextStyle(
-                  color: Colors.blue,
-                  fontSize: 24,
-                  fontWeight: FontWeight.w700,
-                  decoration: TextDecoration.none),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            CustomTextWidget(
-              text: user.name,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            CustomTextWidget(
-              text: user.department,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: CustomTextWidget(
-                    text: user.rollNo,
-                  ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                  child: CustomTextWidget(
-                    text: user.semester,
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            CustomTextWidget(
-              text: user.github.isEmpty ? 'Github Not Available' : user.github,
-              trailing: IconButton(
-                onPressed: () {
-                  copyToClipboard(user.github);
-                },
-                icon: const Icon(Icons.copy),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const CircleAvatar(
+                backgroundImage: AssetImage('assets/profile_dummy.jpg'),
+                radius: 60,
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            CustomTextWidget(
-              text: user.linkedin.isEmpty
-                  ? 'LinkedIn Not Available'
-                  : user.linkedin,
-              trailing: IconButton(
-                onPressed: () {
-                  copyToClipboard(user.linkedin);
-                },
-                icon: const Icon(Icons.copy),
+              const SizedBox(
+                height: 20,
               ),
-            ),
-          ],
+              Text(
+                'Hello ${user.name}!!',
+                style: const TextStyle(
+                    color: Colors.blue,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                    decoration: TextDecoration.none),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              CustomTextWidget(
+                text: user.name,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              CustomTextWidget(
+                text: user.department,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: CustomTextWidget(
+                      text: user.roll,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: CustomTextWidget(
+                      text: user.semester,
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              CustomTextWidget(
+                text:
+                    user.github.isEmpty ? 'Github Not Available' : user.github,
+                trailing: IconButton(
+                  onPressed: () {
+                    copyToClipboard(user.github);
+                  },
+                  icon: const Icon(Icons.copy),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              CustomTextWidget(
+                text: user.linkedin.isEmpty
+                    ? 'LinkedIn Not Available'
+                    : user.linkedin,
+                trailing: IconButton(
+                  onPressed: () {
+                    copyToClipboard(user.linkedin);
+                  },
+                  icon: const Icon(Icons.copy),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
