@@ -112,7 +112,7 @@ Getting inspiration from this two systems, and analysing it's pros and cons, we 
 - Random Profile Avatar on registering based on name
 
 
-# 💻 Installation :
+# Installation :
 
 To use this app:
 - Download the apk file from <a href="#">here</a>
