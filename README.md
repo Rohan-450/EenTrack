@@ -4,7 +4,7 @@
 </div>
 <h1 align="center"> EenTrack </h1>
 <h1 align="center"> A hassle free Event Entry Tracker </h1>
-<h3 align="center"> <a align="center" href="##">Watch Demo Video</a> </h3>
+<h3 align="center"> <a align="center" href="https://youtu.be/HPSd3kY4sWE">Watch Demo Video</a> </h3>
 <br>
 
 <!-- TABLE OF CONTENTS -->
