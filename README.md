@@ -22,7 +22,7 @@
 
 # 🤩 About The Project :
 
-
+[Demo Trial.webm](https://github.com/statuscode-418/EenTrack/assets/124903208/51e30780-60f8-4dc4-be12-b16f68f831e1)
 
 # 💭 Inspiration :
 - Being a college student we are enrolled in a lot of communities. We do a lot of community meetings as well. One problem that comes up again and again is regarding attendance. We need to take the attendance of attendees to give it to college, to compensate for their college attendance, and it also helps to keep track of activeness of the members.
@@ -105,6 +105,11 @@ Getting inspiration from this two systems, and analysing it's pros and cons, we 
 - <img src = "https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" style="margin-top: 40px" height=30px width=30px >**Firebase Auth** : To make the backend, we used One of the Google cloud services product, Firebase. It enabled us to easily and securely handle user authentication using firebase auth.
 - <img src = "https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" style="margin-top: 40px" height=30px width=30px >**Cloud Firestore** : Managing user data using firestore.
 - <img src = "https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" style="margin-top: 40px" height=30px width=30px >**Firebase Storage** : For storing profile pics using storage also due to is awesome support for flutter enabled us to easily use it in our project.
+
+
+# Special Quirks :
+- Supports Material U dynamic coloring on android 12+
+- Random Profile Avatar on registering based on name
 
 
 # 💻 Installation :
