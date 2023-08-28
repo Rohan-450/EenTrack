@@ -1,14 +1,16 @@
 import 'package:eentrack/models/model.dart';
 
-class Attendee implements DataModel{
+class Attendee implements DataModel {
   String uid;
   String name;
   String department;
   String roll;
   String semester;
   String email;
-  String? github;
-  String? linkedin;
+  String github;
+  DateTime? addedOn;
+  DateTime? leftOn;
+  String linkedin;
 
   Attendee({
     required this.uid,
@@ -17,8 +19,10 @@ class Attendee implements DataModel{
     required this.roll,
     required this.semester,
     required this.email,
-    this.github,
-    this.linkedin,
+    this.addedOn,
+    this.leftOn,
+    required this.github,
+    required this.linkedin,
   });
 
   factory Attendee.fromMap(Map<String, dynamic> json) {
@@ -29,6 +33,12 @@ class Attendee implements DataModel{
       roll: json['rollNo'],
       semester: json['semester'],
       email: json['email'],
+      addedOn: json['addedOn'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(json['addedOn'])
+          : null,
+      leftOn: json['leftOn'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(json['leftOn'])
+          : null,
       github: json['github'],
       linkedin: json['linkedin'],
     );
@@ -42,6 +52,8 @@ class Attendee implements DataModel{
         'rollNo': roll,
         'semester': semester,
         'email': email,
+        'addedOn': addedOn?.millisecondsSinceEpoch,
+        'leftOn': leftOn?.millisecondsSinceEpoch,
         'github': github,
         'linkedin': linkedin,
       };

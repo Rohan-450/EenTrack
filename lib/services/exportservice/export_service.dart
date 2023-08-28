@@ -24,8 +24,6 @@ class ExportService implements ExportModel {
       }
     }
 
-    // TODO: impliment for web
-
     var status = await Permission.storage.status;
     if (status == PermissionStatus.denied) {
       status = await Permission.storage.request();

@@ -1,3 +1,4 @@
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:eentrack/services/dbservice/firestore_db.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,21 +29,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'EenTrack',
-      theme: ThemeData.dark(
-        useMaterial3: true,
-      ).copyWith(
-          colorScheme: ColorScheme.fromSeed(
-        seedColor: Colors.cyan,
-        brightness: Brightness.dark,
-      )),
-      home: BlocProvider(
-        create: (context) =>
-            AuthBloc(FirebaseAuthService.instance, FirestoreDB()),
-        child: const AuthBlocHandle(),
-      ), // No homescreen were there
-    );
+    return DynamicColorBuilder(builder: (lightDynamic, darkDynamic) {
+      return MaterialApp(
+        title: 'EenTrack',
+        theme: ThemeData.dark(
+          useMaterial3: true,
+        ).copyWith(
+            colorScheme: darkDynamic ??
+                ColorScheme.fromSeed(
+                  seedColor: Colors.cyan,
+                  brightness: Brightness.dark,
+                )),
+        home: BlocProvider(
+          create: (context) =>
+              AuthBloc(FirebaseAuthService.instance, FirestoreDB()),
+          child: const AuthBlocHandle(),
+        ), // No homescreen were there
+      );
+    });
   }
 }
 

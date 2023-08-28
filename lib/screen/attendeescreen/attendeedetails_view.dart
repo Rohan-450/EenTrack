@@ -1,18 +1,15 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:eentrack/models/attendee_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:random_avatar/random_avatar.dart';
 
-import '../../models/user_model.dart';
 import '../authscreens/shared/customcontainer.dart';
 
-class ProfileView extends StatelessWidget {
-  final User user;
-  const ProfileView({
-    super.key,
-    required this.user,
-  });
+class AttendeeDetailsView extends StatelessWidget {
+  final Attendee user;
+  const AttendeeDetailsView({super.key, required this.user});
 
   void copyToClipboard(String text) {
     Clipboard.setData(ClipboardData(text: text));
@@ -23,7 +20,7 @@ class ProfileView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Animate(
-      effects: const [ShimmerEffect()],
+        effects: const [ShimmerEffect()],
         child: Center(
           child: SingleChildScrollView(
             child: Column(
@@ -39,7 +36,7 @@ class ProfileView extends StatelessWidget {
                 AnimatedTextKit(
                   animatedTexts: [
                     TypewriterAnimatedText(
-                      'Hello ${user.name}...',
+                      'This is ${user.name}...',
                       textStyle: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,

@@ -1,7 +1,9 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:eentrack/models/attendee_model.dart';
 import 'package:eentrack/models/user_model.dart';
 import 'package:eentrack/services/dbservice/db_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:qr_bar_code_scanner_dialog/qr_bar_code_scanner_dialog.dart';
 
 class ScannerView extends StatelessWidget {
@@ -15,7 +17,6 @@ class ScannerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String? code;
     final qrBarCodeScannerDialogPlugin = QrBarCodeScannerDialog();
 
     bool isCodeValid(String code) {
@@ -39,7 +40,6 @@ class ScannerView extends StatelessWidget {
       qrBarCodeScannerDialogPlugin.getScannedQrBarCode(
         context: context,
         onCode: (code) {
-          // TODO: Add a validation for the code
           code = code ?? '';
           if (!isCodeValid(code)) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -59,6 +59,7 @@ class ScannerView extends StatelessWidget {
             semester: user.semester,
             department: user.department,
             email: user.email,
+            addedOn: DateTime.now(),
             linkedin: user.linkedin,
             github: user.github,
           );
@@ -73,18 +74,42 @@ class ScannerView extends StatelessWidget {
       );
     }
 
-    return Scaffold(
-        appBar: AppBar(),
-        body: Center(
-          child: IconButton(
-            onPressed: () {
-              openCameraAndScan();
-            },
-            icon: const Icon(
-              Icons.qr_code_scanner_rounded,
-              size: 250,
+    return Center(
+      child: Animate(
+        effects: const [ShimmerEffect()],
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconButton(
+              onPressed: () {
+                openCameraAndScan();
+              },
+              icon: Icon(
+                Icons.qr_code_scanner_rounded,
+                size: MediaQuery.of(context).size.width * 0.5,
+                color: Theme.of(context).colorScheme.primary,
+              ),
             ),
-          ),
-        ));
+            const SizedBox(
+              height: 20,
+            ),
+            AnimatedTextKit(
+              animatedTexts: [
+                TypewriterAnimatedText(
+                  'Click the QR Code to Scan...',
+                  textStyle: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                  ),
+                  curve: Curves.bounceInOut,
+                  speed: const Duration(milliseconds: 100),
+                ),
+              ],
+              totalRepeatCount: 1,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

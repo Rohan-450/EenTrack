@@ -25,12 +25,17 @@ class CustomTextWidget extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: Text(
-              text,
-              style: const TextStyle(
-                fontSize: 18,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                text,
+                style: const TextStyle(
+                  fontSize: 18,
+                ),
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
-              textAlign: TextAlign.center,
             ),
           ),
           trailing ?? const SizedBox.shrink(),
