@@ -113,6 +113,11 @@ Getting inspiration from this two systems, and analysing it's pros and cons, we 
 - Supports Material U dynamic coloring on android 12+
 - Random Profile Avatar on registering based on name
 
+# Tracks Targeted :
+- Flutter, a framework of cross platform development is used for this project
+- Special emphasis has been given over UI and UX to take the user experience to a another level
+- A proper project workflow has been maintained throughout the course of developing the project
+
 
 <h1 id="installation">Installation :</h1>
 
