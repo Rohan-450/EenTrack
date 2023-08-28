@@ -46,6 +46,11 @@ dependencies:
 
   cloud_firestore: ^4.9.0
   firebase_storage: ^11.2.6
+  intl: ^0.18.1
+  excel: ^2.1.0
+  path_provider: ^2.1.0
+  permission_handler: ^10.4.3
+  share_plus: ^7.1.0
 
 
 dev_dependencies:

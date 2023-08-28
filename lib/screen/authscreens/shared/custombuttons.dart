@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final String text;
+  final Color? backgroundColor;
+  final Color? textColor;
   final VoidCallback onPressed;
   final bool enabled;
   final double padding;
@@ -10,6 +12,8 @@ class CustomElevatedButton extends StatelessWidget {
     super.key,
     required this.text,
     required this.onPressed,
+    this.backgroundColor,
+    this.textColor,
     this.enabled = true,
     this.padding = 20,
   });
@@ -18,14 +22,19 @@ class CustomElevatedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SizedBox(width: padding),
         Expanded(
-          child: ElevatedButton(
-            onPressed: enabled ? onPressed : null,
-            child: Text(text),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: backgroundColor,
+                foregroundColor: textColor,
+              ),
+              onPressed: enabled ? onPressed : null,
+              child: Text(text),
+            ),
           ),
         ),
-        SizedBox(width: padding),
       ],
     );
   }

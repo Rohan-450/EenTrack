@@ -38,7 +38,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           ));
           return;
         }
-        emit(AuthStateLoggedIn(authuser: authuser, user: user));
+        emit(AuthStateLoggedIn(
+          authuser: authuser,
+          user: user,
+          dbprovider: dbprovider,
+        ));
       },
     );
 
@@ -107,7 +111,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           ));
           return;
         }
-        emit(AuthStateLoggedIn(authuser: authuser, user: user));
+        emit(AuthStateLoggedIn(
+          authuser: authuser,
+          user: user,
+          dbprovider: dbprovider,
+        ));
       } on AuthException catch (e) {
         emit(AuthStateNeedLogin(
           email: email,
@@ -226,7 +234,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           ));
           return;
         }
-        emit(AuthStateLoggedIn(authuser: authuser, user: user));
+        emit(AuthStateLoggedIn(
+          authuser: authuser,
+          user: user,
+          dbprovider: dbprovider,
+        ));
       } on AuthException catch (e) {
         emit(AuthStateNeedVerify(email: 'Unknown Email', error: e.message));
       }
@@ -242,7 +254,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             uid: authProvider.user!.uid,
             name: event.name,
             email: authuser.email!,
-            rollNo: event.rollNo,
+            roll: event.rollNo,
             department: event.department,
             semester: event.semester,
             github: event.github,
@@ -250,7 +262,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           );
 
           dbprovider.createUser(user);
-          emit(AuthStateLoggedIn(authuser: authuser, user: user));
+          emit(AuthStateLoggedIn(
+            authuser: authuser,
+            user: user,
+            dbprovider: dbprovider,
+          ));
         } on DBException catch (e) {
           emit(AuthStateNeedDetails(
             email: event.email,

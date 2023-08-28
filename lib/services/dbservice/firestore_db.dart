@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eentrack/models/attendee_model.dart';
 
 import '../../models/meeting_model.dart';
 import '../../models/user_model.dart';
@@ -134,7 +135,7 @@ class FirestoreDB implements DBModel {
   }
 
   @override
-  Future<void> deleteMeeting(String uid, String mid) async{
+  Future<void> deleteMeeting(String uid, String mid) async {
     try {
       await _db
           .collection('users')
@@ -142,6 +143,87 @@ class FirestoreDB implements DBModel {
           .collection('meetings')
           .doc(mid)
           .delete();
+    } on FirebaseException catch (e) {
+      throw DBException(e.message ?? 'Unknown error');
+    } on Exception catch (e) {
+      throw DBException(e.toString());
+    }
+  }
+
+  @override
+  Future<void> addAttendee(String uid, String mid, Attendee attendee) async {
+    try {
+      await _db
+          .collection('users')
+          .doc(uid)
+          .collection('meetings')
+          .doc(mid)
+          .collection('attendees')
+          .add(attendee.toMap());
+    } on FirebaseException catch (e) {
+      throw DBException(e.message ?? 'Unknown error');
+    } on Exception catch (e) {
+      throw DBException(e.toString());
+    }
+  }
+
+  @override
+  Stream<List<Attendee>> getAttendees(String uid, String mid) {
+    try {
+      return _db
+          .collection('users')
+          .doc(uid)
+          .collection('meetings')
+          .doc(mid)
+          .collection('attendees')
+          .snapshots()
+          .map((snapshot) {
+        return snapshot.docs
+            .map((doc) => Attendee.fromMap(doc.data()))
+            .toList();
+      });
+    } on FirebaseException catch (e) {
+      throw DBException(e.message ?? 'Unknown error');
+    } on Exception catch (e) {
+      throw DBException(e.toString());
+    }
+  }
+
+  @override
+  Future<void> removeAttendee(String uid, String mid, Attendee attendee) async {
+    try {
+      await _db
+          .collection('users')
+          .doc(uid)
+          .collection('meetings')
+          .doc(mid)
+          .collection('attendees')
+          .doc(attendee.uid)
+          .delete();
+    } on FirebaseException catch (e) {
+      throw DBException(e.message ?? 'Unknown error');
+    } on Exception catch (e) {
+      throw DBException(e.toString());
+    }
+  }
+
+  @override
+  Future<List<Attendee>> getAttendeesList(String uid, String mid) async {
+    try {
+      var snapshot = await _db
+          .collection('users')
+          .doc(uid)
+          .collection('meetings')
+          .doc(mid)
+          .collection('attendees')
+          .get();
+      if (snapshot.docs.isNotEmpty) {
+        return snapshot.docs
+            .map((doc) => Attendee.fromMap(doc.data()))
+            .toList();
+      } else {
+        return [];
+      }
     } on FirebaseException catch (e) {
       throw DBException(e.message ?? 'Unknown error');
     } on Exception catch (e) {
