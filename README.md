@@ -1,6 +1,6 @@
 # InterHacktive 2023
 <div align="center">
- <kbd><img src="https://github.com/statuscode-418/EenTrack/assets/124903208/5e584551-4c30-43e5-b28c-335b3e078211" width="100" height="100"/></kbd>
+ <kbd><img src="https://github.com/statuscode-418/EenTrack/assets/124903208/a255ae50-9ad3-475b-b9a8-ae6647007eba" width="100" height="100"/></kbd>
 </div>
 <h1 align="center"> EenTrack </h1>
 <h1 align="center"> A hassle free Event Entry Tracker </h1>
@@ -23,7 +23,8 @@
 
 <h1 id="about-the-project">🤩 About The Project :</h1>
 
-[Demo Trial.webm](https://github.com/statuscode-418/EenTrack/assets/124903208/51e30780-60f8-4dc4-be12-b16f68f831e1)
+[Demo Trial.webm](https://github.com/statuscode-418/EenTrack/assets/124903208/ffce2e27-eedc-4378-a9e8-d1119867dee6)
+
 
 # 💭 Inspiration :
 - Being a college student we are enrolled in a lot of communities. We do a lot of community meetings as well. One problem that comes up again and again is regarding attendance. We need to take the attendance of attendees to give it to college, to compensate for their college attendance, and it also helps to keep track of activeness of the members.
