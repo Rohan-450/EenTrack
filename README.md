@@ -20,7 +20,8 @@
   </ol>
 </details>
 
-# 🤩 About The Project :
+
+<h1 id="about-the-project">🤩 About The Project :</h1>
 
 [Demo Trial.webm](https://github.com/statuscode-418/EenTrack/assets/124903208/51e30780-60f8-4dc4-be12-b16f68f831e1)
 
@@ -65,7 +66,7 @@ Getting inspiration from this two systems, and analysing it's pros and cons, we 
 - The export feature uploads all details in Excel sheet thus saving us from the manual labour of data entry.
 
 
-# 📌 Usage :
+<h1 id="usage">📌 Usage :</h1>
 
 ### Register phase:
 1. Users will register using email and password.
@@ -99,7 +100,7 @@ Getting inspiration from this two systems, and analysing it's pros and cons, we 
 - Large Screen Optimization and minor bug fixes
   
 
-# 👨‍💻 Tech Stacks used :
+<h1 id="tech-stacks-used">👨‍💻 Tech Stacks used :</h1>
 - <img src = "https://www.vectorlogo.zone/logos/dartlang/dartlang-icon.svg" style="margin-top: 40px" height=30px width=30px > **Dart** : For writing the codebase of the app.
 - <img src = "https://www.vectorlogo.zone/logos/flutterio/flutterio-icon.svg" style="margin-top: 40px" height=30px width=30px >**Flutter** :  It gave us a beautiful default setup, and the flexibility to customise as per our need. It also enabled us to ship our app in Android, iOS, and potentially on web from a single codebase.
 - <img src = "https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" style="margin-top: 40px" height=30px width=30px >**Firebase Auth** : To make the backend, we used One of the Google cloud services product, Firebase. It enabled us to easily and securely handle user authentication using firebase auth.
@@ -112,7 +113,7 @@ Getting inspiration from this two systems, and analysing it's pros and cons, we 
 - Random Profile Avatar on registering based on name
 
 
-# Installation :
+<h1 id="installation">Installation :</h1>
 
 To use this app:
 - Download the apk file from <a href="#">here</a>
