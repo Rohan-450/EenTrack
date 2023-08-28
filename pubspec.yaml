@@ -52,6 +52,8 @@ dependencies:
   permission_handler: ^10.4.3
   share_plus: ^7.1.0
   dynamic_color: ^1.6.6
+  flutter_animate: ^4.2.0+1
+  animated_text_kit: ^4.2.2
 
 
 dev_dependencies:

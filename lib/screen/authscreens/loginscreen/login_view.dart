@@ -1,4 +1,6 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../bloc/authbloc/auth_events.dart';
@@ -46,6 +48,13 @@ class _LoginViewState extends State<LoginView> {
     return null;
   }
 
+  String getMessageText() {
+    if (widget.isLoading != null) {
+      return widget.isLoading!;
+    }
+    return 'Welcome back...';
+  }
+
   @override
   void initState() {
     super.initState();
@@ -62,72 +71,78 @@ class _LoginViewState extends State<LoginView> {
         child: Padding(
           padding: const EdgeInsets.all(6.0),
           child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Image.asset(
-                  'assets/logo.png',
-                  height: 100,
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                Text(
-                  widget.isLoading == null
-                      ? 'Welcome back...'
-                      : widget.isLoading!,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+            child: Animate(
+              child: Column(
+                children: [
+                  Image.asset(
+                    'assets/logo.png',
+                    height: 100,
+                  ).animate().fadeIn(),
+                  const SizedBox(
+                    height: 50,
                   ),
-                ),
-                const SizedBox(height: 20),
-                CustomTextBox(
-                  label: "Email",
-                  initialValue: email,
-                  enabled: widget.isLoading == null,
-                  validator: validateEmail,
-                  keyboardType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.next,
-                  onChanged: (email) {
-                    this.email = email;
-                  },
-                ),
-                const SizedBox(height: 20),
-                CustomTextBox(
-                    label: "Password",
-                    initialValue: password,
+                  AnimatedTextKit(
+                    animatedTexts: [
+                      TypewriterAnimatedText(
+                        getMessageText(),
+                        textStyle: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        curve: Curves.bounceInOut,
+                        speed: const Duration(milliseconds: 100),
+                      ),
+                    ],
+                    totalRepeatCount: 1,
+                  ),
+                  const SizedBox(height: 20),
+                  CustomTextBox(
+                    label: "Email",
+                    initialValue: email,
                     enabled: widget.isLoading == null,
-                    validator: validatePassword,
-                    keyboardType: TextInputType.visiblePassword,
-                    textInputAction: TextInputAction.done,
-                    obscureText: true,
-                    onChanged: (password) {
-                      this.password = password;
-                    }),
-                const SizedBox(height: 20),
-                CustomElevatedButton(
-                  text: 'Login',
-                  enabled: widget.isLoading == null,
-                  onPressed: () {
-                    if (!_formKey.currentState!.validate()) return;
-                    BlocProvider.of<AuthBloc>(context).add(AuthEventLogin(
-                      email: email,
-                      password: password,
-                    ));
-                  },
-                ),
-                const SizedBox(width: 10),
-                CustomTextButton(
-                  text: "Don't have an account? register here...",
-                  enabled: widget.isLoading == null,
-                  onPressed: () {
-                    BlocProvider.of<AuthBloc>(context).add(
-                      AuthEventShowRegister(email: email, password: password),
-                    );
-                  },
-                )
-              ],
+                    validator: validateEmail,
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
+                    onChanged: (email) {
+                      this.email = email;
+                    },
+                  ).animate().shimmer(),
+                  const SizedBox(height: 20),
+                  CustomTextBox(
+                      label: "Password",
+                      initialValue: password,
+                      enabled: widget.isLoading == null,
+                      validator: validatePassword,
+                      keyboardType: TextInputType.visiblePassword,
+                      textInputAction: TextInputAction.done,
+                      obscureText: true,
+                      onChanged: (password) {
+                        this.password = password;
+                      }).animate().shimmer(),
+                  const SizedBox(height: 20),
+                  CustomElevatedButton(
+                    text: 'Login',
+                    enabled: widget.isLoading == null,
+                    onPressed: () {
+                      if (!_formKey.currentState!.validate()) return;
+                      BlocProvider.of<AuthBloc>(context).add(AuthEventLogin(
+                        email: email,
+                        password: password,
+                      ));
+                    },
+                  ).animate().shimmer(),
+                  const SizedBox(width: 10),
+                  CustomTextButton(
+                    text: "Don't have an account? register here...",
+                    enabled: widget.isLoading == null,
+                    onPressed: () {
+                      BlocProvider.of<AuthBloc>(context).add(
+                        AuthEventShowRegister(email: email, password: password),
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),
