@@ -54,6 +54,7 @@ dependencies:
   dynamic_color: ^1.6.6
   flutter_animate: ^4.2.0+1
   animated_text_kit: ^4.2.2
+  random_avatar: ^0.0.8
 
 
 dev_dependencies:
