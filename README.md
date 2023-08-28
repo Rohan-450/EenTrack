@@ -100,8 +100,8 @@ Getting inspiration from this two systems, and analysing it's pros and cons, we 
 - Large Screen Optimization and minor bug fixes
   
 
-<h1 id="tech-stacks-used">👨‍💻 Tech Stacks used :</h1>
-- <img src = "https://www.vectorlogo.zone/logos/dartlang/dartlang-icon.svg" style="margin-top: 40px" height=30px width=30px > **Dart** : For writing the codebase of the app.
+# <h1 id="tech-stacks-used">👨‍💻 Tech Stacks used :</h1>
+- <img src ="https://www.vectorlogo.zone/logos/dartlang/dartlang-icon.svg" style="margin-top: 40px" height=30px width=30px > **Dart** : For writing the codebase of the app.
 - <img src = "https://www.vectorlogo.zone/logos/flutterio/flutterio-icon.svg" style="margin-top: 40px" height=30px width=30px >**Flutter** :  It gave us a beautiful default setup, and the flexibility to customise as per our need. It also enabled us to ship our app in Android, iOS, and potentially on web from a single codebase.
 - <img src = "https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" style="margin-top: 40px" height=30px width=30px >**Firebase Auth** : To make the backend, we used One of the Google cloud services product, Firebase. It enabled us to easily and securely handle user authentication using firebase auth.
 - <img src = "https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" style="margin-top: 40px" height=30px width=30px >**Cloud Firestore** : Managing user data using firestore.
