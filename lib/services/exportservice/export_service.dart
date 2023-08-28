@@ -16,10 +16,10 @@ class ExportService implements ExportModel {
     var excel = Excel.createExcel();
     var sheet = excel['Sheet1'];
     if (data.isNotEmpty) {
-      var d = data[0].toMap();
+      var d = data[0].exportData();
       sheet.appendRow(d.keys.toList());
       for (var d in data) {
-        var map = d.toMap();
+        var map = d.exportData();
         sheet.appendRow(map.values.toList());
       }
     }

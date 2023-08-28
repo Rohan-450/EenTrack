@@ -57,4 +57,18 @@ class Attendee implements DataModel {
         'github': github,
         'linkedin': linkedin,
       };
+
+  @override
+  Map<String, dynamic> exportData() => {
+        'Name ': name,
+        'Department': department,
+        'Roll No': roll,
+        'Semester': semester,
+        'Email': email,
+        'Github': github,
+        'Linkedin': linkedin,
+        'Attendance': addedOn != null ? 'Present' : 'Absent',
+        'Attended full meeting':
+            addedOn != null && leftOn != null ? 'Yes' : 'No',
+      };
 }

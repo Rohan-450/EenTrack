@@ -51,4 +51,10 @@ class AttendedMeetings implements DataModel{
       date: DateTime.fromMillisecondsSinceEpoch(map['date']),
     );
   }
+  
+  @override
+  Map<String, dynamic> exportData() {
+    // TODO: implement exportData
+    throw UnimplementedError();
+  }
 }

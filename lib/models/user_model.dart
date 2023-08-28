@@ -75,4 +75,10 @@ class User implements DataModel {
       github: map['github'],
     );
   }
+  
+  @override
+  Map<String, dynamic> exportData() {
+    // TODO: implement exportData
+    throw UnimplementedError();
+  }
 }
