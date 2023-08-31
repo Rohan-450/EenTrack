@@ -1,6 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:eentrack/screen/authscreens/loginscreen/password_reset_screen.dart';
-import 'package:eentrack/screen/authscreens/loginscreen/password_reset_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -135,17 +134,14 @@ class _LoginViewState extends State<LoginView> {
                   ).animate().shimmer(),
                   const SizedBox(width: 20),
                   CustomTextButton(
-                    text: 'Forgot your password? click here to reset',
+                    text: 'Forgot your password? Click here to reset',
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => const PasswordResetScreen()));
                     },
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
                   CustomTextButton(
-                    text: "Don't have an account? register here...",
+                    text: "Don't have an account? Register here...",
                     enabled: widget.isLoading == null,
                     onPressed: () {
                       BlocProvider.of<AuthBloc>(context).add(

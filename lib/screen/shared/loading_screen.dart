@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class LoadingScreen extends StatelessWidget {
   const LoadingScreen({super.key});
@@ -8,7 +9,10 @@ class LoadingScreen extends StatelessWidget {
     return const Scaffold(
       backgroundColor: Colors.black,
       body: Center(
-        child: CircularProgressIndicator(),
+        child: SpinKitSpinningLines(
+          color: Colors.white,
+          size: 150,
+        ),
       ),
     );
   }
