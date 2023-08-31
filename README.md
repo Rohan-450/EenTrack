@@ -11,11 +11,11 @@
 <details>
   <summary>Table of Contents</summary>
   <ol>
-    <li><a href="#about-the-project">About The Project</a></li>
-    <li><a href="#tech-stacks-used">Tech Stacks used</a></li>
-    <li><a href="#usage">Usage</a></li>
+    <li><a href="#🤩 About The Project">About The Project</a></li>
+    <li><a href="#👨‍💻 Tech Stacks used ">Tech Stacks used</a></li>
+    <li><a href="#📌 Usage">Usage</a></li>
     <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#installation">Installation</a></li>
+    <li><a href="#💻 installation">Installation</a></li>
     <li><a href="#contributors">Contributors</a></li>
   </ol>
 </details>
@@ -112,7 +112,7 @@ Getting inspiration from this two systems, and analysing it's pros and cons, we 
 - Random Profile Avatar on registering based on name
 
 
-# Installation :
+# 💻 Installation :
 
 To use this app:
 - Download the apk file from <a href="#">here</a>

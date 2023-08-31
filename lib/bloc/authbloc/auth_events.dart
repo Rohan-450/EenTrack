@@ -25,6 +25,11 @@ class AuthEventLoginAnonymously extends AuthEvent {}
 
 class AuthEventSendEmailVerification extends AuthEvent {}
 
+class AuthEventResetPassword extends AuthEvent {
+  final String email;
+  const AuthEventResetPassword({required this.email});
+}
+
 class AuthEventVerifyEmail extends AuthEvent {}
 
 class AuthEventShowRegister extends AuthEvent {
