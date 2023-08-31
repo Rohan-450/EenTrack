@@ -1,10 +1,10 @@
 # InterHacktive 2023
 <div align="center">
- <kbd><img src="https://github.com/statuscode-418/EenTrack/assets/124903208/5e584551-4c30-43e5-b28c-335b3e078211" width="100" height="100"/></kbd>
+ <kbd><img src="https://github.com/statuscode-418/EenTrack/assets/124903208/a255ae50-9ad3-475b-b9a8-ae6647007eba" width="100" height="100"/></kbd>
 </div>
 <h1 align="center"> EenTrack </h1>
 <h1 align="center"> A hassle free Event Entry Tracker </h1>
-<h3 align="center"> <a align="center" href="##">Watch Demo Video</a> </h3>
+<h3 align="center"> <a align="center" href="https://youtu.be/HPSd3kY4sWE">Watch Demo Video</a> </h3>
 <br>
 
 <!-- TABLE OF CONTENTS -->
@@ -20,9 +20,11 @@
   </ol>
 </details>
 
-# 🤩 About The Project :
 
-[Demo Trial.webm](https://github.com/statuscode-418/EenTrack/assets/124903208/51e30780-60f8-4dc4-be12-b16f68f831e1)
+<h1 id="about-the-project">🤩 About The Project :</h1>
+
+[Demo Trial.webm](https://github.com/statuscode-418/EenTrack/assets/124903208/ffce2e27-eedc-4378-a9e8-d1119867dee6)
+
 
 # 💭 Inspiration :
 - Being a college student we are enrolled in a lot of communities. We do a lot of community meetings as well. One problem that comes up again and again is regarding attendance. We need to take the attendance of attendees to give it to college, to compensate for their college attendance, and it also helps to keep track of activeness of the members.
@@ -65,7 +67,7 @@ Getting inspiration from this two systems, and analysing it's pros and cons, we 
 - The export feature uploads all details in Excel sheet thus saving us from the manual labour of data entry.
 
 
-# 📌 Usage :
+<h1 id="usage">📌 Usage :</h1>
 
 ### Register phase:
 1. Users will register using email and password.
@@ -99,8 +101,8 @@ Getting inspiration from this two systems, and analysing it's pros and cons, we 
 - Large Screen Optimization and minor bug fixes
   
 
-# 👨‍💻 Tech Stacks used :
-- <img src = "https://www.vectorlogo.zone/logos/dartlang/dartlang-icon.svg" style="margin-top: 40px" height=30px width=30px > **Dart** : For writing the codebase of the app.
+# <h1 id="tech-stacks-used">👨‍💻 Tech Stacks used :</h1>
+- <img src ="https://www.vectorlogo.zone/logos/dartlang/dartlang-icon.svg" style="margin-top: 40px" height=30px width=30px > **Dart** : For writing the codebase of the app.
 - <img src = "https://www.vectorlogo.zone/logos/flutterio/flutterio-icon.svg" style="margin-top: 40px" height=30px width=30px >**Flutter** :  It gave us a beautiful default setup, and the flexibility to customise as per our need. It also enabled us to ship our app in Android, iOS, and potentially on web from a single codebase.
 - <img src = "https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" style="margin-top: 40px" height=30px width=30px >**Firebase Auth** : To make the backend, we used One of the Google cloud services product, Firebase. It enabled us to easily and securely handle user authentication using firebase auth.
 - <img src = "https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" style="margin-top: 40px" height=30px width=30px >**Cloud Firestore** : Managing user data using firestore.
@@ -111,11 +113,16 @@ Getting inspiration from this two systems, and analysing it's pros and cons, we 
 - Supports Material U dynamic coloring on android 12+
 - Random Profile Avatar on registering based on name
 
+# Tracks Targeted :
+- Flutter, a framework of cross platform development is used for this project
+- Special emphasis has been given over UI and UX to take the user experience to a another level
+- A proper project workflow has been maintained throughout the course of developing the project
 
-# 💻 Installation :
+
+# Installation :
 
 To use this app:
-- Download the apk file from <a href="#">here</a>
+- Download the apk file from <a href="https://github.com/statuscode-418/EenTrack/releases">here</a>
 - Install the apk
 - open the app and Enjoy 😉!!
 
