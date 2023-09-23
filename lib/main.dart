@@ -7,6 +7,7 @@ import 'bloc/authbloc/auth_state.dart';
 import 'bloc/authbloc/authbloc.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 
 import 'screen/authscreens/loginscreen/login_screen.dart';
 import 'screen/authscreens/registerscreen/register_screen.dart';
@@ -21,6 +22,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
   runApp(const MyApp());
 }
 
