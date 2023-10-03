@@ -8,10 +8,13 @@ import 'package:flutter_animate/flutter_animate.dart';
 class MeetingDetailsView extends StatelessWidget {
   final Meeting meeting;
   final DBModel dbprovider;
+  final bool entry;
+
   const MeetingDetailsView({
     super.key,
     required this.meeting,
     required this.dbprovider,
+    required this.entry,
   });
 
   @override
@@ -20,6 +23,16 @@ class MeetingDetailsView extends StatelessWidget {
       effects: const [ShimmerEffect()],
       child: CustomScrollView(
         slivers: <Widget>[
+          SliverToBoxAdapter(
+              child: Card(
+            child: ListTile(
+              title: Text(meeting.title),
+              subtitle: Text(meeting.description),
+              trailing: entry
+                  ? const Icon(Icons.check_box_outline_blank_rounded)
+                  : const Icon(Icons.check_box_outlined),
+            ),
+          )),
           StreamBuilder<List<Attendee>>(
               stream: dbprovider.getAttendees(meeting.hostid, meeting.id),
               builder: (context, snapshot) {

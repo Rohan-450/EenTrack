@@ -20,6 +20,7 @@ abstract class DBModel {
 
   // Meeting Attendees
   Future<void> addAttendee(String uid, String mid, Attendee attendee);
+  Future<void> updateAttendee(String uid, String mid, Attendee attendee);
   Future<void> removeAttendee(String uid, String mid, Attendee attendee);
   Stream<List<Attendee>> getAttendees(String uid, String mid);
   Future<List<Attendee>> getAttendeesList(String uid, String mid);

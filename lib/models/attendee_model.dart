@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eentrack/models/model.dart';
 
 class Attendee implements DataModel {
@@ -11,6 +12,7 @@ class Attendee implements DataModel {
   DateTime? addedOn;
   DateTime? leftOn;
   String linkedin;
+  Map<String, Timestamp>  breaks = {};
 
   Attendee({
     required this.uid,

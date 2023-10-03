@@ -10,7 +10,7 @@ import 'package:qr_bar_code_scanner_dialog/qr_bar_code_scanner_dialog.dart';
 
 import '../../services/dbservice/db_model.dart';
 
-class MeetingDetailsScreen extends StatelessWidget {
+class MeetingDetailsScreen extends StatefulWidget {
   final Meeting meeting;
   final DBModel dbprovider;
   const MeetingDetailsScreen({
@@ -18,6 +18,13 @@ class MeetingDetailsScreen extends StatelessWidget {
     required this.meeting,
     required this.dbprovider,
   });
+
+  @override
+  State<MeetingDetailsScreen> createState() => _MeetingDetailsScreenState();
+}
+
+class _MeetingDetailsScreenState extends State<MeetingDetailsScreen> {
+  var entry = true;
 
   @override
   Widget build(BuildContext context) {
@@ -76,33 +83,58 @@ class MeetingDetailsScreen extends StatelessWidget {
               addedOn: DateTime.now(),
             );
 
-            dbprovider.isAttendee(meeting.hostid, meeting.id, attendee.uid).then((exists) {
+            widget.dbprovider
+                .isAttendee(
+                    widget.meeting.hostid, widget.meeting.id, attendee.uid)
+                .then((exists) {
               if (exists) {
-                ScaffoldMessenger.of(context).showSnackBar(
+                if(entry) {
+                  ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text('Attendee already added'),
                   ),
                 );
                 return;
+                }
+                attendee.leftOn = DateTime.now();
+                try {
+                  widget.dbprovider.updateAttendee(
+                      widget.meeting.hostid, widget.meeting.id, attendee);
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Something went wrong'),
+                  ),
+                );
+                }
               }
-              dbprovider.addAttendee(meeting.hostid, meeting.id, attendee);
+              widget.dbprovider.addAttendee(
+                  widget.meeting.hostid, widget.meeting.id, attendee);
             });
           });
     }
 
+    void toggleEntry() {
+      setState(() {
+        entry = !entry;
+      });
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(meeting.title),
+        title: Text(widget.meeting.title),
         actions: [
           IconButton(
               icon: const Icon(
                 Icons.file_upload_outlined,
               ),
               onPressed: () async {
-                var attendees = await dbprovider.getAttendeesList(
-                    meeting.hostid, meeting.id);
-                var filename =
-                    meeting.title.trim().toLowerCase().replaceAll(' ', '_');
+                var attendees = await widget.dbprovider
+                    .getAttendeesList(widget.meeting.hostid, widget.meeting.id);
+                var filename = widget.meeting.title
+                    .trim()
+                    .toLowerCase()
+                    .replaceAll(' ', '_');
                 await exportprovider.toExcel(filename, attendees);
               }),
           IconButton(
@@ -115,8 +147,9 @@ class MeetingDetailsScreen extends StatelessWidget {
                     .then((value) => {
                           if (value == Option.ok)
                             {
-                              dbprovider
-                                  .deleteMeeting(meeting.hostid, meeting.id)
+                              widget.dbprovider
+                                  .deleteMeeting(
+                                      widget.meeting.hostid, widget.meeting.id)
                                   .then((value) => {
                                         Navigator.of(context).pop(),
                                       }),
@@ -126,12 +159,16 @@ class MeetingDetailsScreen extends StatelessWidget {
         ],
       ),
       body: MeetingDetailsView(
-        meeting: meeting,
-        dbprovider: dbprovider,
+        meeting: widget.meeting,
+        dbprovider: widget.dbprovider,
+        entry: entry,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: scanQrCode,
-        child: const Icon(Icons.qr_code_outlined),
+        child: GestureDetector(
+          onLongPress: toggleEntry,
+          child: const Icon(Icons.qr_code_outlined),
+        ),
       ),
     );
   }

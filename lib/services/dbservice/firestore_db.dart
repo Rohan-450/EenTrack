@@ -190,6 +190,27 @@ class FirestoreDB implements DBModel {
   }
 
   @override
+  Future<void> updateAttendee(String uid, String mid, Attendee attendee) async {
+    try {
+      var atd = await _db
+          .collection('users')
+          .doc(uid)
+          .collection('meetings')
+          .doc(mid)
+          .collection('attendees')
+          .doc(attendee.uid)
+          .get();
+
+      if (!atd.exists) {
+        throw DBException('Attendee does not exist');
+      }
+      await atd.reference.update(attendee.toMap());
+    } on FirebaseException catch (e) {
+      throw DBException(e.message ?? 'Unknown error');
+    }
+  }
+
+  @override
   Stream<List<Attendee>> getAttendees(String uid, String mid) {
     try {
       return _db
