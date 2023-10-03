@@ -11,11 +11,11 @@
 <details>
   <summary>Table of Contents</summary>
   <ol>
-    <li><a href="#about-the-project">About The Project</a></li>
-    <li><a href="#tech-stacks-used">Tech Stacks used</a></li>
-    <li><a href="#usage">Usage</a></li>
+    <li><a href="#🤩 About The Project">About The Project</a></li>
+    <li><a href="#👨‍💻 Tech Stacks used ">Tech Stacks used</a></li>
+    <li><a href="#📌 Usage">Usage</a></li>
     <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#installation">Installation</a></li>
+    <li><a href="#💻 installation">Installation</a></li>
     <li><a href="#contributors">Contributors</a></li>
   </ol>
 </details>
@@ -119,7 +119,7 @@ Getting inspiration from this two systems, and analysing it's pros and cons, we 
 - A proper project workflow has been maintained throughout the course of developing the project
 
 
-<h1 id="installation">Installation :</h1>
+# Installation :
 
 To use this app:
 - Download the apk file from <a href="https://github.com/statuscode-418/EenTrack/releases">here</a>
@@ -141,5 +141,8 @@ Don't forget to star this project!!
 # Contributors
 
 <h3 align="center">Made with ❤️ by Status_code-418!</h3>
+<div align="center">
+<img  src=https://github.com/Rohan-450/EenTrack/assets/124903208/df8f8c3a-9661-4110-b0c9-22112ddb04c0 height="150" \>
+</div>
  <p align ="right"><a href="#top">🔼 Back to top</a></p>
  </div>

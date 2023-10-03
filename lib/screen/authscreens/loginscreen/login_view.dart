@@ -131,9 +131,8 @@ class _LoginViewState extends State<LoginView> {
                       ));
                     },
                   ).animate().shimmer(),
-                  const SizedBox(width: 10),
                   CustomTextButton(
-                    text: "Don't have an account? register here...",
+                    text: "Don't have an account? Register here...",
                     enabled: widget.isLoading == null,
                     onPressed: () {
                       BlocProvider.of<AuthBloc>(context).add(

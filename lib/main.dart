@@ -5,6 +5,7 @@ import 'bloc/authbloc/auth_events.dart';
 import 'bloc/authbloc/auth_state.dart';
 import 'bloc/authbloc/authbloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 
 import 'screen/authscreens/loginscreen/login_screen.dart';
 import 'screen/authscreens/registerscreen/register_screen.dart';
@@ -14,7 +15,8 @@ import 'screen/shared/loading_screen.dart';
 import 'screen/userCredentialscreen/usercredential_screen.dart';
 import 'services/authservices/firebase_auth_service.dart';
 
-void main() {
+void main() async {
+  await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
   runApp(const MyApp());
 }
 
