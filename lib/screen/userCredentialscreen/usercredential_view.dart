@@ -99,7 +99,7 @@ class _UserCredFormViewState extends State<UserCredFormView> {
                           return 'Department cannot be empty';
                         }
                         if (p0.length < 2 || p0.length > 4) {
-                          return 'Please enter a valid department';
+                          return 'Length of department should be between 2 and 4';
                         }
                         if (p0.contains(RegExp(r'[0-9]'))) {
                           return 'Please enter a valid department';
@@ -107,7 +107,7 @@ class _UserCredFormViewState extends State<UserCredFormView> {
                         return null;
                       },
                       onChanged: (department) {
-                        this.department = department.trim();
+                        this.department = department.trim().toUpperCase();
                       },
                     ),
                     const SizedBox(
@@ -143,7 +143,7 @@ class _UserCredFormViewState extends State<UserCredFormView> {
                                 return 'Please enter your semester';
                               }
                               if (p0.length != 3) {
-                                return 'Please enter a valid semester';
+                                return 'Length of semester should be 3';
                               }
                               return null;
                             },
@@ -184,7 +184,7 @@ class _UserCredFormViewState extends State<UserCredFormView> {
                     ),
                     CustomTextBox(
                       label: "Github",
-                      validator: (value){
+                      validator: (value) {
                         if (value == null || value.isEmpty) {
                           return null;
                         }
@@ -192,7 +192,6 @@ class _UserCredFormViewState extends State<UserCredFormView> {
                           return 'Please enter a valid github';
                         }
                         return null;
-                      
                       },
                       onChanged: (github) {
                         this.github = github.trim();
