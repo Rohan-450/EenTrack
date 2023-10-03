@@ -1,6 +1,7 @@
 import 'authuser.dart';
 
 abstract class AuthModel {
+  Future<void> init();
   AuthUser? get user;
   Future<AuthUser?> get currentUser;
   Future<AuthUser?> loginWithEmail(String email, String password);

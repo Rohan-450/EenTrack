@@ -1,13 +1,10 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:eentrack/services/dbservice/firestore_db.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc/authbloc/auth_events.dart';
 import 'bloc/authbloc/auth_state.dart';
 import 'bloc/authbloc/authbloc.dart';
-import 'firebase_options.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 
 import 'screen/authscreens/loginscreen/login_screen.dart';
 import 'screen/authscreens/registerscreen/register_screen.dart';

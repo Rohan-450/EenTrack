@@ -21,7 +21,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           options: DefaultFirebaseOptions.currentPlatform,
         );
 
-        // await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+        await authProvider.init();
+        await dbprovider.init();
+
+        await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
 
         final authuser = authProvider.user;
         if (authuser == null) {
