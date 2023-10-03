@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:eentrack/models/meeting_model.dart';
 import 'package:eentrack/models/user_model.dart';
 import 'package:eentrack/screen/dialog/meetingdetails_dialog.dart';
@@ -5,6 +7,7 @@ import 'package:eentrack/services/dbservice/db_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:intl/intl.dart';
+import 'package:qr_bar_code_scanner_dialog/qr_bar_code_scanner_dialog.dart';
 
 import '../authscreens/shared/custombuttons.dart';
 import '../meetingdetailsscreen/meeting_details_screen.dart';
@@ -37,6 +40,49 @@ class NewMeetingView extends StatelessWidget {
       });
     }
 
+    bool validateMeeting(Map<String, dynamic> data) {
+      var validKeys = ['id', 'hostid', 'title', 'description', 'date'];
+      for (var key in validKeys) {
+        if (!data.containsKey(key)) {
+          return false;
+        }
+      }
+      return true;
+    }
+
+    void takeOver() {
+      QrBarCodeScannerDialog().getScannedQrBarCode(
+          context: context,
+          onCode: (code) {
+            if (code == null) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Invalid QR Code'),
+                ),
+              );
+              return;
+            }
+            var meetingJson = jsonDecode(code);
+            if (!validateMeeting(meetingJson)) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Invalid QR Code'),
+                ),
+              );
+              return;
+            }
+            var meeting = Meeting.fromMap(meetingJson);
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => MeetingDetailsScreen(
+                  meeting: meeting,
+                  dbprovider: dbprovider,
+                ),
+              ),
+            );
+          });
+    }
+
     return Animate(
       child: Stack(
         children: [
@@ -46,11 +92,19 @@ class NewMeetingView extends StatelessWidget {
             left: 0,
             right: 0,
             child: Center(
-              child: CustomElevatedButton(
-                text: 'New Meeting',
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                textColor: Theme.of(context).colorScheme.onPrimary,
-                onPressed: showMeetingForm,
+              child: Column(
+                children: [
+                  CustomElevatedButton(
+                    text: 'New Meeting',
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    textColor: Theme.of(context).colorScheme.onPrimary,
+                    onPressed: showMeetingForm,
+                  ),
+                  TextButton(
+                    onPressed: takeOver,
+                    child: const Text("Take over"),
+                  )
+                ],
               ),
             ),
           ),

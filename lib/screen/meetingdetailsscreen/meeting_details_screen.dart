@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:eentrack/models/attendee_model.dart';
 import 'package:eentrack/models/meeting_model.dart';
-import 'package:eentrack/screen/dialog/alart_dialog.dart';
 import 'package:eentrack/screen/meetingdetailsscreen/meeting_details_view.dart';
 import 'package:eentrack/services/exportservice/export_service.dart';
 import 'package:flutter/material.dart';
+import 'package:qr_bar_code/qr/src/qr_code.dart';
 import 'package:qr_bar_code_scanner_dialog/qr_bar_code_scanner_dialog.dart';
 
 import '../../services/dbservice/db_model.dart';
@@ -30,6 +30,25 @@ class _MeetingDetailsScreenState extends State<MeetingDetailsScreen> {
   Widget build(BuildContext context) {
     var exportprovider = ExportService();
     var scanner = QrBarCodeScannerDialog();
+
+    void handOver() {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('Hand Over Meeting'),
+              content: SizedBox(
+                width: 300,
+                child: QRCode(
+                  data: jsonEncode(
+                    widget.meeting.toMap(),
+                  ),
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+            );
+          });
+    }
 
     bool validateMap(Map<String, dynamic> data) {
       var validKeys = [
@@ -137,25 +156,32 @@ class _MeetingDetailsScreenState extends State<MeetingDetailsScreen> {
                     .replaceAll(' ', '_');
                 await exportprovider.toExcel(filename, attendees);
               }),
+          // IconButton(
+          //     icon: const Icon(
+          //       Icons.delete_outlined,
+          //     ),
+          //     onPressed: () {
+          //       showAlartDialog('Delete Meeting',
+          //               'You sure want to delete the meeting?', context)
+          //           .then((value) => {
+          //                 if (value == Option.ok)
+          //                   {
+          //                     widget.dbprovider
+          //                         .deleteMeeting(
+          //                             widget.meeting.hostid, widget.meeting.id)
+          //                         .then((value) => {
+          //                               Navigator.of(context).pop(),
+          //                             }),
+          //                   }
+          //               });
+          //     }),
+
           IconButton(
-              icon: const Icon(
-                Icons.delete_outlined,
-              ),
-              onPressed: () {
-                showAlartDialog('Delete Meeting',
-                        'You sure want to delete the meeting?', context)
-                    .then((value) => {
-                          if (value == Option.ok)
-                            {
-                              widget.dbprovider
-                                  .deleteMeeting(
-                                      widget.meeting.hostid, widget.meeting.id)
-                                  .then((value) => {
-                                        Navigator.of(context).pop(),
-                                      }),
-                            }
-                        });
-              }),
+            icon: const Icon(
+              Icons.qr_code_outlined,
+            ),
+            onPressed: handOver,
+          ),
         ],
       ),
       body: StreamBuilder<List<Attendee>>(
