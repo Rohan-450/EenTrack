@@ -17,12 +17,7 @@ import 'screen/shared/loading_screen.dart';
 import 'screen/userCredentialscreen/usercredential_screen.dart';
 import 'services/authservices/firebase_auth_service.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+void main() {
   runApp(const MyApp());
 }
 
