@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eentrack/models/attendee_model.dart';
+import 'package:flutter/material.dart';
 
 import '../../models/meeting_model.dart';
 import '../../models/user_model.dart';
@@ -7,7 +8,12 @@ import 'db_exception.dart';
 import 'db_model.dart';
 
 class FirestoreDB implements DBModel {
-  final _db = FirebaseFirestore.instance;
+  late final FirebaseFirestore _db;
+
+  @override
+  Future<void> init() async {
+    _db = FirebaseFirestore.instance;
+  }
 
   @override
   Future<User> createUser(User user) async {
@@ -69,7 +75,8 @@ class FirestoreDB implements DBModel {
           .collection('users')
           .doc(uid)
           .collection('meetings')
-          .add(meeting.toMap());
+          .doc(meeting.id)
+          .set(meeting.toMap());
     } on FirebaseException catch (e) {
       throw DBException(e.message ?? 'Unknown error');
     } on Exception catch (e) {
@@ -142,7 +149,22 @@ class FirestoreDB implements DBModel {
           .doc(uid)
           .collection('meetings')
           .doc(mid)
-          .delete();
+          .collection('attendees')
+          .get()
+          .then((value) async {
+        for (DocumentSnapshot ds in value.docs) {
+          await ds.reference.delete();
+        }
+      });
+      await _db
+          .collection('users')
+          .doc(uid)
+          .collection('meetings')
+          .doc(mid)
+          .get()
+          .then((value) async {
+        await value.reference.delete();
+      });
     } on FirebaseException catch (e) {
       throw DBException(e.message ?? 'Unknown error');
     } on Exception catch (e) {
@@ -159,7 +181,8 @@ class FirestoreDB implements DBModel {
           .collection('meetings')
           .doc(mid)
           .collection('attendees')
-          .add(attendee.toMap());
+          .doc(attendee.uid)
+          .set(attendee.toMap());
     } on FirebaseException catch (e) {
       throw DBException(e.message ?? 'Unknown error');
     } on Exception catch (e) {

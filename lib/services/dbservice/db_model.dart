@@ -5,6 +5,7 @@ import '../../models/user_model.dart';
 
 abstract class DBModel {
   // User
+  Future<void> init();
   Future<User> createUser(User user);
   Future<User?> getUser(String uid);
   Future<User> updateUser(User user);

@@ -5,12 +5,17 @@ import 'auth_model.dart';
 import 'authuser.dart';
 
 class FirebaseAuthService implements AuthModel {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  late final FirebaseAuth _auth;
 
   // Makes it singletion DONT TOUCH IT
   static FirebaseAuthService get instance => _instance;
   FirebaseAuthService._();
   static final _instance = FirebaseAuthService._();
+
+  @override
+  Future<void> init() async {
+    _auth = FirebaseAuth.instance;
+  }
 
   @override
   Future<AuthUser?> loginWithEmail(String email, String password) async {

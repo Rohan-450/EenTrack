@@ -1,11 +1,9 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:eentrack/services/dbservice/firestore_db.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc/authbloc/auth_events.dart';
 import 'bloc/authbloc/auth_state.dart';
 import 'bloc/authbloc/authbloc.dart';
-import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 
 import 'screen/authscreens/loginscreen/login_screen.dart';
@@ -16,11 +14,7 @@ import 'screen/shared/loading_screen.dart';
 import 'screen/userCredentialscreen/usercredential_screen.dart';
 import 'services/authservices/firebase_auth_service.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+void main() {
   runApp(const MyApp());
 }
 

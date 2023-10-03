@@ -20,6 +20,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           options: DefaultFirebaseOptions.currentPlatform,
         );
 
+        await authProvider.init();
+        await dbprovider.init();
+
         final authuser = authProvider.user;
         if (authuser == null) {
           emit(AuthStateNeedLogin());
