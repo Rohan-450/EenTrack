@@ -115,6 +115,14 @@ class _MeetingDetailsScreenState extends State<MeetingDetailsScreen> {
                   );
                   return;
                 }
+                if (attendee.leftOn != null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Attendee already left'),
+                    ),
+                  );
+                  return;
+                }
                 attendee.leftOn = DateTime.now();
                 try {
                   widget.dbprovider.updateAttendee(
