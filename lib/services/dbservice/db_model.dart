@@ -23,4 +23,5 @@ abstract class DBModel {
   Future<void> removeAttendee(String uid, String mid, Attendee attendee);
   Stream<List<Attendee>> getAttendees(String uid, String mid);
   Future<List<Attendee>> getAttendeesList(String uid, String mid);
+  Future<bool> isAttendee(String uid, String mid, String aid);
 }

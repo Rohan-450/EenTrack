@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eentrack/models/attendee_model.dart';
-import 'package:flutter/material.dart';
 
 import '../../models/meeting_model.dart';
 import '../../models/user_model.dart';
@@ -247,6 +246,25 @@ class FirestoreDB implements DBModel {
       } else {
         return [];
       }
+    } on FirebaseException catch (e) {
+      throw DBException(e.message ?? 'Unknown error');
+    } on Exception catch (e) {
+      throw DBException(e.toString());
+    }
+  }
+
+  @override
+  Future<bool> isAttendee(String uid, String mid, String aid) async {
+    try {
+      final doc = await _db
+          .collection('users')
+          .doc(uid)
+          .collection('meetings')
+          .doc(mid)
+          .collection('attendees')
+          .doc(aid)
+          .get();
+      return doc.exists;
     } on FirebaseException catch (e) {
       throw DBException(e.message ?? 'Unknown error');
     } on Exception catch (e) {

@@ -1,4 +1,5 @@
 import 'package:eentrack/models/user_model.dart';
+import 'package:eentrack/screen/detailsqr/details_qr_view.dart';
 import 'package:eentrack/services/dbservice/db_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +9,6 @@ import '../../bloc/authbloc/authbloc.dart';
 import '../dialog/alart_dialog.dart';
 import 'newmeeting_view.dart';
 import 'profile_view.dart';
-import 'scanner_view.dart';
 
 class HomeScreen extends StatefulWidget {
   final User user;
@@ -47,10 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     _screens = [
-      ScannerView(
-        user: widget.user,
-        dbprovider: widget.dbprovider,
-      ),
+      DetailsQrView(user: widget.user),
       ProfileView(
         user: widget.user,
       ),
@@ -60,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     ];
     _appBarTitles = [
-      'Scanner',
+      'QR',
       'Profile',
       'Meetings',
     ];
