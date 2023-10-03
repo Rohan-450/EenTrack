@@ -88,13 +88,13 @@ class _MeetingDetailsScreenState extends State<MeetingDetailsScreen> {
                     widget.meeting.hostid, widget.meeting.id, attendee.uid)
                 .then((exists) {
               if (exists) {
-                if(entry) {
+                if (entry) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Attendee already added'),
-                  ),
-                );
-                return;
+                    const SnackBar(
+                      content: Text('Attendee already added'),
+                    ),
+                  );
+                  return;
                 }
                 attendee.leftOn = DateTime.now();
                 try {
@@ -102,10 +102,10 @@ class _MeetingDetailsScreenState extends State<MeetingDetailsScreen> {
                       widget.meeting.hostid, widget.meeting.id, attendee);
                 } catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Something went wrong'),
-                  ),
-                );
+                    const SnackBar(
+                      content: Text('Something went wrong'),
+                    ),
+                  );
                 }
               }
               widget.dbprovider.addAttendee(
@@ -158,11 +158,27 @@ class _MeetingDetailsScreenState extends State<MeetingDetailsScreen> {
               }),
         ],
       ),
-      body: MeetingDetailsView(
-        meeting: widget.meeting,
-        dbprovider: widget.dbprovider,
-        entry: entry,
-      ),
+      body: StreamBuilder<List<Attendee>>(
+          stream: widget.dbprovider
+              .getAttendees(widget.meeting.hostid, widget.meeting.id),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (snapshot.hasError) {
+              return const Center(
+                child: Text('Something went wrong'),
+              );
+            }
+            var attendees = snapshot.data!;
+            return MeetingDetailsView(
+              meeting: widget.meeting,
+              entry: entry,
+              attendees: attendees,
+            );
+          }),
       floatingActionButton: FloatingActionButton(
         onPressed: scanQrCode,
         child: GestureDetector(
