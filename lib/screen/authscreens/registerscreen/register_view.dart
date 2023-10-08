@@ -158,6 +158,7 @@ class _RegisterViewState extends State<RegisterView> {
                   ).animate().shimmer(),
                   const SizedBox(width: 10),
                   CustomTextButton(
+                    textColor: Theme.of(context).colorScheme.primary,
                     text: 'Already have an account? Log In...',
                     enabled: widget.loading == null,
                     onPressed: () {

@@ -52,6 +52,7 @@ class CustomTextButton extends StatelessWidget {
     required this.onPressed,
     this.enabled = true,
     this.padding = 20,
+    required Color textColor,
   });
 
   @override

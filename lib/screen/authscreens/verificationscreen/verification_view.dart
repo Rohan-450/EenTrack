@@ -52,6 +52,7 @@ class VerificationView extends StatelessWidget {
               height: 10,
             ),
             CustomTextButton(
+                textColor: Theme.of(context).colorScheme.primary,
                 text: 'Did not got a email? click here to resend...',
                 enabled: !isLoading,
                 onPressed: () {
@@ -60,6 +61,7 @@ class VerificationView extends StatelessWidget {
                 }),
             SizedBox(height: 10),
             CustomTextButton(
+              textColor: Theme.of(context).colorScheme.primary,
               text: 'Wrong email? log out here...',
               onPressed: () {
                 BlocProvider.of<AuthBloc>(context).add(AuthEventLogout());

@@ -92,19 +92,38 @@ class NewMeetingView extends StatelessWidget {
             left: 0,
             right: 0,
             child: Center(
-              child: Column(
-                children: [
-                  CustomElevatedButton(
-                    text: 'New Meeting',
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    textColor: Theme.of(context).colorScheme.onPrimary,
-                    onPressed: showMeetingForm,
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: const Color.fromRGBO(27, 37, 39, 0.6),
+                    borderRadius: BorderRadius.circular(30),
+                    shape: BoxShape.rectangle,
                   ),
-                  TextButton(
-                    onPressed: takeOver,
-                    child: const Text("Take over"),
-                  )
-                ],
+                  child: IntrinsicHeight(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: CustomTextButton(
+                            textColor: Theme.of(context).colorScheme.primary,
+                            text: 'Take Over',
+                            onPressed: takeOver,
+                          ),
+                        ),
+                        const VerticalDivider(
+                          thickness: 1,
+                        ),
+                        Expanded(
+                          child: CustomTextButton(
+                            text: 'New Meeting',
+                            textColor: Theme.of(context).colorScheme.onPrimary,
+                            onPressed: showMeetingForm,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
           ),

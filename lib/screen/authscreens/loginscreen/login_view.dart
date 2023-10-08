@@ -139,6 +139,7 @@ class _LoginViewState extends State<LoginView> {
                         AuthEventShowRegister(email: email, password: password),
                       );
                     },
+                    textColor: Theme.of(context).colorScheme.primary,
                   ),
                 ],
               ),
