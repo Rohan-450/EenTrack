@@ -145,6 +145,12 @@ class _MeetingDetailsScreenState extends State<MeetingDetailsScreen> {
       setState(() {
         entry = !entry;
       });
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+          entry ? "Scan to make entry" : "Scan to make exit",
+        ),
+      ));
     }
 
     return Scaffold(
