@@ -156,15 +156,52 @@ class OldMeetingsList extends StatelessWidget {
               );
             }
             if (!snapshot.hasData) {
-              return const SizedBox();
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
             }
-            var meetings = snapshot.data!;
+            final meetings = snapshot.data!;
+
             return ListView.builder(
               itemCount: meetings.length,
               itemBuilder: (BuildContext context, index) {
-                var meeting = meetings[index];
+                final meeting = meetings[index];
+
                 return Dismissible(
                   key: Key(meeting.id),
+                  direction: DismissDirection.horizontal,
+                  background: Container(
+                    color: Colors.red,
+                    alignment: Alignment.centerRight,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: const Icon(
+                      Icons.delete,
+                      color: Colors.white,
+                    ),
+                  ),
+                  confirmDismiss: (direction) async {
+                    return await showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('Confirm'),
+                            content: const Text(
+                                'Are you sure you want to delete this meeting?'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.of(context).pop(false),
+                                child: const Text("Cancel"),
+                              ),
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.of(context).pop(true),
+                                child: const Text("Delete"),
+                              )
+                            ],
+                          );
+                        });
+                  },
                   onDismissed: (_) {
                     dbprovider.deleteMeeting(meeting.hostid, meeting.id).then(
                           (_) => ScaffoldMessenger.of(context).showSnackBar(

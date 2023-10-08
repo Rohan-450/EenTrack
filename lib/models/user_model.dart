@@ -78,7 +78,6 @@ class User implements DataModel {
 
   @override
   Map<String, dynamic> exportData() {
-    // TODO: implement exportData
     throw UnimplementedError();
   }
 }
