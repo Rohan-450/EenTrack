@@ -1,6 +1,6 @@
 import 'model.dart';
 
-class AttendedMeetings implements DataModel{
+class AttendedMeetings implements DataModel {
   final String id;
   final String host;
   final String title;
@@ -51,10 +51,9 @@ class AttendedMeetings implements DataModel{
       date: DateTime.fromMillisecondsSinceEpoch(map['date']),
     );
   }
-  
+
   @override
   Map<String, dynamic> exportData() {
-    // TODO: implement exportData
     throw UnimplementedError();
   }
 }

@@ -169,9 +169,17 @@ class OldMeetingsList extends StatelessWidget {
 
                 return Dismissible(
                   key: Key(meeting.id),
-                  direction: DismissDirection.horizontal,
+                  direction: DismissDirection.startToEnd,
                   background: Container(
-                    color: Colors.red,
+                    // color: Colors.red,
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.black,
+                          Colors.red,
+                        ],
+                      ),
+                    ),
                     alignment: Alignment.centerRight,
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: const Icon(
