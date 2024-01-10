@@ -1,15 +1,13 @@
-import 'dart:convert';
-
 import 'package:eentrack/models/meeting_model.dart';
 import 'package:eentrack/models/user_model.dart';
 import 'package:eentrack/screen/dialog/meetingdetails_dialog.dart';
+import 'package:eentrack/screen/shared/multi_selection_switch.dart';
 import 'package:eentrack/services/dbservice/db_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:intl/intl.dart';
-import 'package:qr_bar_code_scanner_dialog/qr_bar_code_scanner_dialog.dart';
+import 'package:rxdart/rxdart.dart';
 
-import '../authscreens/shared/custombuttons.dart';
 import '../meetingdetailsscreen/meeting_details_screen.dart';
 
 class NewMeetingView extends StatelessWidget {
@@ -40,90 +38,19 @@ class NewMeetingView extends StatelessWidget {
       });
     }
 
-    bool validateMeeting(Map<String, dynamic> data) {
-      var validKeys = ['id', 'hostid', 'title', 'description', 'date'];
-      for (var key in validKeys) {
-        if (!data.containsKey(key)) {
-          return false;
-        }
-      }
-      return true;
-    }
-
-    void takeOver() {
-      QrBarCodeScannerDialog().getScannedQrBarCode(
-          context: context,
-          onCode: (code) {
-            if (code == null) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Invalid QR Code'),
-                ),
-              );
-              return;
-            }
-            var meetingJson = jsonDecode(code);
-            if (!validateMeeting(meetingJson)) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Invalid QR Code'),
-                ),
-              );
-              return;
-            }
-            var meeting = Meeting.fromMap(meetingJson);
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => MeetingDetailsScreen(
-                  meeting: meeting,
-                  dbprovider: dbprovider,
-                ),
-              ),
-            );
-          });
-    }
-
     return Animate(
       child: Stack(
         children: [
-          OldMeetingsList(dbprovider: dbprovider, user: user),
+          MeetingsList(dbprovider: dbprovider, user: user),
           Positioned(
             bottom: 20,
             left: 0,
             right: 0,
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: const Color.fromRGBO(27, 37, 39, 0.6),
-                    borderRadius: BorderRadius.circular(30),
-                    shape: BoxShape.rectangle,
-                  ),
-                  child: IntrinsicHeight(
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: CustomTextButton(
-                            textColor: Theme.of(context).colorScheme.primary,
-                            text: 'Take Over',
-                            onPressed: takeOver,
-                          ),
-                        ),
-                        const VerticalDivider(
-                          thickness: 1,
-                        ),
-                        Expanded(
-                          child: CustomTextButton(
-                            text: 'New Meeting',
-                            textColor: Theme.of(context).colorScheme.onPrimary,
-                            onPressed: showMeetingForm,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: ElevatedButton(
+                onPressed: showMeetingForm,
+                child: const Text('New Meeting'),
               ),
             ),
           ),
@@ -133,8 +60,26 @@ class NewMeetingView extends StatelessWidget {
   }
 }
 
-class OldMeetingsList extends StatelessWidget {
-  const OldMeetingsList({
+enum MeetingType {
+  hosted,
+  coHosted,
+}
+
+extension MeetingTypeExtension on MeetingType {
+  String get name {
+    switch (this) {
+      case MeetingType.hosted:
+        return 'Hosted';
+      case MeetingType.coHosted:
+        return 'Co-Hosted';
+      default:
+        return 'Unknown';
+    }
+  }
+}
+
+class MeetingsList extends StatefulWidget {
+  const MeetingsList({
     super.key,
     required this.dbprovider,
     required this.user,
@@ -144,11 +89,45 @@ class OldMeetingsList extends StatelessWidget {
   final User user;
 
   @override
+  State<MeetingsList> createState() => _MeetingsListState();
+}
+
+class _MeetingsListState extends State<MeetingsList> {
+  late Stream<List<Meeting>> _meetingsStream;
+  late Stream<List<Meeting>> _coHostedMeetingsStream;
+  late Stream<List<List<Meeting>>> _meetingsListStream;
+
+  List<Meeting> _meetings = [];
+  List<Meeting> _coHostedMeetings = [];
+  MeetingType _meetingType = MeetingType.hosted;
+
+  List<Meeting> get filteredMeetings {
+    switch (_meetingType) {
+      case MeetingType.hosted:
+        return _meetings;
+      case MeetingType.coHosted:
+        return _coHostedMeetings;
+      default:
+        return _meetings;
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _meetingsStream = widget.dbprovider.getMeetings(widget.user.uid);
+    _coHostedMeetingsStream =
+        widget.dbprovider.getCoHostedMeetings(widget.user.uid);
+    _meetingsListStream =
+        CombineLatestStream.list([_meetingsStream, _coHostedMeetingsStream]);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(4.0),
-      child: StreamBuilder<List<Meeting>>(
-          stream: dbprovider.getMeetings(user.uid),
+      child: StreamBuilder<List<List<Meeting>>>(
+          stream: _meetingsListStream,
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return const Center(
@@ -156,84 +135,43 @@ class OldMeetingsList extends StatelessWidget {
               );
             }
             if (!snapshot.hasData) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+              return const LinearProgressIndicator();
             }
-            final meetings = snapshot.data!;
-
-            return ListView.builder(
-              itemCount: meetings.length,
-              itemBuilder: (BuildContext context, index) {
-                final meeting = meetings[index];
-
-                return Dismissible(
-                  key: Key(meeting.id),
-                  direction: DismissDirection.startToEnd,
-                  background: Container(
-                    // color: Colors.red,
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Colors.black,
-                          Colors.red,
-                        ],
-                      ),
-                    ),
-                    alignment: Alignment.centerRight,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: const Icon(
-                      Icons.delete,
-                      color: Colors.white,
-                    ),
-                  ),
-                  confirmDismiss: (direction) async {
-                    return await showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text('Confirm'),
-                            content: const Text(
-                                'Are you sure you want to delete this meeting?'),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.of(context).pop(false),
-                                child: const Text("Cancel"),
+            var data = snapshot.data as List<List<Meeting>>;
+            _meetings = data[0];
+            _coHostedMeetings = data[1];
+            return Column(
+              children: [
+                MultiSelectionSwitch(
+                  lables: MeetingType.values.map((e) => e.name).toList(),
+                  selectedIndex: MeetingType.values.indexOf(_meetingType),
+                  onChanged: (i) => setState(() {
+                    _meetingType = MeetingType.values[i];
+                  }),
+                ),
+                const SizedBox(height: 10),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: filteredMeetings.length,
+                    itemBuilder: (BuildContext context, index) {
+                      final meeting = filteredMeetings[index];
+                      return MeetingTile(
+                        meeting: meeting,
+                        onTap: (meeting) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => MeetingDetailsScreen(
+                                meeting: meeting,
+                                dbprovider: widget.dbprovider,
                               ),
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.of(context).pop(true),
-                                child: const Text("Delete"),
-                              )
-                            ],
-                          );
-                        });
-                  },
-                  onDismissed: (_) {
-                    dbprovider.deleteMeeting(meeting.hostid, meeting.id).then(
-                          (_) => ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Meeting Deleted'),
                             ),
-                          ),
-                        );
-                  },
-                  child: MeetingTile(
-                    meeting: meeting,
-                    onTap: (meeting) {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => MeetingDetailsScreen(
-                            meeting: meeting,
-                            dbprovider: dbprovider,
-                          ),
-                        ),
-                      );
+                          );
+                        },
+                      ).animate().slideX().fadeIn();
                     },
-                  ).animate().slideX().fadeIn(),
-                );
-              },
+                  ),
+                ),
+              ],
             );
           }),
     );

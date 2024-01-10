@@ -1,3 +1,5 @@
+import 'package:eentrack/models/export_fields.dart';
+
 import 'model.dart';
 
 class AttendedMeetings implements DataModel {
@@ -53,7 +55,7 @@ class AttendedMeetings implements DataModel {
   }
 
   @override
-  Map<String, dynamic> exportData() {
+  Map<String, dynamic> exportData({List<ExportField> fields = const []}) {
     throw UnimplementedError();
   }
 }

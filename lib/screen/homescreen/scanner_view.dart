@@ -59,6 +59,7 @@ class ScannerView extends StatelessWidget {
             semester: user.semester,
             department: user.department,
             email: user.email,
+            date: DateTime.now(),
             addedOn: DateTime.now(),
             linkedin: user.linkedin,
             github: user.github,

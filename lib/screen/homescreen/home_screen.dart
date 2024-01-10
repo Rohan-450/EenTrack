@@ -74,8 +74,11 @@ class _HomeScreenState extends State<HomeScreen> {
           style: const TextStyle(),
         ),
         centerTitle: true, // No need of center widget
-        leading: Image.asset(
-          'assets/logo.png',
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset(
+            'assets/logo.png',
+          ),
         ),
         actions: [
           IconButton(
@@ -91,9 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
-      body: Center(
-        child: _screens[_currentIndex],
-      ),
+      body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Theme.of(context).colorScheme.primary,
         currentIndex: _currentIndex,

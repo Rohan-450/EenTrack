@@ -3,8 +3,11 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  cloud_firestore
   dynamic_color
+  firebase_auth
   firebase_core
+  firebase_storage
   permission_handler_windows
   qr_bar_code
   share_plus

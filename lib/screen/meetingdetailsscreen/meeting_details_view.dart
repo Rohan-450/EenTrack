@@ -1,10 +1,16 @@
 import 'package:eentrack/models/attendee_model.dart';
 import 'package:eentrack/models/meeting_model.dart';
 import 'package:eentrack/screen/attendeescreen/attendeedetails_screen.dart';
+import 'package:eentrack/screen/meetingdetailsscreen/components/attendee_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-class MeetingDetailsView extends StatelessWidget {
+enum AttendeeFilter {
+  present,
+  left,
+}
+
+class MeetingDetailsView extends StatefulWidget {
   final Meeting meeting;
   final List<Attendee> attendees;
   final bool entry;
@@ -17,114 +23,83 @@ class MeetingDetailsView extends StatelessWidget {
   });
 
   @override
+  State<MeetingDetailsView> createState() => _MeetingDetailsViewState();
+}
+
+class _MeetingDetailsViewState extends State<MeetingDetailsView> {
+  Map<AttendeeFilter, bool> filter = {
+    AttendeeFilter.present: false,
+    AttendeeFilter.left: false,
+  };
+
+  List<Attendee> get filteredAttendees {
+    var filtered = widget.attendees;
+    for (var key in filter.keys) {
+      if (filter[key]!) {
+        switch (key) {
+          case AttendeeFilter.present:
+            filtered = filtered.where((element) => element.isPresent).toList();
+            break;
+          case AttendeeFilter.left:
+            filtered = filtered.where((element) => element.isLeft).toList();
+            break;
+        }
+      }
+    }
+    return filtered;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var leftAttendees =
-        attendees.where((element) => element.leftOn != null).toList();
     return Animate(
       effects: const [ShimmerEffect()],
       child: CustomScrollView(
         slivers: <Widget>[
           SliverToBoxAdapter(
-            child: Card(
-              child: ListTile(
-                title: Text(meeting.title),
-                subtitle: Text(meeting.description),
-                trailing: entry
-                    ? const Icon(Icons.check_box_outline_blank_rounded)
-                    : const Icon(Icons.check_box_outlined),
-              ),
+            child: Wrap(
+              children: AttendeeFilter.values
+                  .map(
+                    (e) => Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: ChoiceChip(
+                        label: Text(e.name),
+                        selected: filter[e] ?? false,
+                        onSelected: (value) =>
+                            setState(() => filter[e] = !filter[e]!),
+                      ),
+                    ),
+                  )
+                  .toList(),
             ),
           ),
           SliverToBoxAdapter(
-            child: Visibility(
-              visible: leftAttendees.isNotEmpty,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Left Attendees : ${leftAttendees.length}',
-                  style: Theme.of(context).textTheme.headlineLarge,
-                ),
-              ),
-            ),
-          ),
-          SliverList.builder(
-              itemCount: leftAttendees.length,
-              itemBuilder: (context, index) {
-                return AttendeeCard(
-                  attendee: leftAttendees[index],
-                  onTap: (attendee) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AttendeeDetailsScreen(
-                          attendee: attendee,
-                        ),
-                      ),
-                    );
-                  },
-                );
-              }),
-          SliverToBoxAdapter(
-            child: Visibility(
-              visible: attendees.isNotEmpty,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Attendees : ${attendees.length}',
-                  style: Theme.of(context).textTheme.headlineLarge,
-                ),
-              ),
-            ),
-          ),
-          SliverList.builder(
-              itemCount: attendees.length,
-              itemBuilder: (context, index) {
-                return AttendeeCard(
-                  attendee: attendees[index],
-                  onTap: (attendee) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AttendeeDetailsScreen(
-                          attendee: attendee,
-                        ),
-                      ),
-                    );
-                  },
-                );
-              }),
-        ],
-      ),
-    );
-  }
-}
-
-class AttendeeCard extends StatelessWidget {
-  final Attendee attendee;
-  final Function(Attendee) onTap;
-  const AttendeeCard({
-    super.key,
-    required this.attendee,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => onTap(attendee),
-      child: Card(
-        child: ListTile(
-          title: Title(
-              color: Colors.blue,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Text(
-                attendee.name,
-              )),
-          subtitle: Text(attendee.semester),
-          trailing: Text(
-            attendee.roll,
-            style: const TextStyle(fontSize: 15),
+                "Total: ${filteredAttendees.length}",
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+            ),
           ),
-        ),
+          SliverList.builder(
+            itemBuilder: (context, index) {
+              var attendee = filteredAttendees[index];
+              return AttendeeCard(
+                attendee: attendee,
+                onTap: (attendee) {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => AttendeeDetailsScreen(
+                        attendee: attendee,
+                      ),
+                    ),
+                  );
+                },
+              );
+            },
+            itemCount: filteredAttendees.length,
+          )
+        ],
       ),
     );
   }

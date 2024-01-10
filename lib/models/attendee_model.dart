@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eentrack/models/export_fields.dart';
 import 'package:eentrack/models/model.dart';
+
+import 'model_consts.dart' as consts;
 
 class Attendee implements DataModel {
   String uid;
@@ -9,10 +12,16 @@ class Attendee implements DataModel {
   String semester;
   String email;
   String github;
+  String linkedin;
+  DateTime date;
   DateTime? addedOn;
   DateTime? leftOn;
-  String linkedin;
-  Map<String, Timestamp>  breaks = {};
+  Map<String, Timestamp> breaks = {};
+
+  bool get isPresent => addedOn != null;
+  bool get isLeft => leftOn != null;
+
+  bool get attendedFullMeeting => isPresent && isLeft;
 
   Attendee({
     required this.uid,
@@ -21,56 +30,88 @@ class Attendee implements DataModel {
     required this.roll,
     required this.semester,
     required this.email,
+    required this.date,
     this.addedOn,
     this.leftOn,
     required this.github,
     required this.linkedin,
   });
 
+  Attendee.newAttendee({
+    required this.uid,
+    required this.name,
+  }) : department = '',
+        roll = '',
+        semester = '',
+        email = '',
+        date = DateTime.now(),
+        addedOn = null,
+        leftOn = null,
+        github = '',
+        linkedin = '';
+
   factory Attendee.fromMap(Map<String, dynamic> json) {
     return Attendee(
-      uid: json['uid'],
-      name: json['name'],
-      department: json['department'],
-      roll: json['rollNo'],
-      semester: json['semester'],
-      email: json['email'],
-      addedOn: json['addedOn'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(json['addedOn'])
-          : null,
-      leftOn: json['leftOn'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(json['leftOn'])
-          : null,
-      github: json['github'],
-      linkedin: json['linkedin'],
+      uid: json[consts.uid],
+      name: json[consts.name],
+      department: json[consts.department],
+      roll: json[consts.roll],
+      semester: json[consts.semester],
+      email: json[consts.email],
+      date: json[consts.date].toDate(),
+      addedOn: json[consts.addedOn]?.toDate(),
+      leftOn: json[consts.leftOn]?.toDate(),
+      github: json[consts.github],
+      linkedin: json[consts.linkedin],
     );
   }
 
   @override
   Map<String, dynamic> toMap() => {
-        'uid': uid,
-        'name': name,
-        'department': department,
-        'rollNo': roll,
-        'semester': semester,
-        'email': email,
-        'addedOn': addedOn?.millisecondsSinceEpoch,
-        'leftOn': leftOn?.millisecondsSinceEpoch,
-        'github': github,
-        'linkedin': linkedin,
+        consts.uid: uid,
+        consts.name: name,
+        consts.department: department,
+        consts.roll: roll,
+        consts.semester: semester,
+        consts.email: email,
+        consts.date: Timestamp.fromDate(date),
+        consts.addedOn: addedOn != null ? Timestamp.fromDate(addedOn!) : null,
+        consts.leftOn: leftOn != null ? Timestamp.fromDate(leftOn!) : null,
+        consts.github: github,
+        consts.linkedin: linkedin,
       };
 
+  String getField(ExportField field) {
+    switch (field) {
+      case ExportField.uid:
+        return uid;
+      case ExportField.name:
+        return name;
+      case ExportField.department:
+        return department;
+      case ExportField.roll:
+        return roll;
+      case ExportField.semester:
+        return semester;
+      case ExportField.email:
+        return email;
+      case ExportField.github:
+        return github;
+      case ExportField.linkedin:
+        return linkedin;
+      case ExportField.addedOn:
+        return addedOn != null ? addedOn!.toLocal().toString() : '';
+      case ExportField.leftOn:
+        return leftOn != null ? leftOn!.toLocal().toString() : '';
+      case ExportField.attendedFullMeeting:
+        return attendedFullMeeting ? 'Yes' : 'No';
+      default:
+        return '';
+    }
+  }
+
   @override
-  Map<String, dynamic> exportData() => {
-        'Name ': name,
-        'Department': department,
-        'Roll No': roll,
-        'Semester': semester,
-        'Email': email,
-        'Github': github,
-        'Linkedin': linkedin,
-        'Attendance': addedOn != null ? 'Present' : 'Absent',
-        'Attended full meeting':
-            addedOn != null && leftOn != null ? 'Yes' : 'No',
-      };
+  Map<String, dynamic> exportData({List<ExportField> fields = const []}) =>
+      fields
+          .fold({}, (map, field) => map..addAll({field.name: getField(field)}));
 }

@@ -51,12 +51,11 @@ Future<Meeting?> showMeetingFormDialog(BuildContext context, String uid) async {
             TextButton(
               onPressed: () {
                 String mid = DateTime.now().millisecondsSinceEpoch.toString();
-                var meeting = Meeting(
+                var meeting = Meeting.newMeeting(
                     id: mid,
                     hostid: uid,
                     title: title,
-                    description: description,
-                    date: DateTime.now());
+                    description: description);
                 Navigator.of(context).pop(meeting);
               },
               child: const Text('Create'),
