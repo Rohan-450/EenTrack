@@ -14,6 +14,7 @@ class AttendeeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
+        onTap: () => onTap?.call(attendee),
         title: Text(attendee.name),
         leading: CircleAvatar(
           child: Text(attendee.name[0]),

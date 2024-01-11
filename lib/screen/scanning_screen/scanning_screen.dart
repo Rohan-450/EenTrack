@@ -1,6 +1,6 @@
 import 'package:eentrack/models/attendee_model.dart';
 import 'package:eentrack/models/meeting_model.dart';
-import 'package:eentrack/screen/meetingdetailsscreen/components/attendee_card.dart';
+import 'package:eentrack/screen/meetingdetailsscreen/components/attendee_sliver_list.dart';
 import 'package:eentrack/screen/shared/multi_selection_switch.dart';
 import 'package:eentrack/screen/shared/show_snackbar.dart';
 import 'package:eentrack/services/dbservice/db_model.dart';
@@ -200,15 +200,11 @@ class _ScanningScreenState extends State<ScanningScreen> {
                         ),
                       ),
                     ),
-                    SliverList.builder(
-                      itemBuilder: (context, index) {
-                        var attendee = filteredAttendees[index];
-                        return AttendeeCard(
-                          attendee: attendee,
-                          onTap: (attendee) {},
-                        );
-                      },
-                      itemCount: filteredAttendees.length,
+                    SliverPadding(
+                      padding: const EdgeInsets.all(8.0),
+                      sliver: AttendeeSliverList(
+                        attendees: filteredAttendees,
+                      ),
                     )
                   ],
                 ));

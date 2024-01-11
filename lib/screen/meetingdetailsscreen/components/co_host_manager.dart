@@ -2,7 +2,6 @@ import 'package:eentrack/models/meeting_model.dart';
 import 'package:eentrack/models/user_model.dart';
 import 'package:eentrack/screen/dialog/alart_dialog.dart';
 import 'package:eentrack/screen/dialog/scanner_dialog.dart';
-import 'package:eentrack/screen/shared/show_snackbar.dart';
 import 'package:eentrack/services/dbservice/db_model.dart';
 import 'package:eentrack/services/qr_service/qr_parser.dart';
 import 'package:flutter/material.dart';

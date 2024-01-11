@@ -1,7 +1,6 @@
 import 'package:eentrack/models/attendee_model.dart';
 import 'package:eentrack/models/meeting_model.dart';
-import 'package:eentrack/screen/attendeescreen/attendeedetails_screen.dart';
-import 'package:eentrack/screen/meetingdetailsscreen/components/attendee_card.dart';
+import 'package:eentrack/screen/meetingdetailsscreen/components/attendee_sliver_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -52,7 +51,6 @@ class _MeetingDetailsViewState extends State<MeetingDetailsView> {
   @override
   Widget build(BuildContext context) {
     return Animate(
-      effects: const [ShimmerEffect()],
       child: CustomScrollView(
         slivers: <Widget>[
           SliverToBoxAdapter(
@@ -81,23 +79,11 @@ class _MeetingDetailsViewState extends State<MeetingDetailsView> {
               ),
             ),
           ),
-          SliverList.builder(
-            itemBuilder: (context, index) {
-              var attendee = filteredAttendees[index];
-              return AttendeeCard(
-                attendee: attendee,
-                onTap: (attendee) {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => AttendeeDetailsScreen(
-                        attendee: attendee,
-                      ),
-                    ),
-                  );
-                },
-              );
-            },
-            itemCount: filteredAttendees.length,
+          SliverPadding(
+            padding: const EdgeInsets.all(8.0),
+            sliver: AttendeeSliverList(
+              attendees: filteredAttendees,
+            ),
           )
         ],
       ),
