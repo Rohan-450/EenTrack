@@ -15,7 +15,7 @@ Future<Option> showAlartDialog(
               onPressed: () {
                 Navigator.of(context).pop(Option.ok);
               },
-              child: const Text('Ok'),
+              child: const Text('OK'),
             ),
             TextButton(
               onPressed: () {

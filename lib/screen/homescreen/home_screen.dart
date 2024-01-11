@@ -104,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.qr_code_scanner_rounded),
-            label: 'Join Meeting',
+            label: 'QR',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle_rounded),

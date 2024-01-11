@@ -2,6 +2,7 @@ import 'package:eentrack/models/attendee_model.dart';
 import 'package:eentrack/models/export_fields.dart';
 import 'package:eentrack/models/meeting_model.dart';
 import 'package:eentrack/screen/dialog/alart_dialog.dart';
+import 'package:eentrack/screen/meetingdetailsscreen/components/attendee_search_delegate.dart';
 import 'package:eentrack/screen/meetingdetailsscreen/components/co_host_manager.dart';
 import 'package:eentrack/screen/meetingdetailsscreen/meeting_details_view.dart';
 import 'package:eentrack/screen/scanning_screen/scanning_screen.dart';
@@ -9,6 +10,32 @@ import 'package:eentrack/services/exportservice/export_service.dart';
 import 'package:flutter/material.dart';
 
 import '../../services/dbservice/db_model.dart';
+
+enum PopupMenu { export, cohost, delete }
+
+extension PopupMenuExtension on PopupMenu {
+  String get value {
+    switch (this) {
+      case PopupMenu.export:
+        return 'export';
+      case PopupMenu.cohost:
+        return 'cohost';
+      case PopupMenu.delete:
+        return 'delete';
+    }
+  }
+
+  IconData get icon {
+    switch (this) {
+      case PopupMenu.export:
+        return Icons.share;
+      case PopupMenu.cohost:
+        return Icons.person_add;
+      case PopupMenu.delete:
+        return Icons.delete;
+    }
+  }
+}
 
 class MeetingDetailsScreen extends StatefulWidget {
   final Meeting meeting;
@@ -67,25 +94,45 @@ class _MeetingDetailsScreenState extends State<MeetingDetailsScreen> {
     );
   }
 
+  Widget _buildPopupMenu() {
+    return PopupMenuButton(
+      itemBuilder: (context) => PopupMenu.values
+          .map((e) => PopupMenuItem(
+                value: e,
+                child: Row(
+                  children: [
+                    Icon(e.icon),
+                    const SizedBox(width: 10),
+                    Text(e.value),
+                  ],
+                ),
+              ))
+          .toList(),
+      onSelected: (PopupMenu result) {
+        switch (result) {
+          case PopupMenu.export:
+            _exportToExcel();
+            break;
+          case PopupMenu.cohost:
+            _addCohost();
+            break;
+          case PopupMenu.delete:
+            _deleteMeeting();
+            break;
+        }
+      },
+    );
+  }
+
   List<Widget> _buildActions() {
-    if (widget.meeting.isHost) {
-      return [
-        IconButton(
-          icon: const Icon(Icons.share),
-          onPressed: _exportToExcel,
-        ),
-        IconButton(
-          icon: const Icon(Icons.person_add),
-          onPressed: _addCohost,
-        ),
-        IconButton(
-          icon: const Icon(Icons.delete),
-          onPressed: _deleteMeeting,
-        ),
-      ];
-    } else {
-      return [];
-    }
+    return [
+      IconButton(
+        onPressed: () => showSearch(
+            context: context, delegate: AttendeeSearchDelegate(attendees)),
+        icon: const Icon(Icons.search),
+      ),
+      if (widget.meeting.isHost) _buildPopupMenu(),
+    ];
   }
 
   @override
