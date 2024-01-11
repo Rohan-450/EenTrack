@@ -4,7 +4,6 @@ import 'package:eentrack/screen/dialog/meetingdetails_dialog.dart';
 import 'package:eentrack/screen/shared/multi_selection_switch.dart';
 import 'package:eentrack/services/dbservice/db_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:intl/intl.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -38,24 +37,22 @@ class NewMeetingView extends StatelessWidget {
       });
     }
 
-    return Animate(
-      child: Stack(
-        children: [
-          MeetingsList(dbprovider: dbprovider, user: user),
-          Positioned(
-            bottom: 20,
-            left: 0,
-            right: 0,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: ElevatedButton(
-                onPressed: showMeetingForm,
-                child: const Text('New Meeting'),
-              ),
+    return Stack(
+      children: [
+        MeetingsList(dbprovider: dbprovider, user: user),
+        Positioned(
+          bottom: 20,
+          left: 0,
+          right: 0,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: ElevatedButton(
+              onPressed: showMeetingForm,
+              child: const Text('New Meeting'),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -167,7 +164,7 @@ class _MeetingsListState extends State<MeetingsList> {
                             ),
                           );
                         },
-                      ).animate().slideX().fadeIn();
+                      );
                     },
                   ),
                 ),
