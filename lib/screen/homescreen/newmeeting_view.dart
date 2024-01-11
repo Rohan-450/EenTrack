@@ -122,7 +122,7 @@ class _MeetingsListState extends State<MeetingsList> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: StreamBuilder<List<List<Meeting>>>(
           stream: _meetingsListStream,
           builder: (context, snapshot) {
