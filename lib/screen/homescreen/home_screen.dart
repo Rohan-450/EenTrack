@@ -1,8 +1,12 @@
+import 'package:eentrack/bloc/authbloc/auth_bloc.dart';
+import 'package:eentrack/bloc/authbloc/auth_events.dart';
 import 'package:eentrack/models/user_model.dart';
+import 'package:eentrack/screen/dialog/alart_dialog.dart';
 import 'package:eentrack/screen/dialog/user_settings_dialog.dart';
 import 'package:eentrack/screen/homescreen/details_qr_view.dart';
 import 'package:eentrack/services/dbservice/db_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'new_meeting_view.dart';
 import 'profile_view.dart';
@@ -28,6 +32,28 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 1;
 
   late final List<Widget> _screens;
+
+  void _logout() async {
+    var res = await showAlartDialog(
+        'Loging Out', 'You sure want to log out?', context);
+    if (res != Option.ok) return;
+    if (!context.mounted) return;
+    BlocProvider.of<AuthBloc>(context).add(AuthEventLogout());
+  }
+
+  void _editProfile() {
+    if (!context.mounted) return;
+    BlocProvider.of<AuthBloc>(context).add(
+      AuthEventShowUpdateUserDetails(user: widget.user),
+    );
+  }
+
+  void _showSettingsDialog() async {
+    var res = await showSettingsDialog(context, widget.user);
+    if (res == null) return;
+    if (res == SettingOptions.editProfile) _editProfile();
+    if (res == SettingOptions.logout) _logout();
+  }
 
   @override
   void initState() {
@@ -63,9 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('EenTrack'),
         actions: [
           IconButton(
-            onPressed: () {
-              showUserProfileDialog(context, widget.user);
-            }, //_onLogout(context),
+            onPressed: _showSettingsDialog, //_onLogout(context),
             icon: Image.asset('assets/logo.png'),
           )
         ],

@@ -1,16 +1,17 @@
-import 'package:eentrack/bloc/authbloc/auth_bloc.dart';
-import 'package:eentrack/bloc/authbloc/auth_events.dart';
 import 'package:eentrack/models/user_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:random_avatar/random_avatar.dart';
 
-void showUserProfileDialog(
+enum SettingOptions {
+  editProfile,
+  logout,
+}
+
+Future<SettingOptions?> showSettingsDialog(
   BuildContext context,
   User user,
 ) {
-  var bloc = BlocProvider.of<AuthBloc>(context);
-  showDialog(
+  return showDialog<SettingOptions>(
     context: context,
     builder: (context) {
       return SimpleDialog(
@@ -31,25 +32,24 @@ void showUserProfileDialog(
               textAlign: TextAlign.center,
             ),
           ),
+          const Divider(),
           SimpleDialogOption(
+            onPressed: () => Navigator.of(context).pop(
+              SettingOptions.editProfile,
+            ),
             child: const Text(
               "Edit Profile",
               textAlign: TextAlign.center,
             ),
-            onPressed: () {
-              Navigator.pop(context);
-              bloc.add(AuthEventShowUpdateUserDetails(user: user));
-            },
           ),
           SimpleDialogOption(
+            onPressed: () => Navigator.of(context).pop(
+              SettingOptions.logout,
+            ),
             child: const Text(
               "LogOut",
               textAlign: TextAlign.center,
             ),
-            onPressed: () {
-              Navigator.pop(context);
-              bloc.add(AuthEventLogout());
-            },
           ),
           SimpleDialogOption(
             child: const Text(
