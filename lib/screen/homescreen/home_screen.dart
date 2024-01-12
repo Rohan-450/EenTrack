@@ -1,12 +1,9 @@
 import 'package:eentrack/models/user_model.dart';
+import 'package:eentrack/screen/dialog/user_settings_dialog.dart';
 import 'package:eentrack/screen/homescreen/details_qr_view.dart';
 import 'package:eentrack/services/dbservice/db_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../bloc/authbloc/auth_events.dart';
-import '../../bloc/authbloc/auth_bloc.dart';
-import '../dialog/alart_dialog.dart';
 import 'new_meeting_view.dart';
 import 'profile_view.dart';
 
@@ -30,7 +27,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 1;
 
-  late final List<String> _appBarTitles;
   late final List<Widget> _screens;
 
   @override
@@ -56,11 +52,6 @@ class _HomeScreenState extends State<HomeScreen> {
         dbprovider: widget.dbprovider,
       ),
     ];
-    _appBarTitles = [
-      'QR',
-      'Profile',
-      'Meetings',
-    ];
   }
 
   @override
@@ -69,28 +60,13 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text(
-          _appBarTitles[_currentIndex],
-          style: const TextStyle(),
-        ),
-        centerTitle: true, // No need of center widget
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.asset(
-            'assets/logo.png',
-          ),
-        ),
+        title: const Text('EenTrack'),
         actions: [
           IconButton(
             onPressed: () {
-              showAlartDialog('Logout', 'You sure want to logout?', context)
-                  .then((value) {
-                if (value == Option.ok) {
-                  BlocProvider.of<AuthBloc>(context).add(AuthEventLogout());
-                }
-              });
+              showUserProfileDialog(context, widget.user);
             }, //_onLogout(context),
-            icon: const Icon(Icons.logout),
+            icon: Image.asset('assets/logo.png'),
           )
         ],
       ),

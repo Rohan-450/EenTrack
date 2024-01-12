@@ -14,32 +14,47 @@ void showUserProfileDialog(
     context: context,
     builder: (context) {
       return SimpleDialog(
-        title: Text(user.name),
+        alignment: Alignment.center,
+        title: Text(
+          user.name,
+          textAlign: TextAlign.center,
+        ),
         children: [
-          Text(user.email),
           CircleAvatar(
-            radius: 20,
+            radius: 50,
             child: RandomAvatar(user.name),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              user.email,
+              textAlign: TextAlign.center,
+            ),
           ),
           SimpleDialogOption(
             child: const Text(
               "Edit Profile",
+              textAlign: TextAlign.center,
             ),
             onPressed: () {
+              Navigator.pop(context);
               bloc.add(AuthEventShowUpdateUserDetails(user: user));
             },
           ),
           SimpleDialogOption(
             child: const Text(
               "LogOut",
+              textAlign: TextAlign.center,
             ),
             onPressed: () {
+              Navigator.pop(context);
               bloc.add(AuthEventLogout());
             },
           ),
           SimpleDialogOption(
             child: const Text(
               "Close",
+              textAlign: TextAlign.center,
             ),
             onPressed: () {
               Navigator.pop(context);
