@@ -13,6 +13,16 @@ class AuthState {
     this.loading,
     this.error,
   });
+
+  AuthState copyWith({
+    String? loading,
+    String? error,
+  }) {
+    return AuthState(
+      loading: loading ?? this.loading,
+      error: error ?? this.error,
+    );
+  }
 }
 
 class AuthStateUninitialized extends AuthState {}
@@ -76,14 +86,29 @@ class AuthStateNeedVerify extends AuthState with EquatableMixin {
   List<Object?> get props => [error, loading];
 }
 
-class AuthStateNeedDetails extends AuthState {
-  final String email;
-  const AuthStateNeedDetails({
-    required this.email,
+class AuthStateShowUserDetailsForm extends AuthState {
+  final User user;
+  final Function(User) onSubmit;
+  const AuthStateShowUserDetailsForm({
+    required this.user,
+    required this.onSubmit,
     String? loading,
     String? error,
   }) : super(
           loading: loading,
           error: error,
         );
+
+  @override
+  AuthStateShowUserDetailsForm copyWith({
+    String? loading,
+    String? error,
+  }) {
+    return AuthStateShowUserDetailsForm(
+      user: user,
+      onSubmit: onSubmit,
+      loading: loading ?? this.loading,
+      error: error ?? this.error,
+    );
+  }
 }

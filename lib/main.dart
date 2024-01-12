@@ -3,7 +3,7 @@ import 'package:eentrack/services/dbservice/firestore_db.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc/authbloc/auth_events.dart';
 import 'bloc/authbloc/auth_state.dart';
-import 'bloc/authbloc/authbloc.dart';
+import 'bloc/authbloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 
 import 'screen/authscreens/loginscreen/login_screen.dart';
@@ -11,7 +11,7 @@ import 'screen/authscreens/registerscreen/register_screen.dart';
 import 'screen/authscreens/verificationscreen/verification_screen.dart';
 import 'screen/homescreen/home_screen.dart';
 import 'screen/shared/loading_screen.dart';
-import 'screen/userCredentialscreen/usercredential_screen.dart';
+import 'screen/user_cred_screen/usercredential_screen.dart';
 import 'services/authservices/firebase_auth_service.dart';
 
 void main() {
@@ -95,9 +95,10 @@ class _AuthBlocHandleState extends State<AuthBlocHandle> {
               error: state.error,
             );
           }
-          if (state is AuthStateNeedDetails) {
+          if (state is AuthStateShowUserDetailsForm) {
             return UserCredForm(
-              email: state.email,
+              user: state.user,
+              onSubmit: state.onSubmit,
             );
           }
 

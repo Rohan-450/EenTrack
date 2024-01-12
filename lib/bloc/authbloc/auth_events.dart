@@ -1,3 +1,4 @@
+import 'package:eentrack/models/user_model.dart';
 import 'package:flutter/foundation.dart';
 
 @immutable
@@ -59,20 +60,16 @@ class AuthEventShowVerifyEmail extends AuthEvent {
 }
 
 class AuthEventAddUserDetails extends AuthEvent {
-  final String name;
-  final String email;
-  final String rollNo;
-  final String department;
-  final String semester;
-  final String github;
-  final String linkedin;
-  const AuthEventAddUserDetails({
-    required this.name,
-    required this.email,
-    required this.rollNo,
-    required this.department,
-    required this.semester,
-    required this.github,
-    required this.linkedin,
-  });
+  final User user;
+  const AuthEventAddUserDetails({required this.user});
+}
+
+class AuthEventUpdateUserDetails extends AuthEvent {
+  final User user;
+  const AuthEventUpdateUserDetails({required this.user});
+}
+
+class AuthEventShowUpdateUserDetails extends AuthEvent {
+  final User user;
+  const AuthEventShowUpdateUserDetails({required this.user});
 }

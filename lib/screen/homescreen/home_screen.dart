@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc/authbloc/auth_events.dart';
-import '../../bloc/authbloc/authbloc.dart';
+import '../../bloc/authbloc/auth_bloc.dart';
 import '../dialog/alart_dialog.dart';
 import 'newmeeting_view.dart';
 import 'profile_view.dart';

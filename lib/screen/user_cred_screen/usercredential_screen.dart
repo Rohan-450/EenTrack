@@ -1,12 +1,15 @@
+import 'package:eentrack/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 import 'usercredential_view.dart';
 
 class UserCredForm extends StatelessWidget {
-  final String email;
+  final User user;
+  final Function(User) onSubmit;
   const UserCredForm({
     super.key,
-    required this.email,
+    required this.user,
+    required this.onSubmit
   });
 
   @override
@@ -19,7 +22,7 @@ class UserCredForm extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: UserCredFormView(email: email),
+        child: UserCredFormView(user: user,onSubmit: onSubmit,),
       ),
     );
   }
