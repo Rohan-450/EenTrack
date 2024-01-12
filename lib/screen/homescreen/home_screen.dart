@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../bloc/authbloc/auth_events.dart';
 import '../../bloc/authbloc/auth_bloc.dart';
 import '../dialog/alart_dialog.dart';
-import 'newmeeting_view.dart';
+import 'new_meeting_view.dart';
 import 'profile_view.dart';
 
 class HomeScreen extends StatefulWidget {

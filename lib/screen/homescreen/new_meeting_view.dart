@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../meetingdetailsscreen/meeting_details_screen.dart';
+import '../meeting_details_screen/meeting_details_screen.dart';
 
 class NewMeetingView extends StatelessWidget {
   final User user;

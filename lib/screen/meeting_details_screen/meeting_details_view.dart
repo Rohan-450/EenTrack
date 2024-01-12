@@ -1,6 +1,6 @@
 import 'package:eentrack/models/attendee_model.dart';
 import 'package:eentrack/models/meeting_model.dart';
-import 'package:eentrack/screen/meetingdetailsscreen/components/attendee_sliver_list.dart';
+import 'package:eentrack/screen/meeting_details_screen/components/attendee_sliver_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
