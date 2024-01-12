@@ -3,7 +3,7 @@ import 'package:eentrack/services/dbservice/firestore_db.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc/authbloc/auth_events.dart';
 import 'bloc/authbloc/auth_state.dart';
-import 'bloc/authbloc/authbloc.dart';
+import 'bloc/authbloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 
 import 'screen/authscreens/loginscreen/login_screen.dart';
@@ -95,9 +95,10 @@ class _AuthBlocHandleState extends State<AuthBlocHandle> {
               error: state.error,
             );
           }
-          if (state is AuthStateNeedDetails) {
+          if (state is AuthStateShowUserDetailsForm) {
             return UserCredForm(
-              email: state.email,
+              user: state.user,
+              onSubmit: state.onSubmit,
             );
           }
 
