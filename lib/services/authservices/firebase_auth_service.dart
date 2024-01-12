@@ -116,4 +116,9 @@ class FirebaseAuthService implements AuthModel {
         return AuthException('Unknown firebase auth error');
     }
   }
+
+  @override
+  Future<void> sendResetPasswordEmail(String email) async {
+    await _auth.sendPasswordResetEmail(email: email);
+  }
 }

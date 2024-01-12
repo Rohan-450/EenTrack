@@ -54,6 +54,19 @@ class AuthStateNeedLogin extends AuthState with EquatableMixin {
         );
   @override
   List<Object?> get props => [error, loading];
+
+  @override
+  AuthStateNeedLogin copyWith({
+    String? loading,
+    String? error,
+  }) {
+    return AuthStateNeedLogin(
+      email: email,
+      password: password,
+      loading: loading ?? this.loading,
+      error: error ?? this.error,
+    );
+  }
 }
 
 class AuthStateNeedRegister extends AuthState with EquatableMixin {

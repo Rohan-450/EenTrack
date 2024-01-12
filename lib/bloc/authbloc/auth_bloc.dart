@@ -286,5 +286,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         );
       },
     );
+
+    on<AuthEventResetPassword>(
+      (event, emit) {
+        if (state is! AuthStateNeedLogin) return;
+        emit(state.copyWith(loading: "Sending reset password email..."));
+        try {
+          authProvider.sendResetPasswordEmail(event.email);
+          emit(AuthStateNeedLogin(email: event.email));
+        } on DBException catch (e) {
+          emit(AuthStateNeedLogin(email: event.email, error: e.message));
+        } catch (e) {
+          emit(AuthStateNeedLogin(email: event.email, error: e.toString()));
+        }
+      },
+    );
   }
 }

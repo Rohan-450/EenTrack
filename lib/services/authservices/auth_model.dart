@@ -8,5 +8,6 @@ abstract class AuthModel {
   Future<AuthUser?> loginAnnonymously();
   Future<AuthUser?> registerWithEmail(String email, String password);
   Future<void> sendEmailVerification();
+  Future<void> sendResetPasswordEmail(String email);
   Future<void> logout();
 }
