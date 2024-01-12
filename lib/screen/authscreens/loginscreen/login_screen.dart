@@ -41,6 +41,7 @@ class LoginScreen extends StatelessWidget {
             email: email,
             password: password,
             isLoading: isLoading,
+            error: error,
           )),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:eentrack/screen/shared/show_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,11 +13,13 @@ class LoginView extends StatefulWidget {
   final String email;
   final String password;
   final String? isLoading;
+  final String? error;
   const LoginView({
     super.key,
     this.email = '',
     this.password = '',
     this.isLoading,
+    this.error,
   });
 
   @override
@@ -53,6 +56,17 @@ class _LoginViewState extends State<LoginView> {
       return widget.isLoading!;
     }
     return 'Welcome back...';
+  }
+
+  void resetPassword() {
+    if (validateEmail(email) != null) {
+      showSnackbar(context, "Please Enter a valid email to reset password...",
+          type: SnackbarType.error);
+      return;
+    }
+    BlocProvider.of<AuthBloc>(context)
+        .add(AuthEventResetPassword(email: email));
+    showSnackbar(context, "Please check your email to reset password...");
   }
 
   @override
@@ -104,7 +118,7 @@ class _LoginViewState extends State<LoginView> {
                     keyboardType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
                     onChanged: (email) {
-                      this.email = email;
+                      this.email = email.trim();
                     },
                   ).animate().shimmer(),
                   const SizedBox(height: 20),
@@ -141,6 +155,11 @@ class _LoginViewState extends State<LoginView> {
                     },
                     textColor: Theme.of(context).colorScheme.primary,
                   ),
+                  if (widget.error != null)
+                    CustomTextButton(
+                        text: 'Reset Password',
+                        onPressed: resetPassword,
+                        textColor: Theme.of(context).colorScheme.primary),
                 ],
               ),
             ),
