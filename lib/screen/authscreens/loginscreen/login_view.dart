@@ -4,7 +4,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../bloc/authbloc/auth_events.dart';
-import '../../../bloc/authbloc/authbloc.dart';
+import '../../../bloc/authbloc/auth_bloc.dart';
 import '../shared/custombuttons.dart';
 import '../shared/customtextbox.dart';
 

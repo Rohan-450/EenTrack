@@ -39,8 +39,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         }
         var user = await dbprovider.getUser(authuser.uid);
         if (user == null) {
-          emit(AuthStateNeedDetails(
-            email: authuser.email!,
+          user = User.newUser(email: authuser.email!, uid: authuser.uid);
+          emit(AuthStateShowUserDetailsForm(
+            user: user,
+            onSubmit: (u) => add(AuthEventAddUserDetails(user: u)),
           ));
           return;
         }
@@ -112,8 +114,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         }
         var user = await dbprovider.getUser(authuser.uid);
         if (user == null) {
-          emit(AuthStateNeedDetails(
-            email: authuser.email!,
+          user = User.newUser(uid: authuser.uid, email: authuser.email!);
+          emit(AuthStateShowUserDetailsForm(
+            user: user,
+            onSubmit: (u) => add(AuthEventAddUserDetails(user: u)),
           ));
           return;
         }
@@ -161,29 +165,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ));
       }
     });
-
-    // Login Anonymously
-    // on<AuthEventLoginAnonymously>((event, emit) async {
-    //   emit(AuthStateNeedLogin(loading: 'Logging in...'));
-    //   try {
-    //     var user = await authProvider.loginAnnonymously();
-    //     if (user == null) {
-    //       emit(AuthStateNeedLogin(
-    //         error: 'Error logging in anonymously',
-    //       ));
-    //       return;
-    //     }
-    //     emit(AuthStateLoggedIn(authuser: user));
-    //   } on AuthException catch (e) {
-    //     return emit(AuthStateNeedLogin(
-    //       error: e.message,
-    //     ));
-    //   } catch (e) {
-    //     return emit(AuthStateNeedLogin(
-    //       error: e.toString(),
-    //     ));
-    //   }
-    // });
 
     // Event Logout
     on<AuthEventLogout>((event, emit) async {
@@ -235,8 +216,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         }
         var user = await dbprovider.getUser(authuser.uid);
         if (user == null) {
-          emit(AuthStateNeedDetails(
-            email: authuser.email!,
+          user = User.newUser(uid: authuser.uid, email: authuser.email!);
+          emit(AuthStateShowUserDetailsForm(
+            user: user,
+            onSubmit: (u) => add(AuthEventAddUserDetails(user: u)),
           ));
           return;
         }
@@ -252,20 +235,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     on<AuthEventAddUserDetails>(
       (event, emit) {
-        emit(AuthStateNeedDetails(
-            email: event.email, loading: 'Adding user...'));
+        var state = this.state;
+        if (state is! AuthStateShowUserDetailsForm) {
+          return;
+        }
+        emit(state.copyWith(loading: 'Adding user details...'));
         try {
           var authuser = authProvider.user!;
-          var user = User(
-            uid: authProvider.user!.uid,
-            name: event.name,
-            email: authuser.email!,
-            roll: event.rollNo,
-            department: event.department,
-            semester: event.semester,
-            github: event.github,
-            linkedin: event.linkedin,
-          );
+          var user = state.user;
 
           dbprovider.createUser(user);
           emit(AuthStateLoggedIn(
@@ -274,16 +251,39 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             dbprovider: dbprovider,
           ));
         } on DBException catch (e) {
-          emit(AuthStateNeedDetails(
-            email: event.email,
+          emit(state.copyWith(
             error: e.message,
           ));
         } catch (e) {
-          emit(AuthStateNeedDetails(
-            email: event.email,
+          emit(state.copyWith(
             error: 'Something went wrong...',
           ));
         }
+      },
+    );
+
+    on<AuthEventShowUpdateUserDetails>(
+      (event, emit) {
+        emit(AuthStateShowUserDetailsForm(
+          user: event.user,
+          onSubmit: (user) => add(
+            AuthEventUpdateUserDetails(user: user),
+          ),
+        ));
+      },
+    );
+
+    on<AuthEventUpdateUserDetails>(
+      (event, emit) {
+        var user = event.user;
+        dbprovider.updateUser(user);
+        emit(
+          AuthStateLoggedIn(
+            authuser: authProvider.user!,
+            user: user,
+            dbprovider: dbprovider,
+          ),
+        );
       },
     );
   }

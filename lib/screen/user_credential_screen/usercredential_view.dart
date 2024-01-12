@@ -1,19 +1,19 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:eentrack/bloc/authbloc/auth_events.dart';
-import 'package:eentrack/bloc/authbloc/authbloc.dart';
+import 'package:eentrack/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:random_avatar/random_avatar.dart';
 
 import '../authscreens/shared/custombuttons.dart';
 import '../authscreens/shared/customtextbox.dart';
 
 class UserCredFormView extends StatefulWidget {
-  final String email;
+  final User user;
+  final Function(User) onSubmit;
   const UserCredFormView({
     super.key,
-    required this.email,
+    required this.user,
+    required this.onSubmit,
   });
 
   @override
@@ -21,20 +21,13 @@ class UserCredFormView extends StatefulWidget {
 }
 
 class _UserCredFormViewState extends State<UserCredFormView> {
-  late String email;
-  String name = '';
-  String department = '';
-  String rollNo = '';
-  String semester = '';
-  String github = '';
-  String linkedin = '';
-
   final _formKey = GlobalKey<FormState>();
+
+  User get user => widget.user;
 
   @override
   void initState() {
     super.initState();
-    email = widget.email;
   }
 
   @override
@@ -55,7 +48,8 @@ class _UserCredFormViewState extends State<UserCredFormView> {
                     ),
                     CircleAvatar(
                       radius: 50,
-                      child: RandomAvatar(name.isEmpty ? 'Dark' : name),
+                      child:
+                          RandomAvatar(user.name.isEmpty ? 'Dark' : user.name),
                     ).animate().slideY().fadeIn(),
                     const SizedBox(
                       height: 20,
@@ -78,6 +72,7 @@ class _UserCredFormViewState extends State<UserCredFormView> {
                     ),
                     CustomTextBox(
                       label: "Enter your full name",
+                      initialValue: user.name,
                       validator: (p0) {
                         if (p0 == null || p0.isEmpty) {
                           return 'Please enter your name';
@@ -85,7 +80,7 @@ class _UserCredFormViewState extends State<UserCredFormView> {
                         return null;
                       },
                       onChanged: (name) {
-                        this.name = name.trim();
+                        user.name = name.trim();
                         setState(() {});
                       },
                     ),
@@ -94,6 +89,7 @@ class _UserCredFormViewState extends State<UserCredFormView> {
                     ),
                     CustomTextBox(
                       label: "Department ie. CSE ECE etc.",
+                      initialValue: user.department,
                       validator: (p0) {
                         if (p0 == null || p0.isEmpty) {
                           return 'Department cannot be empty';
@@ -107,7 +103,7 @@ class _UserCredFormViewState extends State<UserCredFormView> {
                         return null;
                       },
                       onChanged: (department) {
-                        this.department = department.trim().toUpperCase();
+                        user.department = department.trim().toUpperCase();
                       },
                     ),
                     const SizedBox(
@@ -118,6 +114,7 @@ class _UserCredFormViewState extends State<UserCredFormView> {
                         Expanded(
                           child: CustomTextBox(
                             label: "Full college roll...",
+                            initialValue: user.roll,
                             validator: (p0) {
                               if (p0 == null || p0.isEmpty) {
                                 return 'Please enter your roll number';
@@ -128,7 +125,7 @@ class _UserCredFormViewState extends State<UserCredFormView> {
                               return null;
                             },
                             onChanged: (rollNo) {
-                              this.rollNo = rollNo.trim();
+                              user.roll = rollNo.trim();
                             },
                           ),
                         ),
@@ -138,6 +135,7 @@ class _UserCredFormViewState extends State<UserCredFormView> {
                         Expanded(
                           child: CustomTextBox(
                             label: "Semester ie. 1st, 2nd, 3rd...",
+                            initialValue: user.semester,
                             validator: (p0) {
                               if (p0 == null || p0.isEmpty) {
                                 return 'Please enter your semester';
@@ -148,7 +146,7 @@ class _UserCredFormViewState extends State<UserCredFormView> {
                               return null;
                             },
                             onChanged: (semester) {
-                              this.semester = semester.trim();
+                              user.semester = semester.trim();
                             },
                           ),
                         ),
@@ -158,7 +156,7 @@ class _UserCredFormViewState extends State<UserCredFormView> {
                     CustomTextBox(
                       label: 'Email',
                       onChanged: (_) {},
-                      initialValue: widget.email,
+                      initialValue: user.email,
                       enabled: false,
                     ),
                     const SizedBox(
@@ -166,6 +164,7 @@ class _UserCredFormViewState extends State<UserCredFormView> {
                     ),
                     CustomTextBox(
                       label: "Linkedin",
+                      initialValue: user.linkedin,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return null;
@@ -176,7 +175,7 @@ class _UserCredFormViewState extends State<UserCredFormView> {
                         return null;
                       },
                       onChanged: (linkedin) {
-                        this.linkedin = linkedin.trim();
+                        user.linkedin = linkedin.trim();
                       },
                     ),
                     const SizedBox(
@@ -184,6 +183,7 @@ class _UserCredFormViewState extends State<UserCredFormView> {
                     ),
                     CustomTextBox(
                       label: "Github",
+                      initialValue: user.github,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return null;
@@ -194,7 +194,7 @@ class _UserCredFormViewState extends State<UserCredFormView> {
                         return null;
                       },
                       onChanged: (github) {
-                        this.github = github.trim();
+                        user.github = github.trim();
                       },
                     ),
                     const SizedBox(
@@ -206,17 +206,7 @@ class _UserCredFormViewState extends State<UserCredFormView> {
                         if (!_formKey.currentState!.validate()) {
                           return;
                         }
-                        BlocProvider.of<AuthBloc>(context).add(
-                          AuthEventAddUserDetails(
-                            name: name,
-                            department: department,
-                            email: email,
-                            rollNo: rollNo,
-                            semester: semester,
-                            github: github,
-                            linkedin: linkedin,
-                          ),
-                        );
+                        widget.onSubmit(user);
                       },
                     ),
                   ],
