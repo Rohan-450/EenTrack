@@ -11,7 +11,7 @@ import 'screen/authscreens/registerscreen/register_screen.dart';
 import 'screen/authscreens/verificationscreen/verification_screen.dart';
 import 'screen/homescreen/home_screen.dart';
 import 'screen/shared/loading_screen.dart';
-import 'screen/userCredentialscreen/usercredential_screen.dart';
+import 'screen/user_credential_screen/usercredential_screen.dart';
 import 'services/authservices/firebase_auth_service.dart';
 
 void main() {

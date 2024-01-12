@@ -1,5 +1,5 @@
 import 'package:eentrack/models/attendee_model.dart';
-import 'package:eentrack/screen/meetingdetailsscreen/components/attendee_card.dart';
+import 'package:eentrack/screen/meeting_details_screen/components/attendee_card.dart';
 import 'package:flutter/material.dart';
 
 class AttendeeSearchDelegate extends SearchDelegate {
